@@ -1,0 +1,10 @@
+.array-container{
+}
+
+.array-element{
+  background-color: grey;
+  width: 5px;
+  display: inline-block;
+  margin: 0 2px;
+  height: 2px;
+}
