@@ -1,6 +1,6 @@
 <main>
   <button (click)="resetArray()">Reset</button>
-  <button (click)="doBubbleSort()">BubbleSort</button>
+  <button (click)="performAnimations()">BubbleSort</button>
   <div class="array-container">
     <div *ngFor="let element of array" [style.height]="element.toString().concat('px')" class="array-element"></div>
   </div>

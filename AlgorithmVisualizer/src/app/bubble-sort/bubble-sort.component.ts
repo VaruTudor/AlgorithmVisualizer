@@ -7,8 +7,6 @@ import {AfterContentInit, Component} from '@angular/core';
 })
 
 /*TODO:
-*   - refactor code
-*   - think of using classes instead of styling
 *   - make sure that the reset button and the bubble sort buttons are disabled during sorting
 *   - use angular material for buttons
 *   - center the div
@@ -16,9 +14,12 @@ import {AfterContentInit, Component} from '@angular/core';
 export class BubbleSortComponent implements AfterContentInit {
   array: number[];
   numberOfElements = 50;
-  lowerBound = 5;
-  upperBound = 700;
+  minimumHeight = 5;
+  maximumHeight = 700;
   delay = 1;
+  secondaryColor = 'red';
+  defaultColor = 'gray';
+  primaryColor = 'blue';
 
   constructor() {
   }
@@ -30,8 +31,12 @@ export class BubbleSortComponent implements AfterContentInit {
   resetArray(): void {
     this.array = [];
     for (let i = 0; i < this.numberOfElements; i++) {
-      this.array.push(this.getRandomInt(this.lowerBound, this.upperBound));
+      this.array.push(this.getRandomInt(this.minimumHeight, this.maximumHeight));
     }
+    const arrayElementsInDom = document.getElementsByClassName('array-element');
+    this.array.forEach((_, index) => {
+      (arrayElementsInDom[index] as HTMLElement).style.backgroundColor = this.defaultColor;
+    });
   }
 
   getRandomInt(min, max): number {
@@ -40,59 +45,52 @@ export class BubbleSortComponent implements AfterContentInit {
     return Math.floor(Math.random() * (max - min) + min);
   }
 
-  bubbleSort(array, animations): void {
-    const lastIndex = array.length - 1;
-    for (let i = 0; i < lastIndex; i++) {
-      for (let j = 0; j < lastIndex - i; j++) {
-        animations.push([j, j + 1]);
-        animations.push([j, j + 1]);
+  bubbleSort(array, animationsArray): void {
+    for (let i = 0; i < array.length - 1; i++) {
+      for (let j = 0; j < array.length - 1 - i; j++) {
+        animationsArray.push([j, j + 1]);
+        animationsArray.push([j, j + 1]);
         if (array[j] > array[j + 1]) {
-          animations.push([j, array[j + 1]]);
-          animations.push([[j + 1], array[j]]);
-          this.swap(array, j, j + 1);
+          animationsArray.push([j, array[j + 1]]);
+          animationsArray.push([[j + 1], array[j]]);
+          this.swapArrayElements(array, j, j + 1);
         } else {
-          animations.push([-1, -1]);
-          animations.push([-1, -1]);
+          animationsArray.push([-1, -1]);
+          animationsArray.push([-1, -1]);
         }
       }
     }
   }
 
-  getBubbleSort(array): (any[] | any)[] {
-    const animations = [];
+  performAnimations(): void {
+    const animationsArray = [];
     const auxiliaryArray = this.array.slice();
-    this.bubbleSort(auxiliaryArray, animations);
-    array = auxiliaryArray;
-    return [animations, array];
-  }
-
-  doBubbleSort(): void {
-    const animations = this.getBubbleSort(this.array)[0];
-    for (let i = 0; i < animations.length; i++) {
+    this.bubbleSort(auxiliaryArray, animationsArray);
+    for (let i = 0; i < animationsArray.length; i++) {
       const isColorChange = (i % 4 === 0) || (i % 4 === 1);
-      const arrayElements = document.getElementsByClassName('array-element');
+      const arrayElementsInDom = document.getElementsByClassName('array-element');
       if (isColorChange) {
-        const color = (i % 4 === 0) ? 'red' : 'grey';
-        const [first, second] = animations[i];
+        const color = (i % 4 === 0) ? this.secondaryColor : this.primaryColor;
+        const [first, second] = animationsArray[i];
         setTimeout(() => {
-          (arrayElements[first] as HTMLElement).style.backgroundColor = color;
-          (arrayElements[second] as HTMLElement).style.backgroundColor = color;
+          (arrayElementsInDom[first] as HTMLElement).style.backgroundColor = color;
+          (arrayElementsInDom[second] as HTMLElement).style.backgroundColor = color;
         }, i * this.delay);
       } else {
-        const [elementIndex, newHeight] = animations[i];
+        const [elementIndex, newHeight] = animationsArray[i];
         if (elementIndex === -1) {
           continue;
         }
         setTimeout(() => {
-          (arrayElements[elementIndex] as HTMLElement).style.height = `${newHeight}px`;
+          (arrayElementsInDom[elementIndex] as HTMLElement).style.height = `${newHeight}px`;
         }, i * this.delay);
       }
     }
   }
 
-  swap(array, firstIndex, secondIndex): void {
-    const firstValue = array[firstIndex];
+  swapArrayElements(array, firstIndex, secondIndex): void {
+    const firstElement = array[firstIndex];
     array[firstIndex] = array[secondIndex];
-    array[secondIndex] = firstValue;
+    array[secondIndex] = firstElement;
   }
 }
