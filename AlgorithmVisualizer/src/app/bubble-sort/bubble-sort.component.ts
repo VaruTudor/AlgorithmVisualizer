@@ -7,6 +7,7 @@ import {AfterContentInit, Component} from '@angular/core';
 })
 
 /*TODO:
+*   - add more sorting algorithms (have min 5-10)
 *   - make sure that the reset button and the bubble sort buttons are disabled during sorting
 *   - use angular material for buttons
 *   - center the div
