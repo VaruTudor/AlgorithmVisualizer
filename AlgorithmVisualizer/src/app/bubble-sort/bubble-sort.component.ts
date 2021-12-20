@@ -20,7 +20,8 @@ export class BubbleSortComponent implements AfterContentInit {
   delay = 1;
   secondaryColor = 'red';
   defaultColor = 'gray';
-  primaryColor = 'blue';
+  primaryColor = 'gray';
+  sortedColor = 'green';
 
   constructor() {
   }
@@ -53,7 +54,7 @@ export class BubbleSortComponent implements AfterContentInit {
         animationsArray.push([j, j + 1]);
         if (array[j] > array[j + 1]) {
           animationsArray.push([j, array[j + 1]]);
-          animationsArray.push([[j + 1], array[j]]);
+          animationsArray.push([j + 1, array[j]]);
           this.swapArrayElements(array, j, j + 1);
         } else {
           animationsArray.push([-1, -1]);
