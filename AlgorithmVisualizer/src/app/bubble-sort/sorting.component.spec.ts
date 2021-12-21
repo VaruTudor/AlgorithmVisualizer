@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BubbleSortComponent } from './bubble-sort.component';
+import { SortingComponent } from './sorting.component';
 
 describe('BubbleSortComponent', () => {
-  let component: BubbleSortComponent;
-  let fixture: ComponentFixture<BubbleSortComponent>;
+  let component: SortingComponent;
+  let fixture: ComponentFixture<SortingComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BubbleSortComponent ]
+      declarations: [ SortingComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BubbleSortComponent);
+    fixture = TestBed.createComponent(SortingComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

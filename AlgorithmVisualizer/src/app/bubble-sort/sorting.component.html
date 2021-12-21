@@ -1,7 +1,7 @@
 <div class="main-container">
   <div class="buttons-container">
     <button [disabled]="disabledStatus" (click)="resetArray()">Reset</button>
-    <button [disabled]="disabledStatus" (click)="performAnimations()">BubbleSort</button>
+    <button [disabled]="disabledStatus" (click)="performAnimations()">Sort</button>
   </div>
   <div class="sorting-container">
     <div *ngFor="let element of array" [style.height]="element.toString().concat('px')" class="array-element"></div>
