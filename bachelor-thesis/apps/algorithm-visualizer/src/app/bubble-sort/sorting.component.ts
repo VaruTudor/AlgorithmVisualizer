@@ -11,12 +11,9 @@ import {bubbleSort} from '../algorithms/sorting/bubble-sort';
   styleUrls: ['./sorting.component.css']
 })
 
-/*TODO:
-*   - refactoring - one file / algorithm and improve readability + naming
-*/
 export class SortingComponent implements AfterContentInit {
   array: number[];
-  length = 50;
+  length = 20;
   minHeight = 5;
   maxHeight = 700;
   delay = 10;
