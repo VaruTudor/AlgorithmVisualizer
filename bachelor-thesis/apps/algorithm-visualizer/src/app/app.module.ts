@@ -15,4 +15,5 @@ import { SortingComponent } from './bubble-sort/sorting.component';
   providers: [],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }
