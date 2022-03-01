@@ -1,0 +1,26 @@
+{
+  "projectType": "library",
+  "root": "libs/av-lib",
+  "sourceRoot": "libs/av-lib/src",
+  "prefix": "bachelor-thesis",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/av-lib"],
+      "options": {
+        "jestConfig": "libs/av-lib/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/av-lib/src/**/*.ts",
+          "libs/av-lib/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

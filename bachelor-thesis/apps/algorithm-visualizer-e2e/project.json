@@ -1,0 +1,28 @@
+{
+  "root": "apps/algorithm-visualizer-e2e",
+  "sourceRoot": "apps/algorithm-visualizer-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nrwl/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/algorithm-visualizer-e2e/cypress.json",
+        "devServerTarget": "algorithm-visualizer:serve:development"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "algorithm-visualizer:serve:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/algorithm-visualizer-e2e/**/*.{js,ts}"]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["algorithm-visualizer"]
+}

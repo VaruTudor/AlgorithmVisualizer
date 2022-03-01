@@ -1,0 +1,26 @@
+::ng-deep body{
+  margin: 0;
+}
+
+.main-container{
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.sorting-container{
+  min-height: 720px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.array-element{
+  background-color: grey;
+  width: 5px;
+  display: inline-block;
+  margin: 0 2px;
+  height: 2px;
+}

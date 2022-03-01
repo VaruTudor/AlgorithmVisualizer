@@ -1,0 +1,93 @@
+{
+  "projectType": "application",
+  "root": "apps/av-lib-portal",
+  "sourceRoot": "apps/av-lib-portal/src",
+  "prefix": "bachelor-thesis",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/av-lib-portal",
+        "index": "apps/av-lib-portal/src/index.html",
+        "main": "apps/av-lib-portal/src/main.ts",
+        "polyfills": "apps/av-lib-portal/src/polyfills.ts",
+        "tsConfig": "apps/av-lib-portal/tsconfig.app.json",
+        "assets": [
+          "apps/av-lib-portal/src/favicon.ico",
+          "apps/av-lib-portal/src/assets"
+        ],
+        "styles": ["apps/av-lib-portal/src/styles.css"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/av-lib-portal/src/environments/environment.ts",
+              "with": "apps/av-lib-portal/src/environments/environment.prod.ts"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "av-lib-portal:build:production"
+        },
+        "development": {
+          "browserTarget": "av-lib-portal:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "av-lib-portal:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "apps/av-lib-portal/src/**/*.ts",
+          "apps/av-lib-portal/src/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/av-lib-portal"],
+      "options": {
+        "jestConfig": "apps/av-lib-portal/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

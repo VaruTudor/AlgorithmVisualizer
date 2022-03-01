@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "projects": {
+    "algorithm-visualizer": "apps/algorithm-visualizer",
+    "algorithm-visualizer-e2e": "apps/algorithm-visualizer-e2e",
+    "av-lib": "libs/av-lib",
+    "av-lib-portal": "apps/av-lib-portal",
+    "av-lib-portal-e2e": "apps/av-lib-portal-e2e"
+  }
+}

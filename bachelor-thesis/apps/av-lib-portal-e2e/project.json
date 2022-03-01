@@ -1,0 +1,28 @@
+{
+  "root": "apps/av-lib-portal-e2e",
+  "sourceRoot": "apps/av-lib-portal-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nrwl/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/av-lib-portal-e2e/cypress.json",
+        "devServerTarget": "av-lib-portal:serve:development"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "av-lib-portal:serve:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/av-lib-portal-e2e/**/*.{js,ts}"]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["av-lib-portal"]
+}

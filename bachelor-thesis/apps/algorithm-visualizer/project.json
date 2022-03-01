@@ -1,0 +1,93 @@
+{
+  "projectType": "application",
+  "root": "apps/algorithm-visualizer",
+  "sourceRoot": "apps/algorithm-visualizer/src",
+  "prefix": "bachelor-thesis",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/algorithm-visualizer",
+        "index": "apps/algorithm-visualizer/src/index.html",
+        "main": "apps/algorithm-visualizer/src/main.ts",
+        "polyfills": "apps/algorithm-visualizer/src/polyfills.ts",
+        "tsConfig": "apps/algorithm-visualizer/tsconfig.app.json",
+        "assets": [
+          "apps/algorithm-visualizer/src/favicon.ico",
+          "apps/algorithm-visualizer/src/assets"
+        ],
+        "styles": ["apps/algorithm-visualizer/src/styles.css"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/algorithm-visualizer/src/environments/environment.ts",
+              "with": "apps/algorithm-visualizer/src/environments/environment.prod.ts"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "algorithm-visualizer:build:production"
+        },
+        "development": {
+          "browserTarget": "algorithm-visualizer:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "algorithm-visualizer:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "apps/algorithm-visualizer/src/**/*.ts",
+          "apps/algorithm-visualizer/src/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/algorithm-visualizer"],
+      "options": {
+        "jestConfig": "apps/algorithm-visualizer/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
