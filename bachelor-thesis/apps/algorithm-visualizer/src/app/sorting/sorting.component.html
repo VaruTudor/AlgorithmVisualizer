@@ -4,6 +4,11 @@
     <button [disabled]="disabledStatus" (click)="performAnimations()">Sort</button>
   </div>
   <div class="sorting-container">
-    <div *ngFor="let element of array" [style.height]="element.toString().concat('px')" class="array-element"></div>
+    <av-rectangle *ngFor="let element of array"
+                  [height]='element.height'
+                  [width]='element.width'
+                  [color]='element.color'
+                  class='sorting-element'
+    ></av-rectangle>
   </div>
 </div>

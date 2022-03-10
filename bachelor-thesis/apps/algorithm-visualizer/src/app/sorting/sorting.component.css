@@ -17,10 +17,7 @@
   justify-content: center;
 }
 
-.array-element{
-  background-color: grey;
-  width: 5px;
+.sorting-element{
   display: inline-block;
   margin: 0 2px;
-  height: 2px;
 }
