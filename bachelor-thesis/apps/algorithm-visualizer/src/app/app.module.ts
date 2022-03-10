@@ -3,14 +3,16 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { SortingComponent } from './bubble-sort/sorting.component';
+import { AvLibModule } from '@bachelor-thesis/av-lib';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SortingComponent
+    SortingComponent,
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    AvLibModule
   ],
   providers: [],
   bootstrap: [AppComponent]

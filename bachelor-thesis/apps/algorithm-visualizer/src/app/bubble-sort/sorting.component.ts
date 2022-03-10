@@ -1,9 +1,16 @@
-import {AfterContentInit, Component, Input} from '@angular/core';
-import {getRandomInt, swapArrayElements} from '../utils/computations';
-import {Colors} from '../utils/colors.enum';
-import {ChangeTypes} from '../utils/change-types.enum';
-import {selectionSort} from '../algorithms/sorting/selection-sort';
-import {bubbleSort} from '../algorithms/sorting/bubble-sort';
+import {
+  AfterViewInit, ChangeDetectorRef,
+  Component, ElementRef,
+  OnInit, QueryList,
+  ViewChildren
+} from '@angular/core';
+import { getRandomInt, swapArrayElements } from '../utils/computations';
+import { Colors } from '../utils/model/colors.enum';
+import { ChangeTypes } from '../utils/model/change-types.enum';
+import { selectionSort } from '../algorithms/sorting/selection-sort';
+import { bubbleSort } from '../algorithms/sorting/bubble-sort';
+import { Sizes } from '../utils/model/sizes.enum';
+import { BasicRectangle } from '../utils/model/basic-rectangle';
 
 @Component({
   selector: 'app-sorting',
@@ -11,59 +18,60 @@ import {bubbleSort} from '../algorithms/sorting/bubble-sort';
   styleUrls: ['./sorting.component.css']
 })
 
-export class SortingComponent implements AfterContentInit {
-  array: number[];
+export class SortingComponent implements OnInit {
+  array: BasicRectangle[];
   length = 20;
-  minHeight = 5;
-  maxHeight = 700;
   delay = 10;
   disabledStatus = false;
 
-  constructor() {
+  minElementHeight = 5;
+  maxElementHeight = 700;
+  elementWidth = Sizes.small;
+  elementDefaultColor = Colors.defaultColor;
+
+  constructor(private cdr: ChangeDetectorRef) {
     this.array = [];
   }
 
-  ngAfterContentInit(): void {
+  ngOnInit(): void {
     this.resetArray();
   }
 
   resetArray(): void {
     this.array = [];
-    // tslint:disable-next-line:prefer-for-of
     for (let _ = 0; _ < this.length; _++) {
-      this.array.push(getRandomInt(this.minHeight, this.maxHeight));
+      this.array.push(
+        new BasicRectangle(
+          getRandomInt(this.minElementHeight, this.maxElementHeight), this.elementWidth, this.elementDefaultColor));
     }
-    const arrayElementsInDom = document.getElementsByClassName('array-element');
-    this.array.forEach((_, index) => {
-      (arrayElementsInDom[index] as HTMLElement).style.backgroundColor = Colors.defaultColor;
-    });
   }
 
   performAnimations(): void {
     this.disabledStatus = true;
-    // const animationsArray = bubbleSort(this.array.slice());
-    const animationsArray = selectionSort(this.array.slice());
+    let heightsArray = this.array.map(element => element.height);
+    const animationsArray = bubbleSort(heightsArray.slice());
+    // const animationsArray = selectionSort(heightsArray.slice());
     for (let i = 0; i < animationsArray.length; i++) {
-      const arrayElementsInDom = document.getElementsByClassName('array-element');
       const [type, first, second] = animationsArray[i];
+      const timeout = i * this.delay
       if (type === ChangeTypes.newCurrent) {
         setTimeout(() => {
-          (arrayElementsInDom[first] as HTMLElement).style.backgroundColor = Colors.defaultColor;
-          (arrayElementsInDom[second] as HTMLElement).style.backgroundColor = Colors.currentElementColor;
-        }, i * this.delay);
+          this.array[first].color = Colors.defaultColor;
+          this.array[second].color = Colors.currentElementColor;
+        }, timeout);
       } else if (type === ChangeTypes.foundBetterMatch) {
         setTimeout(() => {
-          (arrayElementsInDom[first] as HTMLElement).style.backgroundColor = Colors.currentBestMatchElementColor;
-          (arrayElementsInDom[second] as HTMLElement).style.backgroundColor = Colors.defaultColor;
-        }, i * this.delay);
+          this.array[first].color = Colors.currentBestMatchElementColor;
+          this.array[second].color = Colors.defaultColor;
+        }, timeout);
       } else if (type === ChangeTypes.height) {
         setTimeout(() => {
-          (arrayElementsInDom[first] as HTMLElement).style.height = `${second}px`;
-        }, i * this.delay);
+          this.array[first].height = second;
+        }, timeout);
       } else {
         setTimeout(() => {
-          (arrayElementsInDom[first] as HTMLElement).style.backgroundColor = Colors.sortedColor;
-        }, i * this.delay);
+          this.array[first].color = Colors.sortedColor;
+        }, timeout);
       }
     }
     setTimeout(() => {

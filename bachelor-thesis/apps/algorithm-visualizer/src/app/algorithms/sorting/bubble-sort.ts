@@ -1,4 +1,4 @@
-import {ChangeTypes} from '../../utils/change-types.enum';
+import {ChangeTypes} from '../../utils/model/change-types.enum';
 import {swapArrayElements} from '../../utils/computations';
 
 export function bubbleSort(array: any[]): any[] {
