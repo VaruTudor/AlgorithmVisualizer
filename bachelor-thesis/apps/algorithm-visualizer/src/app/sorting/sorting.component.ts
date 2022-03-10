@@ -1,16 +1,14 @@
 import {
-  AfterViewInit, ChangeDetectorRef,
-  Component, ElementRef,
-  OnInit, QueryList,
-  ViewChildren
+  Component,
+  OnInit
 } from '@angular/core';
-import { getRandomInt, swapArrayElements } from '../utils/computations';
+import { getRandomInt } from '../utils/computations';
 import { Colors } from '../utils/model/colors.enum';
-import { ChangeTypes } from '../utils/model/change-types.enum';
+import { AnimationTypes } from '../utils/model/animation-types.enum';
 import { selectionSort } from '../algorithms/sorting/selection-sort';
 import { bubbleSort } from '../algorithms/sorting/bubble-sort';
 import { Sizes } from '../utils/model/sizes.enum';
-import { BasicRectangle } from '../utils/model/basic-rectangle';
+import { BasicRectangle } from '../utils/model/basic-shapes';
 
 @Component({
   selector: 'app-sorting',
@@ -20,8 +18,8 @@ import { BasicRectangle } from '../utils/model/basic-rectangle';
 
 export class SortingComponent implements OnInit {
   array: BasicRectangle[];
-  length = 20;
-  delay = 10;
+  length = 50;
+  delay = 20;
   disabledStatus = false;
 
   minElementHeight = 5;
@@ -29,7 +27,7 @@ export class SortingComponent implements OnInit {
   elementWidth = Sizes.small;
   elementDefaultColor = Colors.defaultColor;
 
-  constructor(private cdr: ChangeDetectorRef) {
+  constructor() {
     this.array = [];
   }
 
@@ -49,31 +47,28 @@ export class SortingComponent implements OnInit {
   performAnimations(): void {
     this.disabledStatus = true;
     let heightsArray = this.array.map(element => element.height);
-    const animationsArray = bubbleSort(heightsArray.slice());
-    // const animationsArray = selectionSort(heightsArray.slice());
+    // const animationsArray = bubbleSort(heightsArray.slice());
+    const animationsArray = selectionSort(heightsArray.slice());
     for (let i = 0; i < animationsArray.length; i++) {
       const [type, first, second] = animationsArray[i];
-      const timeout = i * this.delay
-      if (type === ChangeTypes.newCurrent) {
-        setTimeout(() => {
-          this.array[first].color = Colors.defaultColor;
-          this.array[second].color = Colors.currentElementColor;
-        }, timeout);
-      } else if (type === ChangeTypes.foundBetterMatch) {
-        setTimeout(() => {
-          this.array[first].color = Colors.currentBestMatchElementColor;
-          this.array[second].color = Colors.defaultColor;
-        }, timeout);
-      } else if (type === ChangeTypes.height) {
-        setTimeout(() => {
-          this.array[first].height = second;
-        }, timeout);
-      } else {
-        setTimeout(() => {
-          this.array[first].color = Colors.sortedColor;
-        }, timeout);
-      }
+
+      setTimeout(() => {
+        if (type === AnimationTypes.newCurrent) {
+            this.array[first].color = Colors.defaultColor;
+            this.array[second].color = Colors.currentElementColor;
+        } else if (type === AnimationTypes.foundBetterMatch) {
+            this.array[first].color = Colors.currentBestMatchElementColor;
+            this.array[second].color = Colors.defaultColor;
+        } else if (type === AnimationTypes.height) {
+            this.array[first].height = second;
+        } else if (type === AnimationTypes.sorted) {
+            this.array[first].color = Colors.sortedColor;
+        } else if (type === AnimationTypes.default) {
+            this.array[first].color = Colors.defaultColor;
+        }
+      }, i * this.delay);
     }
+
     setTimeout(() => {
       this.disabledStatus = false;
     }, animationsArray.length * this.delay);
