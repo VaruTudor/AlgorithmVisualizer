@@ -9,6 +9,7 @@ import { bubbleSort } from '../algorithms/sorting/bubble-sort';
 import { Sizes } from '../utils/model/sizes.enum';
 import { BasicRectangle } from '../utils/model/shapes';
 import { insertionSort } from '../algorithms/sorting/insertion-sort';
+import { mergeSort } from '../algorithms/sorting/merge-sort';
 
 @Component({
   selector: 'app-sorting',
@@ -18,7 +19,7 @@ import { insertionSort } from '../algorithms/sorting/insertion-sort';
 
 export class SortingComponent implements OnInit {
   array: BasicRectangle[];
-  length = 30;
+  length = 10;
   delay = 10;
   disabledStatus = false;
 
@@ -49,7 +50,8 @@ export class SortingComponent implements OnInit {
     let heightsArray = this.array.map(element => element.height);
     // const animationsArray = bubbleSort(heightsArray.slice());
     // const animationsArray = insertionSort(heightsArray.slice());
-    const animationsArray = selectionSort(heightsArray.slice());
+    // const animationsArray = selectionSort(heightsArray.slice());
+    const animationsArray = mergeSort(heightsArray.slice());
     for (let i = 0; i < animationsArray.length; i++) {
       setTimeout(() => {
         animationsArray[i].execute(this.array);
