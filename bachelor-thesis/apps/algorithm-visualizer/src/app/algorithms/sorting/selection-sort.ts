@@ -3,11 +3,11 @@ import {swapArrayElements} from '../../utils/computations';
 
 /**
  * The selection sort algorithm sorts an array by repeatedly finding the minimum element (considering ascending order)
- * from unsorted part and putting it at the beginning. The algorithm maintains two subarrays in a given array.
- * The subarray which is already sorted and a remaining subarray which is unsorted.
- * In every iteration of selection sort, the minimum element (considering ascending order) from the unsorted subarray
- * is picked and moved to the sorted subarray. Also during the algorithm the steps are mapped in an array which will
- * later be used to animate some components.
+ * from unsorted part and putting it at the beginning. The algorithm maintains two subarrays in a given array. The
+ * subarray which is already sorted and a remaining subarray which is unsorted. In every iteration of selection sort,
+ * the minimum element (considering ascending order) from the unsorted subarray is picked and moved to the sorted
+ * subarray. Also during the algorithm the steps are mapped in an array which will later be used to animate some
+ * components.
  * @param array - an array of numbers which is going to be sorted
  */
 export function selectionSort(array: any[]): any[] {

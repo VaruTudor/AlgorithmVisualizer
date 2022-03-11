@@ -2,9 +2,9 @@ import { AnimationTypes } from '../../utils/model/animation-types.enum';
 import { swapArrayElements } from '../../utils/computations';
 
 /**
- * Bubble Sort is the simplest sorting algorithm that works by repeatedly swapping the adjacent elements
- * if they are in wrong order.
- * Also during the algorithm the steps are mapped in an array which will later be used to animate some components.
+ * Bubble Sort is the simplest sorting algorithm that works by repeatedly swapping the adjacent elements if they are in
+ * wrong order. Also during the algorithm the steps are mapped in an array which will later be used to animate some
+ * components.
  * @param array - an array of numbers which is going to be sorted
  */
 export function bubbleSort(array: number[]): any[] {
