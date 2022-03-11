@@ -1,4 +1,4 @@
-import { AnimationTypes } from '../../utils/model/animation-types.enum';
+import { BasicAnimation, CurrentChange, HeightChange, SortedMark } from '../../utils/model/animations';
 import { swapArrayElements } from '../../utils/computations';
 
 /**
@@ -7,22 +7,22 @@ import { swapArrayElements } from '../../utils/computations';
  * components.
  * @param array - an array of numbers which is going to be sorted
  */
-export function bubbleSort(array: number[]): any[] {
+export function bubbleSort(array: number[]): BasicAnimation[] {
   const animationsArray = [];
   for (let i = 0; i < array.length - 1; i++) {
     for (let j = 0; j < array.length - 1 - i; j++) {
       // mark the element at the current index
-      animationsArray.push([AnimationTypes.newCurrent, j, j + 1]);
+      animationsArray.push(new CurrentChange(j, j + 1));
       if (array[j] > array[j + 1]) {
-        animationsArray.push([AnimationTypes.height, j, array[j + 1]]);
-        animationsArray.push([AnimationTypes.height, j + 1, array[j]]);
+        animationsArray.push(new HeightChange(j, array[j + 1]));
+        animationsArray.push(new HeightChange(j + 1, array[j]));
         swapArrayElements(array, j, j + 1);
       }
     }
     // after each iteration, mark the (last-i)th element as sorted
-    animationsArray.push([AnimationTypes.sorted, array.length - (i + 1), null]);
+    animationsArray.push(new SortedMark(array.length - (i + 1), 0));
   }
   // mark the first element
-  animationsArray.push([AnimationTypes.sorted, 0, null]);
+  animationsArray.push(new SortedMark(0, 0));
   return animationsArray;
 }
