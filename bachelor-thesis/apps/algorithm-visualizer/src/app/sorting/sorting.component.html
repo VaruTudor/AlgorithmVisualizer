@@ -1,7 +1,7 @@
 <div class="main-container">
   <div class="buttons-container">
     <button [disabled]="disabledStatus" (click)="resetArray()">Reset</button>
-    <button [disabled]="disabledStatus" (click)="performAnimations()">Sort</button>
+    <button [disabled]="disabledStatus" (click)="executeAnimations()">Sort</button>
   </div>
   <div class="sorting-container">
     <av-rectangle *ngFor="let element of array"
