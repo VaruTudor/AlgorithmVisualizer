@@ -19,8 +19,8 @@ import { mergeSort } from '../algorithms/sorting/merge-sort';
 
 export class SortingComponent implements OnInit {
   array: BasicRectangle[];
-  length = 10;
-  delay = 10;
+  length = 4;
+  delay = 300;
   disabledStatus = false;
 
   minElementHeight = 5;

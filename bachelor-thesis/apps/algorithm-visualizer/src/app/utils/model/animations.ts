@@ -58,6 +58,11 @@ export class SortedMark extends BasicAnimation {
 }
 
 export class DefaultMark extends BasicAnimation {
+  /**
+   * Mark the element on first index with default color
+   * @param first - element index in array
+   * @param second - not used
+   */
   constructor(first: number, second: number) {
     super(first, second);
   }
