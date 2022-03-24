@@ -1,0 +1,23 @@
+::ng-deep body{
+  margin: 0;
+}
+
+.main-container{
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.searching-container{
+  min-height: 720px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.sorting-element{
+  display: inline-block;
+  margin: 0 2px;
+}

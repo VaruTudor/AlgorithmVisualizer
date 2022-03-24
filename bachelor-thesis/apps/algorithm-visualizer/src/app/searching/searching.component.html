@@ -1,0 +1,14 @@
+<div class="main-container">
+  <div class="buttons-container">
+    <button [disabled]="disabledStatus" (click)="resetArray()">Reset</button>
+    <button [disabled]="disabledStatus" (click)="executeAnimations()">Search</button>
+  </div>
+  <div class="searching-container">
+    <av-square *ngFor="let element of array"
+                  [size]='element.size'
+                  [color]='element.color'
+                  [value]='element.value'
+                  class='sorting-element'
+    ></av-square>
+  </div>
+</div>
