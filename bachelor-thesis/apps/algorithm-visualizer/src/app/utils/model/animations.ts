@@ -1,4 +1,4 @@
-import { BasicRectangle } from './shapes';
+import { Rectangle } from './shapes';
 import { Colors } from './colors.enum';
 
 export abstract class BasicAnimation {
@@ -10,7 +10,7 @@ export abstract class BasicAnimation {
     this.second = second;
   }
 
-  abstract execute(array: BasicRectangle[]): void
+  abstract execute(array: Rectangle[]): void
 }
 
 export class CurrentChange extends BasicAnimation {
@@ -18,7 +18,7 @@ export class CurrentChange extends BasicAnimation {
     super(first, second);
   }
 
-  execute(array: BasicRectangle[]): void {
+  execute(array: Rectangle[]): void {
     array[this.first].color = Colors.defaultColor;
     if (this.second < array.length){
       array[this.second].color = Colors.currentElementColor;
@@ -31,7 +31,7 @@ export class BetterMatchFind extends BasicAnimation {
     super(first, second);
   }
 
-  execute(array: BasicRectangle[]): void {
+  execute(array: Rectangle[]): void {
     array[this.first].color = Colors.currentBestMatchElementColor;
     array[this.second].color = Colors.defaultColor;
   }
@@ -42,7 +42,7 @@ export class HeightChange extends BasicAnimation {
     super(first, second);
   }
 
-  execute(array: BasicRectangle[]): void {
+  execute(array: Rectangle[]): void {
     array[this.first].height = this.second;
   }
 }
@@ -52,10 +52,12 @@ export class SortedMark extends BasicAnimation {
     super(first, second);
   }
 
-  execute(array: BasicRectangle[]): void {
+  execute(array: Rectangle[]): void {
     array[this.first].color = Colors.sortedColor;
   }
 }
+
+export class FoundMark extends SortedMark {}
 
 export class DefaultMark extends BasicAnimation {
   /**
@@ -67,7 +69,7 @@ export class DefaultMark extends BasicAnimation {
     super(first, second);
   }
 
-  execute(array: BasicRectangle[]): void {
+  execute(array: Rectangle[]): void {
     array[this.first].color = Colors.defaultColor;
   }
 }

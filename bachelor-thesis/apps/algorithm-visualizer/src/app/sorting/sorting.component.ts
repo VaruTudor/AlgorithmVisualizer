@@ -7,7 +7,7 @@ import { Colors } from '../utils/model/colors.enum';
 import { selectionSort } from '../algorithms/sorting/selection-sort';
 import { bubbleSort } from '../algorithms/sorting/bubble-sort';
 import { Sizes } from '../utils/model/sizes.enum';
-import { BasicRectangle } from '../utils/model/shapes';
+import { Rectangle } from '../utils/model/shapes';
 import { insertionSort } from '../algorithms/sorting/insertion-sort';
 import { mergeSort } from '../algorithms/sorting/merge-sort';
 
@@ -18,9 +18,9 @@ import { mergeSort } from '../algorithms/sorting/merge-sort';
 })
 
 export class SortingComponent implements OnInit {
-  array: BasicRectangle[];
-  length = 4;
-  delay = 300;
+  array: Rectangle[];
+  length = 20;
+  delay = 30;
   disabledStatus = false;
 
   minElementHeight = 5;
@@ -40,7 +40,7 @@ export class SortingComponent implements OnInit {
     this.array = [];
     for (let _ = 0; _ < this.length; _++) {
       this.array.push(
-        new BasicRectangle(
+        new Rectangle(
           getRandomInt(this.minElementHeight, this.maxElementHeight), this.elementWidth, this.elementDefaultColor));
     }
   }
@@ -48,10 +48,10 @@ export class SortingComponent implements OnInit {
   executeAnimations(): void {
     this.disabledStatus = true;
     let heightsArray = this.array.map(element => element.height);
-    // const animationsArray = bubbleSort(heightsArray.slice());
+    const animationsArray = bubbleSort(heightsArray.slice());
     // const animationsArray = insertionSort(heightsArray.slice());
     // const animationsArray = selectionSort(heightsArray.slice());
-    const animationsArray = mergeSort(heightsArray.slice());
+    // const animationsArray = mergeSort(heightsArray.slice());
     for (let i = 0; i < animationsArray.length; i++) {
       setTimeout(() => {
         animationsArray[i].execute(this.array);

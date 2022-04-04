@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { BasicRectangle, BasicSquare } from '../utils/model/shapes';
+import { Rectangle, Square } from '../utils/model/shapes';
 import { Sizes } from '../utils/model/sizes.enum';
 import { Colors } from '../utils/model/colors.enum';
 import { getRandomInt } from '../utils/computations';
-import { mergeSort } from '../algorithms/sorting/merge-sort';
+import { linearSearch } from '../algorithms/searching/linear-search';
 
 @Component({
   selector: 'app-searching',
@@ -11,7 +11,7 @@ import { mergeSort } from '../algorithms/sorting/merge-sort';
   styleUrls: ['./searching.component.css']
 })
 export class SearchingComponent implements OnInit {
-  array: BasicSquare[];
+  array: Square[];
   length = 20;
   delay = 300;
   disabledStatus = false;
@@ -20,6 +20,7 @@ export class SearchingComponent implements OnInit {
   min = 1;
   max = 100;
   elementDefaultColor = Colors.defaultColor;
+  target: number;
 
   constructor() {
     this.array = [];
@@ -27,29 +28,30 @@ export class SearchingComponent implements OnInit {
 
   ngOnInit(): void {
     this.resetArray();
+    this.target = this.array[this.array.length - 3].value;
   }
 
   resetArray(): void {
     this.array = [];
     for (let _ = 0; _ < this.length; _++) {
       this.array.push(
-        new BasicSquare(
+        new Square(
           this.squareSize, this.elementDefaultColor, getRandomInt(this.min, this.max)));
     }
   }
 
   executeAnimations(): void {
     this.disabledStatus = true;
-    let sizesArray = this.array.map(element => element.size);
-    // const animationsArray = bubbleSort(sizesArray.slice());
-    // const animationsArray = insertionSort(sizesArray.slice());
-    // const animationsArray = selectionSort(sizesArray.slice());
-    const animationsArray = mergeSort(sizesArray.slice());
-    /*for (let i = 0; i < animationsArray.length; i++) {
+    let valuesArray = this.array.map(element => element.value);
+    // const animationsArray = bubbleSort(valuesArray.slice());
+    // const animationsArray = insertionSort(valuesArray.slice());
+    // const animationsArray = selectionSort(valuesArray.slice());
+    const animationsArray = linearSearch(valuesArray.slice(), this.target);
+    for (let i = 0; i < animationsArray.length; i++) {
       setTimeout(() => {
         animationsArray[i].execute(this.array);
       }, i * this.delay);
-    }*/
+    }
 
     setTimeout(() => {
       this.disabledStatus = false;

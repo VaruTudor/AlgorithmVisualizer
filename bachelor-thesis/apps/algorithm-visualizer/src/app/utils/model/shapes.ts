@@ -1,11 +1,14 @@
-interface IBasicRectangle {
+interface IRectangle {
   height: number;
   width: number;
   color: string;
 }
 
-export class BasicRectangle implements IBasicRectangle {
+interface ISearchingSquare {
+  value: number;
+}
 
+export class Rectangle implements IRectangle {
   color: string;
   height: number;
   width: number;
@@ -17,24 +20,11 @@ export class BasicRectangle implements IBasicRectangle {
   }
 }
 
-interface IBasicSquare{
-  size: number;
-  color: string;
-}
-
-interface ISearchingSquare extends IBasicSquare{
-  value: number;
-}
-
-export class BasicSquare implements ISearchingSquare {
-
-  size: number;
-  color: string;
+export class Square extends Rectangle implements ISearchingSquare {
   value: number;
 
   constructor(size: number, color: string, value: number) {
-    this.size = size;
-    this.color = color;
+    super(size, size, color);
     this.value = value;
   }
 }
