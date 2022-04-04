@@ -32,8 +32,8 @@ export class BetterMatchFind extends BasicAnimation {
   }
 
   execute(array: Rectangle[]): void {
-    array[this.first].color = Colors.currentBestMatchElementColor;
     array[this.second].color = Colors.defaultColor;
+    array[this.first].color = Colors.currentBestMatchElementColor;
   }
 }
 
