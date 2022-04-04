@@ -4,6 +4,7 @@ import { Sizes } from '../utils/model/sizes.enum';
 import { Colors } from '../utils/model/colors.enum';
 import { getRandomInt } from '../utils/computations';
 import { linearSearch } from '../algorithms/searching/linear-search';
+import { binarySearch } from '../algorithms/searching/binary-search';
 
 @Component({
   selector: 'app-searching',
@@ -44,7 +45,8 @@ export class SearchingComponent implements OnInit {
   executeAnimations(): void {
     this.disabledStatus = true;
     let valuesArray = this.array.map(element => element.value);
-    const animationsArray = linearSearch(valuesArray.slice(), this.target);
+    // const animationsArray = linearSearch(valuesArray.slice(), this.target);
+    const animationsArray = binarySearch(valuesArray.slice(), this.target);
     for (let i = 0; i < animationsArray.length; i++) {
       setTimeout(() => {
         animationsArray[i].execute(this.array);
