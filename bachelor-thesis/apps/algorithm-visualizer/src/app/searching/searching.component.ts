@@ -5,6 +5,7 @@ import { Colors } from '../utils/model/colors.enum';
 import { getRandomInt } from '../utils/computations';
 import { linearSearch } from '../algorithms/searching/linear-search';
 import { binarySearch } from '../algorithms/searching/binary-search';
+import { fibonacciSearch } from '../algorithms/searching/fibonacci-search';
 
 @Component({
   selector: 'app-searching',
@@ -14,7 +15,7 @@ import { binarySearch } from '../algorithms/searching/binary-search';
 export class SearchingComponent implements OnInit {
   array: Square[];
   length = 20;
-  delay = 300;
+  delay = 1000;
   disabledStatus = false;
 
   squareSize = Sizes.medium;
@@ -29,7 +30,7 @@ export class SearchingComponent implements OnInit {
 
   ngOnInit(): void {
     this.resetArray();
-    this.target = this.array[this.array.length - 3].value;
+    this.target = this.array[this.array.length - 5].value;
   }
 
   resetArray(): void {
@@ -46,7 +47,8 @@ export class SearchingComponent implements OnInit {
     this.disabledStatus = true;
     let valuesArray = this.array.map(element => element.value);
     // const animationsArray = linearSearch(valuesArray.slice(), this.target);
-    const animationsArray = binarySearch(valuesArray.slice(), this.target);
+    // const animationsArray = binarySearch(valuesArray.slice(), this.target);
+    const animationsArray = fibonacciSearch(valuesArray.slice(), this.target);
     for (let i = 0; i < animationsArray.length; i++) {
       setTimeout(() => {
         animationsArray[i].execute(this.array);

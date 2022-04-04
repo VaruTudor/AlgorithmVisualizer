@@ -1,5 +1,3 @@
-
-
 import { BasicAnimation, BetterMatchFind, CurrentChange, DefaultMark, FoundMark } from '../../utils/model/animations';
 
 /**
