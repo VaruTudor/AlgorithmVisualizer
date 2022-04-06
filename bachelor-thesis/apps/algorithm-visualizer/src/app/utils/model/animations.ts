@@ -27,8 +27,14 @@ export class CurrentChange extends BasicAnimation {
 }
 
 export class BetterMatchFind extends BasicAnimation {
-  constructor(first: number, second: number) {
-    super(first, second);
+  /**
+   * Mark the element on indexNew with better match color and the one on
+   * indexOld with default color
+   * @param indexNew - position of the new best match
+   * @param indexOld - old position of best match
+   */
+  constructor(indexNew: number, indexOld: number) {
+    super(indexNew, indexOld);
   }
 
   execute(array: Rectangle[]): void {
@@ -39,9 +45,9 @@ export class BetterMatchFind extends BasicAnimation {
 
 export class HeightChange extends BasicAnimation {
   /**
-   * Change the height of element on index to newHeight
-   * @param index
-   * @param newHeight
+   * Change the height of element on index to newHeight.
+   * @param index - position where height will change
+   * @param newHeight - new value for height
    */
   constructor(index: number, newHeight: number) {
     super(index, newHeight);
@@ -54,8 +60,8 @@ export class HeightChange extends BasicAnimation {
 
 export class SortedMark extends BasicAnimation {
   /**
-   * Mark the element on index with sorted color
-   * @param index - element index in array
+   * Mark the element on index with sorted color.
+   * @param index - position of element in array
    */
   constructor(index: number) {
     super(index, index);
@@ -70,8 +76,8 @@ export class FoundMark extends SortedMark {}
 
 export class DefaultMark extends BasicAnimation {
   /**
-   * Mark the element on index with default color
-   * @param index - element index in array
+   * Mark the element on index with default color.
+   * @param index - position of element in array
    */
   constructor(index: number) {
     super(index, index);
