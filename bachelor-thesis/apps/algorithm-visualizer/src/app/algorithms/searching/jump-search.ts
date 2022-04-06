@@ -28,7 +28,7 @@ export function jumpSearch(array: number[], target: number): BasicAnimation[] {
     prev++;
     animationsArray.push(new CurrentChange(prev - 1, prev));
     prev === lastPrev + 1 ? animationsArray.push(new BetterMatchFind(lastPrev, lastPrev))
-      :animationsArray.push(new DefaultMark(prev - 1, 0));
+      :animationsArray.push(new DefaultMark(prev - 1));
 
 
     // If we reached next block or end of array, element is

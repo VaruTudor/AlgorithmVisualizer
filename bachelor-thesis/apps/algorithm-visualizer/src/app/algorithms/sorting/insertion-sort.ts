@@ -20,7 +20,7 @@ export function insertionSort(array: number[]): any[] {
       array[j + 1] = array[j--];
     }
     array[j + 1] = arrayElementAtI;
-    animationsArray.push(new DefaultMark(j + 1, 0));
+    animationsArray.push(new DefaultMark(j + 1));
     animationsArray.push(new HeightChange(j + 1, arrayElementAtI));
   }
   // mark all elements in reverse order

@@ -61,12 +61,11 @@ export class FoundMark extends SortedMark {}
 
 export class DefaultMark extends BasicAnimation {
   /**
-   * Mark the element on first index with default color
-   * @param first - element index in array
-   * @param second - not used
+   * Mark the element on index with default color
+   * @param index - element index in array
    */
-  constructor(first: number, second: number) {
-    super(first, second);
+  constructor(index: number) {
+    super(index, index);
   }
 
   execute(array: Rectangle[]): void {

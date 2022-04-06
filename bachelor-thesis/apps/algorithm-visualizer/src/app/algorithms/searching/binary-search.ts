@@ -19,7 +19,7 @@ export function binarySearchHelper(array: number[], target: number,
 
   let mid = left + Math.floor((right - left) / 2);
   while (right >= left) {
-    animationsArray.push(new DefaultMark(mid, 0));
+    animationsArray.push(new DefaultMark(mid));
     mid = left + Math.floor((right - left) / 2);
     mid === 0 ? animationsArray.push(new CurrentChange(mid, mid)) :
       animationsArray.push(new CurrentChange(mid - 1, mid));

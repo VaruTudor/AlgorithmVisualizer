@@ -1,4 +1,4 @@
-import { BasicAnimation, BetterMatchFind, CurrentChange, DefaultMark, FoundMark } from '../../utils/model/animations';
+import { BasicAnimation, BetterMatchFind, CurrentChange, FoundMark } from '../../utils/model/animations';
 import { binarySearchHelper } from './binary-search';
 
 /**

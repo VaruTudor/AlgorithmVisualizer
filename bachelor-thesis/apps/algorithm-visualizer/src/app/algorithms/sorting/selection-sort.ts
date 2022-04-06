@@ -27,7 +27,7 @@ export function selectionSort(array: any[]): any[] {
     animationsArray.push(new HeightChange(indexOfMin, array[i]));
     swapArrayElements(array, i, indexOfMin);
     // mark the previous indexOfMin back to default color
-    animationsArray.push(new DefaultMark(indexOfMin, 0));
+    animationsArray.push(new DefaultMark(indexOfMin));
     // mark the ith element as sorted
     animationsArray.push(new SortedMark(i, 0));
   }

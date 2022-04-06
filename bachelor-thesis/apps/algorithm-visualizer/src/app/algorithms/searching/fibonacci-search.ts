@@ -29,7 +29,7 @@ export function fibonacciSearch(array: number[], target: number): BasicAnimation
 
   while (fibonacciBig > 1) {
     // Check if fibMm2 is a valid location
-    animationsArray.push(new DefaultMark(i, 0))
+    animationsArray.push(new DefaultMark(i))
     i = Math.min(offset + fibonacciSmall, array.length - 1);
     i === 0 ? animationsArray.push(new CurrentChange(i, i)) :
       animationsArray.push(new CurrentChange(i - 1, i));

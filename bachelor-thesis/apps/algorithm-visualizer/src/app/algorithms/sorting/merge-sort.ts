@@ -38,7 +38,7 @@ function merge(leftArray: number[], rightArray: number[]): number [] {
     mergedArray.push(rightArray[j++]);
     pushMergeSortAnimation(rightArray, mergedArray.length - 1, j - 1);
   }
-  animationsArray.push(new DefaultMark(j, 0));
+  animationsArray.push(new DefaultMark(j));
   return mergedArray;
 }
 
