@@ -6,6 +6,7 @@ import { getRandomInt } from '../utils/computations';
 import { linearSearch } from '../algorithms/searching/linear-search';
 import { binarySearch } from '../algorithms/searching/binary-search';
 import { fibonacciSearch } from '../algorithms/searching/fibonacci-search';
+import { jumpSearch } from '../algorithms/searching/jump-search';
 
 @Component({
   selector: 'app-searching',
@@ -14,7 +15,7 @@ import { fibonacciSearch } from '../algorithms/searching/fibonacci-search';
 })
 export class SearchingComponent implements OnInit {
   array: Square[];
-  length = 20;
+  length = 40;
   delay = 1000;
   disabledStatus = false;
 
@@ -48,7 +49,8 @@ export class SearchingComponent implements OnInit {
     let valuesArray = this.array.map(element => element.value);
     // const animationsArray = linearSearch(valuesArray.slice(), this.target);
     // const animationsArray = binarySearch(valuesArray.slice(), this.target);
-    const animationsArray = fibonacciSearch(valuesArray.slice(), this.target);
+    // const animationsArray = fibonacciSearch(valuesArray.slice(), this.target);
+    const animationsArray = jumpSearch(valuesArray.slice(), this.target);
     for (let i = 0; i < animationsArray.length; i++) {
       setTimeout(() => {
         animationsArray[i].execute(this.array);
