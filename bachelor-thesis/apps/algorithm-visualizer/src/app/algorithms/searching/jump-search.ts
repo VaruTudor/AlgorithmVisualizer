@@ -40,7 +40,7 @@ export function jumpSearch(array: number[], target: number): BasicAnimation[] {
   // If element is found
   if (array[prev] == target) {
     animationsArray.push(new CurrentChange(prev - 1, prev));
-    animationsArray.push(new FoundMark(prev, 0));
+    animationsArray.push(new FoundMark(prev));
   }
 
   return animationsArray;

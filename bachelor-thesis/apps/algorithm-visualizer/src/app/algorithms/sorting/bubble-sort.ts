@@ -20,9 +20,9 @@ export function bubbleSort(array: number[]): BasicAnimation[] {
       }
     }
     // after each iteration, mark the (last-i)th element as sorted
-    animationsArray.push(new SortedMark(array.length - (i + 1), 0));
+    animationsArray.push(new SortedMark(array.length - (i + 1)));
   }
   // mark the first element
-  animationsArray.push(new SortedMark(0, 0));
+  animationsArray.push(new SortedMark(0));
   return animationsArray;
 }

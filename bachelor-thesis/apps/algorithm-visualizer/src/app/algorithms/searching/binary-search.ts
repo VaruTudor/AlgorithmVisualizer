@@ -27,7 +27,7 @@ export function binarySearchHelper(array: number[], target: number,
 
     // If the element is present at the middle itself
     if (array[mid] == target) {
-      animationsArray.push(new FoundMark(mid, 0));
+      animationsArray.push(new FoundMark(mid));
       break;
     }
 

@@ -9,7 +9,7 @@ export function exponentialSearch(array: number[], target: number): BasicAnimati
   const animationsArray: BasicAnimation[] = [];
   // If x is present at first location itself
   if (array[0] == target) {
-    animationsArray.push(new FoundMark(0, 0));
+    animationsArray.push(new FoundMark(0));
     return animationsArray;
   }
 

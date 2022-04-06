@@ -29,9 +29,9 @@ export function selectionSort(array: any[]): any[] {
     // mark the previous indexOfMin back to default color
     animationsArray.push(new DefaultMark(indexOfMin));
     // mark the ith element as sorted
-    animationsArray.push(new SortedMark(i, 0));
+    animationsArray.push(new SortedMark(i));
   }
   // mark the last element
-  animationsArray.push(new SortedMark(array.length - 1, 0));
+  animationsArray.push(new SortedMark(array.length - 1));
   return animationsArray;
 }

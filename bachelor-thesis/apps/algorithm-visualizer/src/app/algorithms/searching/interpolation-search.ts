@@ -19,7 +19,7 @@ export function interpolationSearch(array: number[], target: number): BasicAnima
     if (low == high)
     {
       if (array[low] == target) {
-        animationsArray.push(new FoundMark(low, 0));
+        animationsArray.push(new FoundMark(low));
         return animationsArray;
       }
       break;
@@ -35,7 +35,7 @@ export function interpolationSearch(array: number[], target: number): BasicAnima
 
     // Condition of target found
     if (array[current] == target){
-      animationsArray.push(new FoundMark(current, 0));
+      animationsArray.push(new FoundMark(current));
       return animationsArray;
     }
 

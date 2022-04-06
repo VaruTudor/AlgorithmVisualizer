@@ -59,14 +59,14 @@ export function fibonacciSearch(array: number[], target: number): BasicAnimation
 
     /* element found. return index */
     else {
-      animationsArray.push(new FoundMark(i, 0));
+      animationsArray.push(new FoundMark(i));
       break;
     }
   }
 
   /* comparing the last element with x */
   if (fibonacciMiddle && array[array.length - 1] == target) {
-    animationsArray.push(new FoundMark(array.length - 1, 0));
+    animationsArray.push(new FoundMark(array.length - 1));
   }
 
   return animationsArray;

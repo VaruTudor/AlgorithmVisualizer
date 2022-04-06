@@ -55,7 +55,7 @@ export function mergeSort(array: number[]): BasicAnimation[] {
   sort(array);
   // mark all elements in reverse order
   array.forEach((_, index) => {
-    animationsArray.push(new SortedMark(array.length - (index + 1), 0));
+    animationsArray.push(new SortedMark(array.length - (index + 1)));
   });
   return animationsArray;
 }

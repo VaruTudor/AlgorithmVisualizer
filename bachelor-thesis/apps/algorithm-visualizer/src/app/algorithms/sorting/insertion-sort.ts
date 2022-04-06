@@ -25,7 +25,7 @@ export function insertionSort(array: number[]): any[] {
   }
   // mark all elements in reverse order
   array.forEach((_, index) => {
-    animationsArray.push(new SortedMark(array.length - (index + 1), 0));
+    animationsArray.push(new SortedMark(array.length - (index + 1)));
   });
   return animationsArray;
 }

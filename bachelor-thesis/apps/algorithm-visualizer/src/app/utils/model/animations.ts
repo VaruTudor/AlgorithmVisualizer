@@ -38,8 +38,13 @@ export class BetterMatchFind extends BasicAnimation {
 }
 
 export class HeightChange extends BasicAnimation {
-  constructor(first: number, second: number) {
-    super(first, second);
+  /**
+   * Change the height of element on index to newHeight
+   * @param index
+   * @param newHeight
+   */
+  constructor(index: number, newHeight: number) {
+    super(index, newHeight);
   }
 
   execute(array: Rectangle[]): void {
@@ -48,8 +53,12 @@ export class HeightChange extends BasicAnimation {
 }
 
 export class SortedMark extends BasicAnimation {
-  constructor(first: number, second: number) {
-    super(first, second);
+  /**
+   * Mark the element on index with sorted color
+   * @param index - element index in array
+   */
+  constructor(index: number) {
+    super(index, index);
   }
 
   execute(array: Rectangle[]): void {
