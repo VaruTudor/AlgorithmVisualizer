@@ -7,16 +7,16 @@ import { BasicAnimation, BetterMatchFind, CurrentChange, DefaultMark, FoundMark 
 export function jumpSearch(array: number[], target: number): BasicAnimation[] {
   const animationsArray = [];
   // Finding block size to be jumped
-  let step: number = +Math.sqrt(array.length).toFixed();
+  let step: number = Math.floor(Math.sqrt(array.length));
 
   // Finding the block where element is present (if it is present)
   let prev = 0, lastPrev = prev;
   while (array[Math.min(step, array.length) - 1] < target) {
-    animationsArray.push(new BetterMatchFind(step + +Math.sqrt(array.length).toFixed(), step));
+    animationsArray.push(new BetterMatchFind(step + Math.floor(Math.sqrt(array.length)), step));
     animationsArray.push(new BetterMatchFind(step, prev));
     prev = step;
     lastPrev = prev;
-    step += +Math.sqrt(array.length).toFixed();
+    step += Math.floor(Math.sqrt(array.length));
     if (prev >= array.length)
       return animationsArray;
   }
