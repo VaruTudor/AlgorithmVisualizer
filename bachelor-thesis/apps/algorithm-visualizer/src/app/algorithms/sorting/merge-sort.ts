@@ -1,9 +1,9 @@
 import {
   BasicAnimation,
-  CurrentChange,
-  DefaultMark,
-  HeightChange,
-  SortedMark
+  CurrentChangeAnimation,
+  DefaultAnimation,
+  HeightAnimation,
+  SortedAnimation
 } from '../../utils/model/animations';
 
 /**
@@ -15,8 +15,8 @@ import {
 let animationsArray: BasicAnimation[];
 
 function pushMergeSortAnimation(array: number[], first: number, current: number): void {
-  animationsArray.push(new CurrentChange(current, current + 1));
-  animationsArray.push(new HeightChange(first, array[current]));
+  animationsArray.push(new CurrentChangeAnimation(current, current + 1));
+  animationsArray.push(new HeightAnimation(first, array[current]));
 }
 
 function merge(leftArray: number[], rightArray: number[]): number [] {
@@ -38,7 +38,7 @@ function merge(leftArray: number[], rightArray: number[]): number [] {
     mergedArray.push(rightArray[j++]);
     pushMergeSortAnimation(rightArray, mergedArray.length - 1, j - 1);
   }
-  animationsArray.push(new DefaultMark(j));
+  animationsArray.push(new DefaultAnimation(j));
   return mergedArray;
 }
 
@@ -55,7 +55,7 @@ export function mergeSort(array: number[]): BasicAnimation[] {
   sort(array);
   // mark all elements in reverse order
   array.forEach((_, index) => {
-    animationsArray.push(new SortedMark(array.length - (index + 1)));
+    animationsArray.push(new SortedAnimation(array.length - (index + 1)));
   });
   return animationsArray;
 }

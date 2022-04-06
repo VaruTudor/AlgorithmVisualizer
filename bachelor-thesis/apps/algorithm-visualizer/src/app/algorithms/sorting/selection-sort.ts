@@ -1,5 +1,5 @@
 import { swapArrayElements } from '../../utils/computations';
-import { BetterMatchFind, CurrentChange, DefaultMark, HeightChange, SortedMark } from '../../utils/model/animations';
+import { BetterMatchAnimation, CurrentChangeAnimation, DefaultAnimation, HeightAnimation, SortedAnimation } from '../../utils/model/animations';
 
 /**
  * The selection sort algorithm sorts an array by repeatedly finding the minimum element (considering ascending order)
@@ -16,22 +16,22 @@ export function selectionSort(array: any[]): any[] {
     let min = Number.MAX_SAFE_INTEGER;
     let indexOfMin = i;
     for (let j = indexOfMin; j < array.length; j++) {
-      animationsArray.push(new CurrentChange(j, j + 1));
+      animationsArray.push(new CurrentChangeAnimation(j, j + 1));
       if (array[j] < min) {
-        animationsArray.push(new BetterMatchFind(j, indexOfMin));
+        animationsArray.push(new BetterMatchAnimation(j, indexOfMin));
         min = array[j];
         indexOfMin = j;
       }
     }
-    animationsArray.push(new HeightChange(i, min));
-    animationsArray.push(new HeightChange(indexOfMin, array[i]));
+    animationsArray.push(new HeightAnimation(i, min));
+    animationsArray.push(new HeightAnimation(indexOfMin, array[i]));
     swapArrayElements(array, i, indexOfMin);
     // mark the previous indexOfMin back to default color
-    animationsArray.push(new DefaultMark(indexOfMin));
+    animationsArray.push(new DefaultAnimation(indexOfMin));
     // mark the ith element as sorted
-    animationsArray.push(new SortedMark(i));
+    animationsArray.push(new SortedAnimation(i));
   }
   // mark the last element
-  animationsArray.push(new SortedMark(array.length - 1));
+  animationsArray.push(new SortedAnimation(array.length - 1));
   return animationsArray;
 }

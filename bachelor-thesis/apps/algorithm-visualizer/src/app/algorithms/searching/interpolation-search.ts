@@ -1,4 +1,4 @@
-import { BasicAnimation, BetterMatchFind, CurrentChange, FoundMark } from '../../utils/model/animations';
+import { BasicAnimation, BetterMatchAnimation, CurrentChangeAnimation, FoundAnimation } from '../../utils/model/animations';
 
 /**
  * @param array - an array of numbers which is going to be searched
@@ -9,8 +9,8 @@ export function interpolationSearch(array: number[], target: number): BasicAnima
   // Find indexes of two corners
   let current = -1, oldCurrent = -1;
   let low = 0, high = (array.length - 1);
-  animationsArray.push(new BetterMatchFind(low, low));
-  animationsArray.push(new BetterMatchFind(high, high));
+  animationsArray.push(new BetterMatchAnimation(low, low));
+  animationsArray.push(new BetterMatchAnimation(high, high));
 
   // Since array is sorted, an element present in array must be in range
   // defined by corner
@@ -19,7 +19,7 @@ export function interpolationSearch(array: number[], target: number): BasicAnima
     if (low == high)
     {
       if (array[low] == target) {
-        animationsArray.push(new FoundMark(low));
+        animationsArray.push(new FoundAnimation(low));
         return animationsArray;
       }
       break;
@@ -30,21 +30,21 @@ export function interpolationSearch(array: number[], target: number): BasicAnima
     current = low + Math.floor(((high - low) /
       (array[high] - array[low])) * (target - array[low]));
     if (oldCurrent !== -1 && current !== 0)
-      animationsArray.push(new CurrentChange(oldCurrent, current));
-    else animationsArray.push(new CurrentChange(current, current));
+      animationsArray.push(new CurrentChangeAnimation(oldCurrent, current));
+    else animationsArray.push(new CurrentChangeAnimation(current, current));
 
     // Condition of target found
     if (array[current] == target){
-      animationsArray.push(new FoundMark(current));
+      animationsArray.push(new FoundAnimation(current));
       return animationsArray;
     }
 
     if (array[current] < target){
-      animationsArray.push(new BetterMatchFind(current + 1, low));
+      animationsArray.push(new BetterMatchAnimation(current + 1, low));
       low = current + 1;
     }
     else{
-      animationsArray.push(new BetterMatchFind(current -1, high));
+      animationsArray.push(new BetterMatchAnimation(current -1, high));
       high = current - 1;
     }
   }
