@@ -50,9 +50,9 @@ export class SearchingComponent implements OnInit {
     this.disabledStatus = true;
     let valuesArray = this.array.map(element => element.value);
     // const animationsArray = linearSearch(valuesArray.slice(), this.target);
-    const animationsArray = binarySearch(valuesArray.slice(), this.target);
+    // const animationsArray = binarySearch(valuesArray.slice(), this.target);
     // const animationsArray = fibonacciSearch(valuesArray.slice(), this.target);
-    // const animationsArray = jumpSearch(valuesArray.slice(), this.target);
+    const animationsArray = jumpSearch(valuesArray.slice(), this.target);
     // const animationsArray = interpolationSearch(valuesArray.slice(), this.target);
     // const animationsArray = exponentialSearch(valuesArray.slice(), this.target);
     for (let i = 0; i < animationsArray.length; i++) {

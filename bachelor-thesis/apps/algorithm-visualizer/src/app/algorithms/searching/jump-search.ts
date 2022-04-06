@@ -1,16 +1,24 @@
-import { BasicAnimation, BetterMatchAnimation, CurrentChangeAnimation, DefaultAnimation, FoundAnimation } from '../../utils/model/animations';
+import {
+  BasicAnimation,
+  BetterMatchAnimation,
+  CurrentChangeAnimation,
+  DefaultAnimation,
+  FoundAnimation
+} from '../../utils/model/animations';
 
 /**
+ * The basic idea is to check fewer elements (than linear search) by jumping ahead by fixed steps or skipping some
+ * elements in place of searching all elements. For example, suppose we have an array arr[] of size n and block (to be jumped)
+ * size m. Then we search at the indexes arr[0], arr[m], arr[2m]…..arr[km] and so on. Once we find the interval
+ * (arr[km] < x < arr[(k+1)m]), we perform a linear search operation from the index km to find the element x.
  * @param array - an array of numbers which is going to be searched
  * @param target - the number being searched for
  */
 export function jumpSearch(array: number[], target: number): BasicAnimation[] {
   const animationsArray = [];
-  // Finding block size to be jumped
-  let step: number = Math.floor(Math.sqrt(array.length));
 
-  // Finding the block where element is present (if it is present)
-  let prev = 0, lastPrev = prev;
+  let step = Math.floor(Math.sqrt(array.length)), prev = 0, lastPrev = prev;
+
   while (array[Math.min(step, array.length) - 1] < target) {
     animationsArray.push(new BetterMatchAnimation(step + Math.floor(Math.sqrt(array.length)), step));
     animationsArray.push(new BetterMatchAnimation(step, prev));
@@ -28,16 +36,13 @@ export function jumpSearch(array: number[], target: number): BasicAnimation[] {
     prev++;
     animationsArray.push(new CurrentChangeAnimation(prev - 1, prev));
     prev === lastPrev + 1 ? animationsArray.push(new BetterMatchAnimation(lastPrev, lastPrev))
-      :animationsArray.push(new DefaultAnimation(prev - 1));
+      : animationsArray.push(new DefaultAnimation(prev - 1));
 
-
-    // If we reached next block or end of array, element is
-    // not present.
     if (prev == Math.min(step, array.length)) {
       return animationsArray;
     }
   }
-  // If element is found
+
   if (array[prev] == target) {
     animationsArray.push(new CurrentChangeAnimation(prev - 1, prev));
     animationsArray.push(new FoundAnimation(prev));
