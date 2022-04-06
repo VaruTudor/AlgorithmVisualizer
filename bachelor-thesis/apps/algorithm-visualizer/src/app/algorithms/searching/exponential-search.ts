@@ -1,19 +1,27 @@
-import { BasicAnimation, BetterMatchAnimation, CurrentChangeAnimation, FoundAnimation } from '../../utils/model/animations';
+import {
+  BasicAnimation,
+  BetterMatchAnimation,
+  CurrentChangeAnimation,
+  FoundAnimation
+} from '../../utils/model/animations';
 import { binarySearchHelper } from './binary-search';
 
 /**
+ * The idea is to start with subarray size 1, compare its last element with x, then try size 2, then 4 and so on until
+ * last element of a subarray is not greater. Once we find an index i (after repeated doubling of i),
+ * we know that the element must be present between i/2 and i. After finding the range, we apply binary search within it
+ * to find the target
  * @param array - an array of numbers which is going to be searched
  * @param target - the number being searched for
  */
 export function exponentialSearch(array: number[], target: number): BasicAnimation[] {
   const animationsArray: BasicAnimation[] = [];
-  // If x is present at first location itself
+
   if (array[0] == target) {
     animationsArray.push(new FoundAnimation(0));
     return animationsArray;
   }
 
-  // Find range for binary search by repeated doubling
   let i = 1;
   while (i < array.length && array[i] <= target) {
     animationsArray.push(new CurrentChangeAnimation(i, i * 2));
@@ -21,10 +29,6 @@ export function exponentialSearch(array: number[], target: number): BasicAnimati
   }
 
   animationsArray.push(new BetterMatchAnimation(i, i / 2));
-
-  let left = i / 2,
-    right = Math.min(i, array.length - 1);
-
-  animationsArray.push(...binarySearchHelper(array, target, left, right));
+  animationsArray.push(...binarySearchHelper(array, target, i / 2, Math.min(i, array.length - 1)));
   return animationsArray;
 }

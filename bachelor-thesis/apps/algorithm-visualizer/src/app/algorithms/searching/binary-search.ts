@@ -1,4 +1,9 @@
-import { BasicAnimation, BetterMatchAnimation, CurrentChangeAnimation, FoundAnimation } from '../../utils/model/animations';
+import {
+  BasicAnimation,
+  BetterMatchAnimation,
+  CurrentChangeAnimation,
+  FoundAnimation
+} from '../../utils/model/animations';
 
 /**
  * Binary Search is a searching algorithm used in a sorted array by repeatedly dividing the search interval in half.
@@ -31,17 +36,13 @@ export function binarySearchHelper(array: number[], target: number,
       : animationsArray.push(new CurrentChangeAnimation(mid, left + Math.floor((right - left) / 2)));
     mid = left + Math.floor((right - left) / 2);
 
-    // If the element is present at the middle itself
     if (array[mid] == target) {
       animationsArray.push(new FoundAnimation(mid));
       break;
-    }
-
-    if (array[mid] > target) {
+    } else if (array[mid] > target) {
       animationsArray.push(new BetterMatchAnimation(mid - 1, right));
       right = mid - 1;
-    }
-    else {
+    } else {
       animationsArray.push(new BetterMatchAnimation(mid + 1, left));
       left = mid + 1;
     }
