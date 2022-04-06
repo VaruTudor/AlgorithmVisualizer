@@ -8,6 +8,7 @@ import { binarySearch } from '../algorithms/searching/binary-search';
 import { fibonacciSearch } from '../algorithms/searching/fibonacci-search';
 import { jumpSearch } from '../algorithms/searching/jump-search';
 import { interpolationSearch } from '../algorithms/searching/interpolation-search';
+import { exponentialSearch } from '../algorithms/searching/exponential-search';
 
 @Component({
   selector: 'app-searching',
@@ -52,7 +53,8 @@ export class SearchingComponent implements OnInit {
     // const animationsArray = binarySearch(valuesArray.slice(), this.target);
     // const animationsArray = fibonacciSearch(valuesArray.slice(), this.target);
     // const animationsArray = jumpSearch(valuesArray.slice(), this.target);
-    const animationsArray = interpolationSearch(valuesArray.slice(), this.target);
+    // const animationsArray = interpolationSearch(valuesArray.slice(), this.target);
+    const animationsArray = exponentialSearch(valuesArray.slice(), this.target);
     for (let i = 0; i < animationsArray.length; i++) {
       setTimeout(() => {
         animationsArray[i].execute(this.array);
