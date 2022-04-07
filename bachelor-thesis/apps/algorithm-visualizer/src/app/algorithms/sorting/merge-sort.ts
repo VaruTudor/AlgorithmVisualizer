@@ -1,22 +1,22 @@
 import {
   BasicAnimation,
-  CurrentChange,
-  DefaultMark,
-  HeightChange,
-  SortedMark
+  CurrentChangeAnimation,
+  DefaultAnimation,
+  HeightAnimation,
+  SortedAnimation
 } from '../../utils/model/animations';
 
 /**
  * Merge sort divides the input array into two halves, calls itself for the two halves, and then merges the two
  * sorted halves.
- * @param array - an array of numbers which is going to be sorted
+ * @param array - array to be sorted
  */
 
 let animationsArray: BasicAnimation[];
 
 function pushMergeSortAnimation(array: number[], first: number, current: number): void {
-  animationsArray.push(new CurrentChange(current, current + 1));
-  animationsArray.push(new HeightChange(first, array[current]));
+  animationsArray.push(new CurrentChangeAnimation(current, current + 1));
+  animationsArray.push(new HeightAnimation(first, array[current]));
 }
 
 function merge(leftArray: number[], rightArray: number[]): number [] {
@@ -38,7 +38,7 @@ function merge(leftArray: number[], rightArray: number[]): number [] {
     mergedArray.push(rightArray[j++]);
     pushMergeSortAnimation(rightArray, mergedArray.length - 1, j - 1);
   }
-  animationsArray.push(new DefaultMark(j, 0));
+  animationsArray.push(new DefaultAnimation(j));
   return mergedArray;
 }
 
@@ -53,9 +53,8 @@ function sort(array: number []): number[] {
 export function mergeSort(array: number[]): BasicAnimation[] {
   animationsArray = [];
   sort(array);
-  // mark all elements in reverse order
   array.forEach((_, index) => {
-    animationsArray.push(new SortedMark(array.length - (index + 1), 0));
+    animationsArray.push(new SortedAnimation(array.length - (index + 1)));
   });
   return animationsArray;
 }

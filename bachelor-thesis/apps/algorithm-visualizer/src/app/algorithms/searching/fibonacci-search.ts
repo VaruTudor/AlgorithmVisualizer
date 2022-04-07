@@ -1,72 +1,68 @@
-import { BasicAnimation, BetterMatchFind, CurrentChange, DefaultMark, FoundMark } from '../../utils/model/animations';
+import {
+  BasicAnimation,
+  BetterMatchAnimation,
+  CurrentChangeAnimation,
+  DefaultAnimation,
+  FoundAnimation
+} from '../../utils/model/animations';
 
 /**
+ * The idea is to first find the smallest Fibonacci number that is greater than or equal to the length of the given array.
+ * Let the found Fibonacci number be fib (m’th Fibonacci number). We use (m-2)’th Fibonacci number as the index
+ * (If it is a valid index). Let (m-2)’th Fibonacci Number be i, we compare arr[i] with x, if x is same, we return i.
+ * Else if x is greater, we recur for subarray after i, else we recur for subarray before i.
  * @param array - an array of numbers which is going to be searched
  * @param target - the number being searched for
  */
 export function fibonacciSearch(array: number[], target: number): BasicAnimation[] {
-  const animationsArray = [];
-  /* Initialize fibonacci numbers */
-  let fibonacciSmall = 0;
-  let fibonacciMiddle = 1;
-  let fibonacciBig = 1;
+  const animationsArray: BasicAnimation[] = [];
 
-  /* fibonacciBig is going to store the smallest Fibonacci number greater than
-   or equal to n */
+  let fibonacciSmall = 0, fibonacciMiddle = 1, fibonacciBig = 1;
+
+  // fibonacciBig is going to store the smallest Fibonacci number greater than or equal to n
   while (fibonacciBig < array.length) {
     fibonacciSmall = fibonacciMiddle;
     fibonacciMiddle = fibonacciBig;
     fibonacciBig = fibonacciSmall + fibonacciMiddle;
   }
 
-  animationsArray.push(new BetterMatchFind(fibonacciSmall, fibonacciSmall));
-  animationsArray.push(new BetterMatchFind(fibonacciMiddle, fibonacciMiddle));
-  animationsArray.push(new BetterMatchFind(fibonacciBig, fibonacciBig));
+  animationsArray.push(new BetterMatchAnimation(fibonacciSmall, fibonacciSmall));
+  animationsArray.push(new BetterMatchAnimation(fibonacciMiddle, fibonacciMiddle));
+  animationsArray.push(new BetterMatchAnimation(fibonacciBig, fibonacciBig));
 
   // Marks the eliminated range from front
-  let offset = -1;
-  let i = 0;
+  let offset = -1, i = 0;
 
   while (fibonacciBig > 1) {
-    // Check if fibMm2 is a valid location
-    animationsArray.push(new DefaultMark(i, 0))
+    animationsArray.push(new DefaultAnimation(i));
     i = Math.min(offset + fibonacciSmall, array.length - 1);
-    i === 0 ? animationsArray.push(new CurrentChange(i, i)) :
-      animationsArray.push(new CurrentChange(i - 1, i));
+    i === 0 ? animationsArray.push(new CurrentChangeAnimation(i, i)) :
+      animationsArray.push(new CurrentChangeAnimation(i - 1, i));
 
-    /* If x is greater than the value at index fibonacciSmall, cut the subarray
-     array from offset to i */
+    // If x is greater than the value at index fibonacciSmall, cut the subarray array from offset to i
     if (array[i] < target) {
-      animationsArray.push(new BetterMatchFind(fibonacciMiddle - fibonacciSmall, fibonacciSmall));
-      animationsArray.push(new BetterMatchFind(fibonacciSmall, fibonacciMiddle));
-      animationsArray.push(new BetterMatchFind(fibonacciMiddle, fibonacciBig));
+      animationsArray.push(new BetterMatchAnimation(fibonacciMiddle - fibonacciSmall, fibonacciSmall));
+      animationsArray.push(new BetterMatchAnimation(fibonacciSmall, fibonacciMiddle));
+      animationsArray.push(new BetterMatchAnimation(fibonacciMiddle, fibonacciBig));
       fibonacciBig = fibonacciMiddle;
       fibonacciMiddle = fibonacciSmall;
       fibonacciSmall = fibonacciBig - fibonacciMiddle;
       offset = i;
-    }
-
-    /* If x is less than the value at index fibMm2,
-    cut the subarray after i+1 */
-    else if (array[i] > target) {
-      animationsArray.push(new BetterMatchFind(fibonacciSmall - (fibonacciMiddle - fibonacciSmall), fibonacciSmall));
-      animationsArray.push(new BetterMatchFind(fibonacciMiddle - fibonacciSmall, fibonacciMiddle));
-      animationsArray.push(new BetterMatchFind(fibonacciSmall, fibonacciBig));
+    } else if (array[i] > target) {
+      animationsArray.push(new BetterMatchAnimation(fibonacciSmall - (fibonacciMiddle - fibonacciSmall), fibonacciSmall));
+      animationsArray.push(new BetterMatchAnimation(fibonacciMiddle - fibonacciSmall, fibonacciMiddle));
+      animationsArray.push(new BetterMatchAnimation(fibonacciSmall, fibonacciBig));
       fibonacciBig = fibonacciSmall;
       fibonacciMiddle = fibonacciMiddle - fibonacciSmall;
       fibonacciSmall = fibonacciBig - fibonacciMiddle;
-    }
-
-    /* element found. return index */
-    else {
-      animationsArray.push(new FoundMark(i, 0));
+    } else {
+      animationsArray.push(new FoundAnimation(i));
       break;
     }
   }
 
-  /* comparing the last element with x */
   if (fibonacciMiddle && array[array.length - 1] == target) {
-    animationsArray.push(new FoundMark(array.length - 1, 0));
+    animationsArray.push(new FoundAnimation(array.length - 1));
   }
 
   return animationsArray;
