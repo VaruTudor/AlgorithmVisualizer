@@ -15,7 +15,7 @@ import {
  * @param target - the number being searched for
  */
 export function interpolationSearch(array: number[], target: number): BasicAnimation[] {
-  const animationsArray = [];
+  const animationsArray: BasicAnimation[] = [];
   let current = -1, previousCurrent = -1, low = 0, high = (array.length - 1);
   animationsArray.push(new BetterMatchAnimation(low, low));
   animationsArray.push(new BetterMatchAnimation(high, high));

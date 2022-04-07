@@ -9,7 +9,7 @@ import {
 /**
  * Merge sort divides the input array into two halves, calls itself for the two halves, and then merges the two
  * sorted halves.
- * @param array - an array of numbers which is going to be sorted
+ * @param array - array to be sorted
  */
 
 let animationsArray: BasicAnimation[];
@@ -53,7 +53,6 @@ function sort(array: number []): number[] {
 export function mergeSort(array: number[]): BasicAnimation[] {
   animationsArray = [];
   sort(array);
-  // mark all elements in reverse order
   array.forEach((_, index) => {
     animationsArray.push(new SortedAnimation(array.length - (index + 1)));
   });

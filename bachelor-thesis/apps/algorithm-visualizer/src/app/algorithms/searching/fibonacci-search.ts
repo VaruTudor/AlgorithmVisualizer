@@ -15,7 +15,7 @@ import {
  * @param target - the number being searched for
  */
 export function fibonacciSearch(array: number[], target: number): BasicAnimation[] {
-  const animationsArray = [];
+  const animationsArray: BasicAnimation[] = [];
 
   let fibonacciSmall = 0, fibonacciMiddle = 1, fibonacciBig = 1;
 

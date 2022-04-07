@@ -7,7 +7,7 @@ import { BasicAnimation, CurrentChangeAnimation, FoundAnimation } from '../../ut
  * @param target - the number being searched for
  */
 export function linearSearch(array: number[], target: number): BasicAnimation[] {
-  const animationsArray = [];
+  const animationsArray: BasicAnimation[] = [];
   for (let i = 0; i < array.length; i++) {
     i === 0 ? animationsArray.push(new CurrentChangeAnimation(i, i)) :
       animationsArray.push(new CurrentChangeAnimation(i - 1, i));

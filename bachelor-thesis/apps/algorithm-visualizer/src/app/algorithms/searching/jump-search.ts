@@ -15,7 +15,7 @@ import {
  * @param target - the number being searched for
  */
 export function jumpSearch(array: number[], target: number): BasicAnimation[] {
-  const animationsArray = [];
+  const animationsArray: BasicAnimation[] = [];
 
   let step = Math.floor(Math.sqrt(array.length)), prev = 0, lastPrev = prev;
 
