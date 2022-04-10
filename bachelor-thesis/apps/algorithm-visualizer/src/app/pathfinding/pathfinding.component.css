@@ -1,0 +1,18 @@
+::ng-deep body{
+  margin: 0;
+}
+
+.main-container{
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.pathfinding-container{
+  min-height: 700px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}

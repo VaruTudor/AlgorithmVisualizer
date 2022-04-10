@@ -1,0 +1,14 @@
+<div class="main-container">
+  <div class="buttons-container">
+    <button [disabled]="disabledStatus" (click)="resetGrid()">Reset</button>
+    <button [disabled]="disabledStatus" (click)="executeAnimations()">Start</button>
+  </div>
+  <div class="pathfinding-container">
+    <!--<av-square *ngFor="let element of array"
+               [size]='element.width'
+               [color]='element.color'
+               [value]='element.value'
+               class='searching-element'
+    ></av-square>-->
+  </div>
+</div>
