@@ -13,7 +13,8 @@ import { AvNodeComponent } from './av-node/av-node.component';
   ],
   exports: [
     AvRectangleComponent,
-    AvSquareComponent
+    AvSquareComponent,
+    AvNodeComponent
   ]
 })
 export class AvLibModule {}

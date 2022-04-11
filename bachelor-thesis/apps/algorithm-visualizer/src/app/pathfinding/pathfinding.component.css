@@ -10,9 +10,21 @@
 }
 
 .pathfinding-container{
-  min-height: 700px;
+  min-height: 600px;
+  width: 1500px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  flex-wrap: wrap;
+  padding: 10px;
+  align-content: center;
+}
+
+.row{
+  display: flex;
+}
+
+::ng-deep .node{
+  margin: 2px;
 }

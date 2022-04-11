@@ -11,11 +11,11 @@ import { Colors } from '../utils/model/colors.enum';
 })
 export class PathfindingComponent implements OnInit {
   disabledStatus = false;
-  array: Node[];
+  array: Node[][];
   nrRows = 20;
   nrColumns = 40;
 
-  nodeSize = Sizes.small;
+  nodeSize = Sizes.medium;
   elementDefaultColor = Colors.defaultColor;
   startNode = [10, 5];
   endNode = [10, 15];
@@ -24,13 +24,15 @@ export class PathfindingComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.resetGrid();
   }
 
   resetGrid() {
     this.array = [];
     for (let i = 0; i < this.nrRows; i++) {
+      let row: Node[] = [];
       for (let j = 0; j < this.nrColumns; j++) {
-        this.array.push(
+        row.push(
           new Node(
             this.nodeSize, this.elementDefaultColor, i, j,
             (i === this.startNode[0] && j === this.startNode[1]),
@@ -38,6 +40,7 @@ export class PathfindingComponent implements OnInit {
           )
         );
       }
+      this.array.push(row);
     }
 
   }

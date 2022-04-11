@@ -33,13 +33,13 @@ export class Node extends Rectangle {
   row: number;
   column: number;
   isStart: boolean;
-  isFinish: boolean;
+  isEnd: boolean;
 
-  constructor(size: number, color: string, row: number, column: number, isStart: boolean, isFinish: boolean) {
+  constructor(size: number, color: string, row: number, column: number, isStart: boolean, isEnd: boolean) {
     super(size, size, color);
     this.row = row;
     this.column = column;
     this.isStart = isStart;
-    this.isFinish = isFinish;
+    this.isEnd = isEnd;
   }
 }
