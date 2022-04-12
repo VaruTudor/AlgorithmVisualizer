@@ -23,7 +23,7 @@ export class PathfindingComponent implements OnInit {
   array: Node[][];
   nrRows = 20;
   nrColumns = 40;
-  delay = 100;
+  delay = 30;
 
   nodeSize = Sizes.medium;
   startRow = 10;

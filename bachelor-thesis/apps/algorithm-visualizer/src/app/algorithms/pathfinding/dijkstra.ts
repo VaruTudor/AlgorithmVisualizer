@@ -15,7 +15,8 @@ export function dijkstra(grid: Node[][], startNode: Node, endNode: Node): Animat
       if (isTrapped(closestNode)) return animationsArray;
       closestNode.markAsVisited();
       // visitedNodesInOrder.push(closestNode);
-      animationsArray.push(new ColorChange(closestNode, Colors.path))
+      if (!(closestNode.isStart || closestNode.isEnd))
+        animationsArray.push(new ColorChange(closestNode, Colors.path))
       if (closestNode === endNode) return animationsArray;
       updateUnvisitedNeighbors(closestNode, grid);
     }
