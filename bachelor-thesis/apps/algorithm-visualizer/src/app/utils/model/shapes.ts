@@ -1,3 +1,5 @@
+import { Infinity } from '../computations';
+
 interface IRectangle {
   height: number;
   width: number;
@@ -45,7 +47,7 @@ export class Node extends Rectangle {
     this.column = column;
     this.isStart = isStart;
     this.isEnd = isEnd;
-    this.distance = Number.MAX_SAFE_INTEGER;
+    this.distance = Infinity;
     this.isVisited = false;
     this.isWall = false;
   }
@@ -58,11 +60,11 @@ export class Node extends Rectangle {
     if (!this.isVisited) this.isVisited = true;
   }
 
-  public updatePreviousNode(previous: Node){
+  public updatePreviousNode(previous: Node) {
     this.previousNode = previous;
   }
 
-  public updateDistance(newDistance: number){
+  public updateDistance(newDistance: number) {
     this.distance = newDistance;
   }
 }

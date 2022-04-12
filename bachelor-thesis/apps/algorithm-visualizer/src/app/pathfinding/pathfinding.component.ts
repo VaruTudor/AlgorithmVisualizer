@@ -2,6 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { Node } from '../utils/model/shapes';
 import { Sizes } from '../utils/model/sizes.enum';
 import { Colors } from '../utils/model/colors.enum';
+import { dijkstra } from '../algorithms/pathfinding/dijkstra';
+
+enum ConfigType{
+  DEFAULT,
+  START_NODE,
+  END_NODE,
+  WALL
+
+}
 
 @Component({
   selector: 'app-pathfinding',
@@ -15,9 +24,11 @@ export class PathfindingComponent implements OnInit {
   nrColumns = 40;
 
   nodeSize = Sizes.medium;
-  elementDefaultColor = Colors.defaultColor;
-  startNode = [10, 5];
-  endNode = [10, 15];
+  startRow = 10;
+  startColumn = 5;
+  endRow = 10;
+  endColumn = 34;
+  configType = ConfigType.DEFAULT;
 
   constructor() {
   }
@@ -33,18 +44,23 @@ export class PathfindingComponent implements OnInit {
       for (let j = 0; j < this.nrColumns; j++) {
         row.push(
           new Node(
-            this.nodeSize, this.elementDefaultColor, i, j,
-            (i === this.startNode[0] && j === this.startNode[1]),
-            (i === this.endNode[0] && j === this.endNode[1])
+            this.nodeSize, this.getInitialNodeColor(i, j), i, j,
+            (i === this.startRow && j === this.startColumn),
+            (i === this.endRow && j === this.endColumn)
           )
         );
       }
       this.array.push(row);
     }
-
   }
 
   executeAnimations() {
+    console.log(dijkstra(this.array, this.array[this.startRow][this.startColumn], this.array[this.endRow][this.endColumn]));
+  }
 
+  private getInitialNodeColor(row: number, column: number): string {
+    if (row === this.startRow && column === this.startColumn) return Colors.start;
+    if (row === this.endRow && column === this.endColumn) return Colors.end;
+    return Colors.defaultColor;
   }
 }
