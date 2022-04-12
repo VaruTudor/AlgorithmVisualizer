@@ -32,8 +32,12 @@ export class Square extends Rectangle implements ISearchingSquare {
 export class Node extends Rectangle {
   row: number;
   column: number;
+  distance: number;
   isStart: boolean;
   isEnd: boolean;
+  isVisited: boolean;
+  isWall: boolean;
+  previousNode: Node;
 
   constructor(size: number, color: string, row: number, column: number, isStart: boolean, isEnd: boolean) {
     super(size, size, color);
@@ -41,5 +45,24 @@ export class Node extends Rectangle {
     this.column = column;
     this.isStart = isStart;
     this.isEnd = isEnd;
+    this.distance = Number.MAX_SAFE_INTEGER;
+    this.isVisited = false;
+    this.isWall = false;
+  }
+
+  public markAsWall() {
+    if (!this.isWall) this.isWall = true;
+  }
+
+  public markAsVisited() {
+    if (!this.isVisited) this.isVisited = true;
+  }
+
+  public updatePreviousNode(previous: Node){
+    this.previousNode = previous;
+  }
+
+  public updateDistance(newDistance: number){
+    this.distance = newDistance;
   }
 }

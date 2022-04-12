@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Node, Square } from '../utils/model/shapes';
-import { getRandomInt } from '../utils/computations';
+import { Node } from '../utils/model/shapes';
 import { Sizes } from '../utils/model/sizes.enum';
 import { Colors } from '../utils/model/colors.enum';
 
