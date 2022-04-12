@@ -4,7 +4,6 @@ import { Animation, ColorChange } from './utils/animations';
 import { Colors } from '../../utils/model/colors.enum';
 
 export function dijkstra(grid: Node[][], startNode: Node, endNode: Node): Animation[] {
-  // const visitedNodesInOrder: Node[] = [];
   const animationsArray: Animation[] = [];
   startNode.updateDistance(0);
   const unvisitedNodes = getAllNodes(grid);
@@ -14,7 +13,6 @@ export function dijkstra(grid: Node[][], startNode: Node, endNode: Node): Animat
     if (closestNode && !closestNode.isWall) {
       if (isTrapped(closestNode)) return animationsArray;
       closestNode.markAsVisited();
-      // visitedNodesInOrder.push(closestNode);
       if (!(closestNode.isStart || closestNode.isEnd))
         animationsArray.push(new ColorChange(closestNode, Colors.path))
       if (closestNode === endNode) return animationsArray;
