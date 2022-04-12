@@ -4,5 +4,6 @@ export enum Colors {
   sortedColor = 'green',
   currentBestMatchElementColor = 'blue',
   start = '#fcba03',
-  end = '#03fc62'
+  end = '#03fc62',
+  wall = '#08082e',
 }

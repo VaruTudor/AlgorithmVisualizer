@@ -13,6 +13,9 @@
                [row]='element.row'
                [column]='element.column'
                class='searching-element'
+               (mousedown)='handleMouseDown(element)'
+               (mouseenter)='handleMouseEnter(element)'
+               (mouseup)='handleMouseUp()'
       ></av-node>
     </div>
   </div>

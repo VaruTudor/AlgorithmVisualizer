@@ -1,4 +1,5 @@
 import { Infinity } from '../computations';
+import { Colors } from './colors.enum';
 
 interface IRectangle {
   height: number;
@@ -54,6 +55,7 @@ export class Node extends Rectangle {
 
   public markAsWall() {
     if (!this.isWall) this.isWall = true;
+    this.color = Colors.wall;
   }
 
   public markAsVisited() {

@@ -29,6 +29,7 @@ export class PathfindingComponent implements OnInit {
   endRow = 10;
   endColumn = 34;
   configType = ConfigType.DEFAULT;
+  mouseIsPressed = false;
 
   constructor() {
   }
@@ -62,5 +63,20 @@ export class PathfindingComponent implements OnInit {
     if (row === this.startRow && column === this.startColumn) return Colors.start;
     if (row === this.endRow && column === this.endColumn) return Colors.end;
     return Colors.defaultColor;
+  }
+
+  handleMouseDown(node: Node) {
+    this.mouseIsPressed = true;
+    node.markAsWall();
+  }
+
+  handleMouseEnter(node: Node) {
+    if(this.mouseIsPressed){
+      node.markAsWall()
+    }
+  }
+
+  handleMouseUp() {
+    this.mouseIsPressed = false;
   }
 }
