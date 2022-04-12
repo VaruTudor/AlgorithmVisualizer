@@ -6,4 +6,5 @@ export enum Colors {
   start = '#fcba03',
   end = '#03fc62',
   wall = '#08082e',
+  path = '#0f0f99'
 }

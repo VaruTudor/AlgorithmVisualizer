@@ -3,6 +3,7 @@ import { Node } from '../utils/model/shapes';
 import { Sizes } from '../utils/model/sizes.enum';
 import { Colors } from '../utils/model/colors.enum';
 import { dijkstra } from '../algorithms/pathfinding/dijkstra';
+import { jumpSearch } from '../algorithms/searching/jump-search';
 
 enum ConfigType{
   DEFAULT,
@@ -22,6 +23,7 @@ export class PathfindingComponent implements OnInit {
   array: Node[][];
   nrRows = 20;
   nrColumns = 40;
+  delay = 100;
 
   nodeSize = Sizes.medium;
   startRow = 10;
@@ -56,7 +58,17 @@ export class PathfindingComponent implements OnInit {
   }
 
   executeAnimations() {
-    console.log(dijkstra(this.array, this.array[this.startRow][this.startColumn], this.array[this.endRow][this.endColumn]));
+    this.disabledStatus = true;
+    const animationsArray = dijkstra(this.array, this.array[this.startRow][this.startColumn], this.array[this.endRow][this.endColumn]);
+    for (let i = 0; i < animationsArray.length; i++) {
+      setTimeout(() => {
+        animationsArray[i].execute();
+      }, i * this.delay);
+    }
+
+    setTimeout(() => {
+      this.disabledStatus = false;
+    }, animationsArray.length * this.delay);
   }
 
   private getInitialNodeColor(row: number, column: number): string {
