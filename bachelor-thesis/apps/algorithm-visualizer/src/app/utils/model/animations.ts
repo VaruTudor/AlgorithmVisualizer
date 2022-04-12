@@ -1,7 +1,12 @@
 import { Rectangle } from './shapes';
 import { Colors } from './colors.enum';
 
-export abstract class BasicAnimation {
+interface Tuple {
+  first: number;
+  second: number;
+}
+
+export abstract class Animation implements Tuple{
   first: number;
   second: number;
 
@@ -13,7 +18,7 @@ export abstract class BasicAnimation {
   abstract execute(array: Rectangle[]): void
 }
 
-export class CurrentChangeAnimation extends BasicAnimation {
+export class CurrentChangeAnimation extends Animation {
   /**
    * Mark the element on indexNew with current color and the one on
    * indexPrevious with default color
@@ -26,13 +31,13 @@ export class CurrentChangeAnimation extends BasicAnimation {
 
   execute(array: Rectangle[]): void {
     array[this.first].color = Colors.defaultColor;
-    if (this.second < array.length){
+    if (this.second < array.length) {
       array[this.second].color = Colors.currentElementColor;
     }
   }
 }
 
-export class BetterMatchAnimation extends BasicAnimation {
+export class BetterMatchAnimation extends Animation {
   /**
    * Mark the element on indexNew with better match color and the one on
    * indexPrevious with default color
@@ -49,7 +54,7 @@ export class BetterMatchAnimation extends BasicAnimation {
   }
 }
 
-export class HeightAnimation extends BasicAnimation {
+export class HeightAnimation extends Animation {
   /**
    * Change the height of element on index to newHeight.
    * @param index - position where height will change
@@ -64,7 +69,7 @@ export class HeightAnimation extends BasicAnimation {
   }
 }
 
-export class SortedAnimation extends BasicAnimation {
+export class SortedAnimation extends Animation {
   /**
    * Mark the element on index with sorted color.
    * @param index - position of element in array
@@ -78,9 +83,10 @@ export class SortedAnimation extends BasicAnimation {
   }
 }
 
-export class FoundAnimation extends SortedAnimation {}
+export class FoundAnimation extends SortedAnimation {
+}
 
-export class DefaultAnimation extends BasicAnimation {
+export class DefaultAnimation extends Animation {
   /**
    * Mark the element on index with default color.
    * @param index - position of element in array

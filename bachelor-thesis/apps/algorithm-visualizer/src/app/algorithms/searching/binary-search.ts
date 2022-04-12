@@ -1,5 +1,5 @@
 import {
-  BasicAnimation,
+  Animation,
   BetterMatchAnimation,
   CurrentChangeAnimation,
   FoundAnimation
@@ -11,7 +11,7 @@ import {
  * @param array - an array of numbers which is going to be searched
  * @param target - the number being searched for
  */
-export function binarySearch(array: number[], target: number): BasicAnimation[] {
+export function binarySearch(array: number[], target: number): Animation[] {
   return binarySearchHelper(array, target, 0, array.length - 1);
 }
 
@@ -24,8 +24,8 @@ export function binarySearch(array: number[], target: number): BasicAnimation[] 
  * @param right - initial right boundary
  */
 export function binarySearchHelper(array: number[], target: number,
-                                   left: number, right: number): BasicAnimation[] {
-  const animationsArray: BasicAnimation[] = [];
+                                   left: number, right: number): Animation[] {
+  const animationsArray: Animation[] = [];
 
   animationsArray.push(new BetterMatchAnimation(left, left));
   animationsArray.push(new BetterMatchAnimation(right, right));

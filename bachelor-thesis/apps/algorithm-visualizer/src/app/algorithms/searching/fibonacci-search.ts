@@ -1,5 +1,5 @@
 import {
-  BasicAnimation,
+  Animation,
   BetterMatchAnimation,
   CurrentChangeAnimation,
   DefaultAnimation,
@@ -14,8 +14,8 @@ import {
  * @param array - an array of numbers which is going to be searched
  * @param target - the number being searched for
  */
-export function fibonacciSearch(array: number[], target: number): BasicAnimation[] {
-  const animationsArray: BasicAnimation[] = [];
+export function fibonacciSearch(array: number[], target: number): Animation[] {
+  const animationsArray: Animation[] = [];
 
   let fibonacciSmall = 0, fibonacciMiddle = 1, fibonacciBig = 1;
 
