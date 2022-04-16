@@ -26,3 +26,11 @@ export function getNodesInShortestPathOrder(finishNode: Node): Animation[] {
   }
   return nodesInShortestPathOrder.map(node => new ColorChange(node, Colors.shortestPath));
 }
+
+export function manhattanDistance(first: Node, second: Node): number {
+  return Math.abs(first.row - second.row) + Math.abs(first.column - second.column);
+}
+
+export function sortNodesByDistance(unvisitedNodes: Node[]) {
+  unvisitedNodes.sort((a: Node, b: Node) => a.distance - b.distance);
+}

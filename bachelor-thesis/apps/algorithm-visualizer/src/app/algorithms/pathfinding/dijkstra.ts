@@ -2,12 +2,13 @@ import { Node } from '../../utils/model/shapes';
 import { Infinity } from '../../utils/computations';
 import { Animation, ColorChange } from './utils/animations';
 import { Colors } from '../../utils/model/colors.enum';
-import { getNeighbors } from './utils/helper-functions';
+import { getNeighbors, sortNodesByDistance } from './utils/helper-functions';
 
 export function dijkstra(grid: Node[][], startNode: Node, endNode: Node): Animation[] {
   const animationsArray: Animation[] = [];
   startNode.updateDistance(0);
   const unvisitedNodes = getAllNodes(grid);
+
   while (unvisitedNodes.length) {
     sortNodesByDistance(unvisitedNodes);
     const closestNode = unvisitedNodes.shift();
@@ -30,10 +31,6 @@ function getAllNodes(grid: Node[][]) {
       nodes.push(node);
 
   return nodes;
-}
-
-function sortNodesByDistance(unvisitedNodes: Node[]) {
-  unvisitedNodes.sort((a: Node, b: Node) => a.distance - b.distance);
 }
 
 function isTrapped(node: Node) {

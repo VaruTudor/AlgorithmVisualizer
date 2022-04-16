@@ -6,6 +6,7 @@ import { dijkstra } from '../algorithms/pathfinding/dijkstra';
 import { getNodesInShortestPathOrder } from '../algorithms/pathfinding/utils/helper-functions';
 import { bfs } from '../algorithms/pathfinding/bfs';
 import { dfs } from '../algorithms/pathfinding/dfs';
+import { aStar } from '../algorithms/pathfinding/aStar';
 
 enum ConfigType{
   DEFAULT,
@@ -63,7 +64,8 @@ export class PathfindingComponent implements OnInit {
     this.disabledStatus = true;
     // const animationsArray = dijkstra(this.array, this.array[this.startRow][this.startColumn], this.array[this.endRow][this.endColumn]);
     // const animationsArray = bfs(this.array, this.array[this.startRow][this.startColumn], this.array[this.endRow][this.endColumn]);
-    const animationsArray = dfs(this.array, this.array[this.startRow][this.startColumn], this.array[this.endRow][this.endColumn]);
+    // const animationsArray = dfs(this.array, this.array[this.startRow][this.startColumn], this.array[this.endRow][this.endColumn]);
+    const animationsArray = aStar(this.array, this.array[this.startRow][this.startColumn], this.array[this.endRow][this.endColumn]);
     for (let i = 0; i < animationsArray.length; i++) {
       setTimeout(() => {
         animationsArray[i].execute();
