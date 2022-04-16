@@ -14,7 +14,7 @@ export function dijkstra(grid: Node[][], startNode: Node, endNode: Node): Animat
       if (isTrapped(closestNode)) return animationsArray;
       closestNode.markAsVisited();
       if (!(closestNode.isStart || closestNode.isEnd))
-        animationsArray.push(new ColorChange(closestNode, Colors.path))
+        animationsArray.push(new ColorChange(closestNode, Colors.path));
       if (closestNode === endNode) return animationsArray;
       updateUnvisitedNeighbors(closestNode, grid);
     }
@@ -54,4 +54,15 @@ function getUnvisitedNeighbors(node: Node, grid: Node[][]) {
   if (column > 0) neighbors.push(grid[row][column - 1]);
   if (column < grid[0].length - 1) neighbors.push(grid[row][column + 1]);
   return neighbors.filter(neighbor => !neighbor.isVisited);
+}
+
+export function getNodesInShortestPathOrder(finishNode: Node): Animation[] {
+  const nodesInShortestPathOrder = [];
+  let currentNode = finishNode;
+  while (currentNode != null) {
+    if (!(currentNode.isStart || currentNode.isEnd))
+      nodesInShortestPathOrder.unshift(currentNode);
+    currentNode = currentNode.previousNode;
+  }
+  return nodesInShortestPathOrder.map(node => new ColorChange(node, Colors.shortestPath));
 }

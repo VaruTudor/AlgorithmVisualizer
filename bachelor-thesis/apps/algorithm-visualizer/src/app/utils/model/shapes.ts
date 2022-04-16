@@ -51,6 +51,7 @@ export class Node extends Rectangle {
     this.distance = Infinity;
     this.isVisited = false;
     this.isWall = false;
+    this.previousNode = null as any;
   }
 
   public markAsWall() {
