@@ -1,5 +1,5 @@
 import {
-  BasicAnimation,
+  Animation,
   CurrentChangeAnimation,
   DefaultAnimation,
   HeightAnimation,
@@ -12,7 +12,7 @@ import {
  * @param array - array to be sorted
  */
 
-let animationsArray: BasicAnimation[];
+let animationsArray: Animation[];
 
 function pushMergeSortAnimation(array: number[], first: number, current: number): void {
   animationsArray.push(new CurrentChangeAnimation(current, current + 1));
@@ -50,7 +50,7 @@ function sort(array: number []): number[] {
   return merge(left, right);
 }
 
-export function mergeSort(array: number[]): BasicAnimation[] {
+export function mergeSort(array: number[]): Animation[] {
   animationsArray = [];
   sort(array);
   array.forEach((_, index) => {

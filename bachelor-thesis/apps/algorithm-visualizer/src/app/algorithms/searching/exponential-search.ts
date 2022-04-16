@@ -1,5 +1,5 @@
 import {
-  BasicAnimation,
+  Animation,
   BetterMatchAnimation,
   CurrentChangeAnimation,
   FoundAnimation
@@ -14,8 +14,8 @@ import { binarySearchHelper } from './binary-search';
  * @param array - an array of numbers which is going to be searched
  * @param target - the number being searched for
  */
-export function exponentialSearch(array: number[], target: number): BasicAnimation[] {
-  const animationsArray: BasicAnimation[] = [];
+export function exponentialSearch(array: number[], target: number): Animation[] {
+  const animationsArray: Animation[] = [];
 
   if (array[0] == target) {
     animationsArray.push(new FoundAnimation(0));

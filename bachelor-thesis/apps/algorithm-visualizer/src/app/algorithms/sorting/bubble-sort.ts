@@ -1,4 +1,4 @@
-import { BasicAnimation, CurrentChangeAnimation, HeightAnimation, SortedAnimation } from '../../utils/model/animations';
+import { Animation, CurrentChangeAnimation, HeightAnimation, SortedAnimation } from '../../utils/model/animations';
 import { swapArrayElements } from '../../utils/computations';
 
 /**
@@ -7,8 +7,8 @@ import { swapArrayElements } from '../../utils/computations';
  * components.
  * @param array - array to be sorted
  */
-export function bubbleSort(array: number[]): BasicAnimation[] {
-  const animationsArray: BasicAnimation[] = [];
+export function bubbleSort(array: number[]): Animation[] {
+  const animationsArray: Animation[] = [];
   for (let i = 0; i < array.length - 1; i++) {
     for (let j = 0; j < array.length - 1 - i; j++) {
       animationsArray.push(new CurrentChangeAnimation(j, j + 1));

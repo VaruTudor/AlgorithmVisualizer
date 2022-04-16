@@ -2,5 +2,10 @@ export enum Colors {
   defaultColor = 'gray',
   currentElementColor = 'red',
   sortedColor = 'green',
-  currentBestMatchElementColor = 'blue'
+  currentBestMatchElementColor = 'blue',
+  start = '#fcba03',
+  end = '#03fc62',
+  wall = '#08082e',
+  path = '#0f0f99',
+  shortestPath = '#9fba16'
 }

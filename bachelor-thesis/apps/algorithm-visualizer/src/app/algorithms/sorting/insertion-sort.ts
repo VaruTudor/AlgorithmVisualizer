@@ -1,5 +1,5 @@
 import {
-  BasicAnimation,
+  Animation,
   BetterMatchAnimation,
   CurrentChangeAnimation,
   DefaultAnimation,
@@ -13,8 +13,8 @@ import {
  * the correct position in the sorted part.
  * @param array - array to be sorted
  */
-export function insertionSort(array: number[]): BasicAnimation[] {
-  const animationsArray: BasicAnimation[] = [];
+export function insertionSort(array: number[]): Animation[] {
+  const animationsArray: Animation[] = [];
   for (let i = 1; i < array.length; ++i) {
     let arrayElementAtI = array[i];
     let j = i - 1;

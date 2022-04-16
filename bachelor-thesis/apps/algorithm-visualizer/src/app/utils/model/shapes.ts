@@ -1,3 +1,6 @@
+import { Infinity } from '../computations';
+import { Colors } from './colors.enum';
+
 interface IRectangle {
   height: number;
   width: number;
@@ -26,5 +29,45 @@ export class Square extends Rectangle implements ISearchingSquare {
   constructor(size: number, color: string, value: number) {
     super(size, size, color);
     this.value = value;
+  }
+}
+
+export class Node extends Rectangle {
+  row: number;
+  column: number;
+  distance: number;
+  isStart: boolean;
+  isEnd: boolean;
+  isVisited: boolean;
+  isWall: boolean;
+  previousNode: Node;
+
+  constructor(size: number, color: string, row: number, column: number, isStart: boolean, isEnd: boolean) {
+    super(size, size, color);
+    this.row = row;
+    this.column = column;
+    this.isStart = isStart;
+    this.isEnd = isEnd;
+    this.distance = Infinity;
+    this.isVisited = false;
+    this.isWall = false;
+    this.previousNode = null as any;
+  }
+
+  public markAsWall() {
+    if (!this.isWall) this.isWall = true;
+    this.color = Colors.wall;
+  }
+
+  public markAsVisited() {
+    if (!this.isVisited) this.isVisited = true;
+  }
+
+  public updatePreviousNode(previous: Node) {
+    this.previousNode = previous;
+  }
+
+  public updateDistance(newDistance: number) {
+    this.distance = newDistance;
   }
 }

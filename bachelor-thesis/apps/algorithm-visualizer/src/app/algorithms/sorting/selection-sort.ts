@@ -1,6 +1,6 @@
 import { swapArrayElements } from '../../utils/computations';
 import {
-  BasicAnimation,
+  Animation,
   BetterMatchAnimation,
   CurrentChangeAnimation,
   DefaultAnimation,
@@ -17,8 +17,8 @@ import {
  * components.
  * @param array - array to be sorted
  */
-export function selectionSort(array: any[]): BasicAnimation[] {
-  const animationsArray: BasicAnimation[] = [];
+export function selectionSort(array: any[]): Animation[] {
+  const animationsArray: Animation[] = [];
   for (let i = 0; i < array.length - 1; i++) {
     let min = Number.MAX_SAFE_INTEGER;
     let indexOfMin = i;

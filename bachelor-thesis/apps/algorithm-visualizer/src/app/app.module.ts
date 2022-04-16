@@ -5,12 +5,14 @@ import { AppComponent } from './app.component';
 import { SortingComponent } from './sorting/sorting.component';
 import { AvLibModule } from '@bachelor-thesis/av-lib';
 import { SearchingComponent } from './searching/searching.component';
+import { PathfindingComponent } from './pathfinding/pathfinding.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SortingComponent,
     SearchingComponent,
+    PathfindingComponent,
   ],
   imports: [
     BrowserModule,
