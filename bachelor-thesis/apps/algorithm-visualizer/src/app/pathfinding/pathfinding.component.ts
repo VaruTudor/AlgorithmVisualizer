@@ -5,6 +5,7 @@ import { Colors } from '../utils/model/colors.enum';
 import { dijkstra } from '../algorithms/pathfinding/dijkstra';
 import { getNodesInShortestPathOrder } from '../algorithms/pathfinding/utils/helper-functions';
 import { bfs } from '../algorithms/pathfinding/bfs';
+import { dfs } from '../algorithms/pathfinding/dfs';
 
 enum ConfigType{
   DEFAULT,
@@ -61,7 +62,8 @@ export class PathfindingComponent implements OnInit {
   executeAnimations() {
     this.disabledStatus = true;
     // const animationsArray = dijkstra(this.array, this.array[this.startRow][this.startColumn], this.array[this.endRow][this.endColumn]);
-    const animationsArray = bfs(this.array, this.array[this.startRow][this.startColumn], this.array[this.endRow][this.endColumn]);
+    // const animationsArray = bfs(this.array, this.array[this.startRow][this.startColumn], this.array[this.endRow][this.endColumn]);
+    const animationsArray = dfs(this.array, this.array[this.startRow][this.startColumn], this.array[this.endRow][this.endColumn]);
     for (let i = 0; i < animationsArray.length; i++) {
       setTimeout(() => {
         animationsArray[i].execute();

@@ -11,10 +11,10 @@ export function bfs(grid: Node[][], startNode: Node, endNode: Node): Animation[]
   while (frontier.length) {
     const currentNode = frontier.shift();
     if (currentNode && !currentNode.isWall) {
-      currentNode.markAsVisited()
+      currentNode.markAsVisited();
       if (!(currentNode.isStart || currentNode.isEnd))
         animationsArray.push(new ColorChange(currentNode, Colors.path));
-      if (currentNode === endNode) return animationsArray
+      if (currentNode === endNode) return animationsArray;
       getNeighbors(currentNode, grid).filter(neighbor => !neighbor.isVisited)
         .forEach(neighbor => {
           neighbor.updatePreviousNode(currentNode);
