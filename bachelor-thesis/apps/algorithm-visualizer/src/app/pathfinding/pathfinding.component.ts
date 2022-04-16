@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Node } from '../utils/model/shapes';
 import { Sizes } from '../utils/model/sizes.enum';
 import { Colors } from '../utils/model/colors.enum';
-import { dijkstra, getNodesInShortestPathOrder } from '../algorithms/pathfinding/dijkstra';
-import { jumpSearch } from '../algorithms/searching/jump-search';
+import { dijkstra } from '../algorithms/pathfinding/dijkstra';
+import { getNodesInShortestPathOrder } from '../algorithms/pathfinding/utils/helper-functions';
+import { bfs } from '../algorithms/pathfinding/bfs';
 
 enum ConfigType{
   DEFAULT,
@@ -23,7 +24,7 @@ export class PathfindingComponent implements OnInit {
   array: Node[][];
   nrRows = 20;
   nrColumns = 40;
-  delay = 20;
+  delay = 5;
 
   nodeSize = Sizes.medium;
   startRow = 10;
@@ -59,7 +60,8 @@ export class PathfindingComponent implements OnInit {
 
   executeAnimations() {
     this.disabledStatus = true;
-    const animationsArray = dijkstra(this.array, this.array[this.startRow][this.startColumn], this.array[this.endRow][this.endColumn]);
+    // const animationsArray = dijkstra(this.array, this.array[this.startRow][this.startColumn], this.array[this.endRow][this.endColumn]);
+    const animationsArray = bfs(this.array, this.array[this.startRow][this.startColumn], this.array[this.endRow][this.endColumn]);
     for (let i = 0; i < animationsArray.length; i++) {
       setTimeout(() => {
         animationsArray[i].execute();
