@@ -2,11 +2,13 @@ import { Node } from '../../utils/model/shapes';
 import { Infinity } from '../../utils/computations';
 import { Animation, ColorChange } from './utils/animations';
 import { Colors } from '../../utils/model/colors.enum';
+import { getNeighbors, sortNodesByDistance } from './utils/helper-functions';
 
 export function dijkstra(grid: Node[][], startNode: Node, endNode: Node): Animation[] {
   const animationsArray: Animation[] = [];
   startNode.updateDistance(0);
   const unvisitedNodes = getAllNodes(grid);
+
   while (unvisitedNodes.length) {
     sortNodesByDistance(unvisitedNodes);
     const closestNode = unvisitedNodes.shift();
@@ -31,10 +33,6 @@ function getAllNodes(grid: Node[][]) {
   return nodes;
 }
 
-function sortNodesByDistance(unvisitedNodes: Node[]) {
-  unvisitedNodes.sort((a: Node, b: Node) => a.distance - b.distance);
-}
-
 function isTrapped(node: Node) {
   return node.distance === Infinity;
 }
@@ -48,21 +46,5 @@ function updateUnvisitedNeighbors(node: Node, grid: Node[][]) {
 }
 
 function getUnvisitedNeighbors(node: Node, grid: Node[][]) {
-  const neighbors: Node[] = [], column = node.column, row = node.row;
-  if (row > 0) neighbors.push(grid[row - 1][column]);
-  if (row < grid.length - 1) neighbors.push(grid[row + 1][column]);
-  if (column > 0) neighbors.push(grid[row][column - 1]);
-  if (column < grid[0].length - 1) neighbors.push(grid[row][column + 1]);
-  return neighbors.filter(neighbor => !neighbor.isVisited);
-}
-
-export function getNodesInShortestPathOrder(finishNode: Node): Animation[] {
-  const nodesInShortestPathOrder = [];
-  let currentNode = finishNode;
-  while (currentNode != null) {
-    if (!(currentNode.isStart || currentNode.isEnd))
-      nodesInShortestPathOrder.unshift(currentNode);
-    currentNode = currentNode.previousNode;
-  }
-  return nodesInShortestPathOrder.map(node => new ColorChange(node, Colors.shortestPath));
+  return getNeighbors(node, grid).filter(neighbor => !neighbor.isVisited);
 }
