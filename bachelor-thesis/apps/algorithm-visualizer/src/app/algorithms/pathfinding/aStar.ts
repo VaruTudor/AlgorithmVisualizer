@@ -1,34 +1,35 @@
 import { AnimationBasic, UpdateColor } from '../../utils/model/animations-basic';
-import { getNeighbors, manhattanDistance, sortNodesByDistance } from './utils/helper-functions';
+import { getNeighbors, manhattanDistance, sortByDistance } from './utils/helper-functions';
 import { Colors } from '../../utils/model/colors.enum';
 import { STEP_COST } from './utils/constants';
 import { GridElement } from '../../utils/model/shapes/grid-element';
 
 
-export function aStar(grid: GridElement[][], startNode: GridElement, endNode: GridElement): AnimationBasic[] {
-  const animationsArray: AnimationBasic[] = [];
-  startNode.updateDistance(0);
-  const frontier: GridElement[] = [startNode];
+export function aStar(grid: GridElement[][], start: GridElement, end: GridElement): AnimationBasic[] {
+  const animations: AnimationBasic[] = [];
+  start.updateDistance(0);
+  const frontier: GridElement[] = [start];
 
   while (frontier.length) {
-    sortNodesByDistance(frontier);
-    const currentNode = frontier.shift();
-    if (currentNode && !currentNode.isWall) {
-      currentNode.markAsVisited();
-      if (currentNode === endNode) return animationsArray;
-      if (!(currentNode.isStart || currentNode.isEnd))
-        animationsArray.push(new UpdateColor(currentNode, Colors.path));
-      getNeighbors(currentNode, grid).filter(neighbor => !neighbor.isVisited)
+    sortByDistance(frontier);
+    const current = frontier.shift();
+    if (current && !current.isWall) {
+      current.markAsVisited();
+      if (current === end) return animations;
+      if (!(current.isStart || current.isEnd))
+        animations.push(new UpdateColor(current, Colors.path));
+      getNeighbors(current, grid).filter(neighbor => !neighbor.isVisited)
         .forEach(neighbor => {
           neighbor.markAsVisited();
-          const newDistance = currentNode.distance + STEP_COST;
-          if (newDistance < neighbor.distance) {
-            neighbor.updateDistance(newDistance + manhattanDistance(neighbor, endNode));
+          const distance = current.distance + STEP_COST;
+          if (distance < neighbor.distance) {
+            neighbor.updateDistance(distance + manhattanDistance(neighbor, end));
             frontier.unshift(neighbor);
-            neighbor.updatePreviousNode(currentNode);
+            neighbor.updatePreviousNode(current);
           }
         });
     }
   }
-  return animationsArray;
+
+  return animations;
 }

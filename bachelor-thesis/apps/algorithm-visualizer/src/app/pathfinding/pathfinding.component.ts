@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Sizes } from '../utils/model/sizes.enum';
 import { Colors } from '../utils/model/colors.enum';
 import { dijkstra } from '../algorithms/pathfinding/dijkstra';
-import { getNodesInShortestPathOrder } from '../algorithms/pathfinding/utils/helper-functions';
+import { getShortestPath } from '../algorithms/pathfinding/utils/helper-functions';
 import { bfs } from '../algorithms/pathfinding/bfs';
 import { dfs } from '../algorithms/pathfinding/dfs';
 import { aStar } from '../algorithms/pathfinding/aStar';
@@ -72,7 +72,7 @@ export class PathfindingComponent implements OnInit {
       }, i * this.delay);
     }
 
-    const shortestPathAnimationsArray = getNodesInShortestPathOrder(this.array[this.endRow][this.endColumn]);
+    const shortestPathAnimationsArray = getShortestPath(this.array[this.endRow][this.endColumn]);
     for (let i = animationsArray.length; i < animationsArray.length + shortestPathAnimationsArray.length; i++) {
       setTimeout(() => {
         shortestPathAnimationsArray[i - animationsArray.length].execute();
