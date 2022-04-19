@@ -1,14 +1,9 @@
-import { Rectangle } from './shapes';
 import { Colors } from './colors.enum';
+import { Rectangle } from './shapes/rectangle';
 
-interface Tuple {
-  first: number;
-  second: number;
-}
-
-export abstract class Animation implements Tuple{
-  first: number;
-  second: number;
+export abstract class Animation {
+  protected first: number;
+  protected second: number;
 
   protected constructor(first: number, second: number) {
     this.first = first;

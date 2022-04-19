@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Square } from '../utils/model/shapes';
 import { Sizes } from '../utils/model/sizes.enum';
 import { Colors } from '../utils/model/colors.enum';
 import { getRandomInt } from '../utils/computations';
@@ -9,6 +8,7 @@ import { fibonacciSearch } from '../algorithms/searching/fibonacci-search';
 import { jumpSearch } from '../algorithms/searching/jump-search';
 import { interpolationSearch } from '../algorithms/searching/interpolation-search';
 import { exponentialSearch } from '../algorithms/searching/exponential-search';
+import { Square } from '../utils/model/shapes/square';
 
 @Component({
   selector: 'app-searching',

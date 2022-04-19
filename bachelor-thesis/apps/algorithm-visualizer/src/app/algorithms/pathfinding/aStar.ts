@@ -1,14 +1,14 @@
-import { Node } from '../../utils/model/shapes';
-import { Animation, ColorChange } from './utils/animations';
+import { AnimationBasic, UpdateColor } from '../../utils/model/animations-basic';
 import { getNeighbors, manhattanDistance, sortNodesByDistance } from './utils/helper-functions';
 import { Colors } from '../../utils/model/colors.enum';
 import { STEP_COST } from './utils/constants';
+import { GridElement } from '../../utils/model/shapes/grid-element';
 
 
-export function aStar(grid: Node[][], startNode: Node, endNode: Node): Animation[] {
-  const animationsArray: Animation[] = [];
+export function aStar(grid: GridElement[][], startNode: GridElement, endNode: GridElement): AnimationBasic[] {
+  const animationsArray: AnimationBasic[] = [];
   startNode.updateDistance(0);
-  const frontier: Node[] = [startNode];
+  const frontier: GridElement[] = [startNode];
 
   while (frontier.length) {
     sortNodesByDistance(frontier);
@@ -17,7 +17,7 @@ export function aStar(grid: Node[][], startNode: Node, endNode: Node): Animation
       currentNode.markAsVisited();
       if (currentNode === endNode) return animationsArray;
       if (!(currentNode.isStart || currentNode.isEnd))
-        animationsArray.push(new ColorChange(currentNode, Colors.path));
+        animationsArray.push(new UpdateColor(currentNode, Colors.path));
       getNeighbors(currentNode, grid).filter(neighbor => !neighbor.isVisited)
         .forEach(neighbor => {
           neighbor.markAsVisited();

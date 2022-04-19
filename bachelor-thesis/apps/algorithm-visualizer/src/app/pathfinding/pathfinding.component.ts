@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Node } from '../utils/model/shapes';
 import { Sizes } from '../utils/model/sizes.enum';
 import { Colors } from '../utils/model/colors.enum';
 import { dijkstra } from '../algorithms/pathfinding/dijkstra';
@@ -7,8 +6,9 @@ import { getNodesInShortestPathOrder } from '../algorithms/pathfinding/utils/hel
 import { bfs } from '../algorithms/pathfinding/bfs';
 import { dfs } from '../algorithms/pathfinding/dfs';
 import { aStar } from '../algorithms/pathfinding/aStar';
+import { GridElement } from '../utils/model/shapes/grid-element';
 
-enum ConfigType{
+enum ConfigType {
   DEFAULT,
   START_NODE,
   END_NODE,
@@ -23,7 +23,7 @@ enum ConfigType{
 })
 export class PathfindingComponent implements OnInit {
   disabledStatus = false;
-  array: Node[][];
+  array: GridElement[][];
   nrRows = 20;
   nrColumns = 40;
   delay = 5;
@@ -46,10 +46,10 @@ export class PathfindingComponent implements OnInit {
   resetGrid() {
     this.array = [];
     for (let i = 0; i < this.nrRows; i++) {
-      let row: Node[] = [];
+      let row: GridElement[] = [];
       for (let j = 0; j < this.nrColumns; j++) {
         row.push(
-          new Node(
+          new GridElement(
             this.nodeSize, this.getInitialNodeColor(i, j), i, j,
             (i === this.startRow && j === this.startColumn),
             (i === this.endRow && j === this.endColumn)
@@ -84,24 +84,24 @@ export class PathfindingComponent implements OnInit {
     }, (animationsArray.length + shortestPathAnimationsArray.length) * this.delay);
   }
 
-  private getInitialNodeColor(row: number, column: number): string {
-    if (row === this.startRow && column === this.startColumn) return Colors.start;
-    if (row === this.endRow && column === this.endColumn) return Colors.end;
-    return Colors.defaultColor;
-  }
-
-  handleMouseDown(node: Node) {
+  handleMouseDown(node: GridElement) {
     this.mouseIsPressed = true;
     node.markAsWall();
   }
 
-  handleMouseEnter(node: Node) {
-    if(this.mouseIsPressed){
-      node.markAsWall()
+  handleMouseEnter(node: GridElement) {
+    if (this.mouseIsPressed) {
+      node.markAsWall();
     }
   }
 
   handleMouseUp() {
     this.mouseIsPressed = false;
+  }
+
+  private getInitialNodeColor(row: number, column: number): string {
+    if (row === this.startRow && column === this.startColumn) return Colors.start;
+    if (row === this.endRow && column === this.endColumn) return Colors.end;
+    return Colors.defaultColor;
   }
 }

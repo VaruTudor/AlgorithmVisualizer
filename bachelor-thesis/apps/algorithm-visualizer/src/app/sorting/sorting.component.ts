@@ -7,9 +7,9 @@ import { Colors } from '../utils/model/colors.enum';
 import { selectionSort } from '../algorithms/sorting/selection-sort';
 import { bubbleSort } from '../algorithms/sorting/bubble-sort';
 import { Sizes } from '../utils/model/sizes.enum';
-import { Rectangle } from '../utils/model/shapes';
 import { insertionSort } from '../algorithms/sorting/insertion-sort';
 import { mergeSort } from '../algorithms/sorting/merge-sort';
+import { Rectangle } from '../utils/model/shapes/rectangle';
 
 @Component({
   selector: 'app-sorting',
