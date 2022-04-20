@@ -8,18 +8,20 @@ import { swapArrayElements } from '../../utils/computations';
  * @param array - array to be sorted
  */
 export function bubbleSort(array: number[]): Animation[] {
-  const animationsArray: Animation[] = [];
+  const animations: Animation[] = [];
+
   for (let i = 0; i < array.length - 1; i++) {
     for (let j = 0; j < array.length - 1 - i; j++) {
-      animationsArray.push(new CurrentChangeAnimation(j, j + 1));
+      animations.push(new CurrentChangeAnimation(j, j + 1));
       if (array[j] > array[j + 1]) {
-        animationsArray.push(new HeightAnimation(j, array[j + 1]));
-        animationsArray.push(new HeightAnimation(j + 1, array[j]));
+        animations.push(new HeightAnimation(j, array[j + 1]));
+        animations.push(new HeightAnimation(j + 1, array[j]));
         swapArrayElements(array, j, j + 1);
       }
     }
-    animationsArray.push(new SortedAnimation(array.length - (i + 1)));
+    animations.push(new SortedAnimation(array.length - (i + 1)));
   }
-  animationsArray.push(new SortedAnimation(0));
-  return animationsArray;
+  animations.push(new SortedAnimation(0));
+
+  return animations;
 }

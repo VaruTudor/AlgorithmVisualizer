@@ -28,13 +28,13 @@ export class PathfindingComponent implements OnInit {
   nrColumns = 40;
   delay = 5;
 
-  nodeSize = Sizes.medium;
+  elementSize = Sizes.medium;
   startRow = 10;
   startColumn = 5;
   endRow = 10;
   endColumn = 34;
   configType = ConfigType.DEFAULT;
-  mouseIsPressed = false;
+  isMousePressed = false;
 
   constructor() {
   }
@@ -50,7 +50,7 @@ export class PathfindingComponent implements OnInit {
       for (let j = 0; j < this.nrColumns; j++) {
         row.push(
           new GridElement(
-            this.nodeSize, this.getInitialNodeColor(i, j), i, j,
+            this.elementSize, this.getInitialElementColor(i, j), i, j,
             (i === this.startRow && j === this.startColumn),
             (i === this.endRow && j === this.endColumn)
           )
@@ -62,44 +62,44 @@ export class PathfindingComponent implements OnInit {
 
   executeAnimations() {
     this.disabledStatus = true;
-    // const animationsArray = dijkstra(this.array, this.array[this.startRow][this.startColumn], this.array[this.endRow][this.endColumn]);
-    // const animationsArray = bfs(this.array, this.array[this.startRow][this.startColumn], this.array[this.endRow][this.endColumn]);
-    // const animationsArray = dfs(this.array, this.array[this.startRow][this.startColumn], this.array[this.endRow][this.endColumn]);
-    const animationsArray = aStar(this.array, this.array[this.startRow][this.startColumn], this.array[this.endRow][this.endColumn]);
-    for (let i = 0; i < animationsArray.length; i++) {
+    // const animations = dijkstra(this.array, this.array[this.startRow][this.startColumn], this.array[this.endRow][this.endColumn]);
+    // const animations = bfs(this.array, this.array[this.startRow][this.startColumn], this.array[this.endRow][this.endColumn]);
+    // const animations = dfs(this.array, this.array[this.startRow][this.startColumn], this.array[this.endRow][this.endColumn]);
+    const animations = aStar(this.array, this.array[this.startRow][this.startColumn], this.array[this.endRow][this.endColumn]);
+    for (let i = 0; i < animations.length; i++) {
       setTimeout(() => {
-        animationsArray[i].execute();
+        animations[i].execute();
       }, i * this.delay);
     }
 
-    const shortestPathAnimationsArray = getShortestPath(this.array[this.endRow][this.endColumn]);
-    for (let i = animationsArray.length; i < animationsArray.length + shortestPathAnimationsArray.length; i++) {
+    const shortestPathAnimations = getShortestPath(this.array[this.endRow][this.endColumn]);
+    for (let i = animations.length; i < animations.length + shortestPathAnimations.length; i++) {
       setTimeout(() => {
-        shortestPathAnimationsArray[i - animationsArray.length].execute();
+        shortestPathAnimations[i - animations.length].execute();
       }, i * this.delay);
     }
 
     setTimeout(() => {
       this.disabledStatus = false;
-    }, (animationsArray.length + shortestPathAnimationsArray.length) * this.delay);
+    }, (animations.length + shortestPathAnimations.length) * this.delay);
   }
 
   handleMouseDown(node: GridElement) {
-    this.mouseIsPressed = true;
+    this.isMousePressed = true;
     node.markAsWall();
   }
 
   handleMouseEnter(node: GridElement) {
-    if (this.mouseIsPressed) {
+    if (this.isMousePressed) {
       node.markAsWall();
     }
   }
 
   handleMouseUp() {
-    this.mouseIsPressed = false;
+    this.isMousePressed = false;
   }
 
-  private getInitialNodeColor(row: number, column: number): string {
+  private getInitialElementColor(row: number, column: number): string {
     if (row === this.startRow && column === this.startColumn) return Colors.start;
     if (row === this.endRow && column === this.endColumn) return Colors.end;
     return Colors.defaultColor;

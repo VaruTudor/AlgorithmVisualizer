@@ -24,7 +24,6 @@ export class SearchingComponent implements OnInit {
   squareSize = Sizes.medium;
   min = 10;
   max = 100;
-  elementDefaultColor = Colors.defaultColor;
   target: number;
 
   constructor() {
@@ -42,28 +41,28 @@ export class SearchingComponent implements OnInit {
     for (let i = 0; i < this.length; i++) {
       this.array.push(
         new Square(
-          this.squareSize, this.elementDefaultColor, numbersArray[i]));
+          this.squareSize, Colors.defaultColor, numbersArray[i]));
     }
   }
 
   executeAnimations(): void {
     this.disabledStatus = true;
-    let valuesArray = this.array.map(element => element.value);
-    // const animationsArray = linearSearch(valuesArray.slice(), this.target);
-    // const animationsArray = binarySearch(valuesArray.slice(), this.target);
-    // const animationsArray = fibonacciSearch(valuesArray.slice(), this.target);
-    const animationsArray = jumpSearch(valuesArray.slice(), this.target);
-    // const animationsArray = interpolationSearch(valuesArray.slice(), this.target);
-    // const animationsArray = exponentialSearch(valuesArray.slice(), this.target);
-    for (let i = 0; i < animationsArray.length; i++) {
+    let values = this.array.map(element => element.value);
+    // const animations = linearSearch(valuesArray.slice(), this.target);
+    // const animations = binarySearch(valuesArray.slice(), this.target);
+    // const animations = fibonacciSearch(valuesArray.slice(), this.target);
+    const animations = jumpSearch(values.slice(), this.target);
+    // const animations = interpolationSearch(valuesArray.slice(), this.target);
+    // const animations = exponentialSearch(valuesArray.slice(), this.target);
+    for (let i = 0; i < animations.length; i++) {
       setTimeout(() => {
-        animationsArray[i].execute(this.array);
+        animations[i].execute(this.array);
       }, i * this.delay);
     }
 
     setTimeout(() => {
       this.disabledStatus = false;
-    }, animationsArray.length * this.delay);
+    }, animations.length * this.delay);
   }
 
 }
