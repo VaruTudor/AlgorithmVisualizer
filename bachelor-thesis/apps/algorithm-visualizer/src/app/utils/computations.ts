@@ -9,5 +9,3 @@ export function swapArrayElements(array: any[], firstIndex: number, secondIndex:
   array[firstIndex] = array[secondIndex];
   array[secondIndex] = firstElement;
 }
-
-export const Infinity = Number.MAX_SAFE_INTEGER;

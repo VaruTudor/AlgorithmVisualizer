@@ -1,8 +1,8 @@
-import { Infinity } from '../../utils/computations';
 import { AnimationBasic, UpdateColor } from '../../utils/model/animations-basic';
 import { Colors } from '../../utils/model/colors.enum';
 import { getNeighbors, sortByDistance } from './utils/helper-functions';
 import { GridElement } from '../../utils/model/shapes/grid-element';
+import { INFINITY, STEP_COST } from '../../utils/constants';
 
 export function dijkstra(grid: GridElement[][], start: GridElement, end: GridElement): AnimationBasic[] {
   const animations: AnimationBasic[] = [];
@@ -35,13 +35,13 @@ function getGridElements(grid: GridElement[][]) {
 }
 
 function isTrapped(element: GridElement) {
-  return element.distance === Infinity;
+  return element.distance === INFINITY;
 }
 
 function updateUnvisitedNeighbors(element: GridElement, grid: GridElement[][]) {
   const unvisitedNeighbors = getUnvisitedNeighbors(element, grid);
   unvisitedNeighbors.forEach(neighbor => {
-    neighbor.updateDistance(element.distance + 1);
+    neighbor.updateDistance(element.distance + STEP_COST);
     neighbor.updatePreviousNode(element);
   });
 }

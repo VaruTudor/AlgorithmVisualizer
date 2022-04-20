@@ -26,9 +26,9 @@ export class UpdateCurrent extends Animation {
   }
 
   execute(array: Rectangle[]): void {
-    new UpdateColor(array[this.first], Colors.defaultColor).execute();
+    new UpdateColor(array[this.first], Colors.default).execute();
     if (this.second < array.length) {
-      new UpdateColor(array[this.second], Colors.currentElementColor).execute();
+      new UpdateColor(array[this.second], Colors.current).execute();
     }
   }
 }
@@ -45,8 +45,8 @@ export class UpdateMatch extends Animation {
   }
 
   execute(array: Rectangle[]): void {
-    new UpdateColor(array[this.second], Colors.defaultColor).execute();
-    new UpdateColor(array[this.first], Colors.currentBestMatchElementColor).execute();
+    new UpdateColor(array[this.second], Colors.default).execute();
+    new UpdateColor(array[this.first], Colors.match).execute();
   }
 }
 
@@ -75,7 +75,7 @@ export class UpdateColorSorted extends Animation {
   }
 
   execute(array: Rectangle[]): void {
-    new UpdateColor(array[this.first], Colors.sortedColor).execute();
+    new UpdateColor(array[this.first], Colors.sorted).execute();
   }
 }
 
@@ -92,6 +92,6 @@ export class UpdateColorDefault extends Animation {
   }
 
   execute(array: Rectangle[]): void {
-    new UpdateColor(array[this.first], Colors.defaultColor).execute();
+    new UpdateColor(array[this.first], Colors.default).execute();
   }
 }

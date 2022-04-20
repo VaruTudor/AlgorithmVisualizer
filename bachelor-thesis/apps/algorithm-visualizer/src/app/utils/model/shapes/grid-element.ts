@@ -1,6 +1,6 @@
-import { Infinity } from '../../computations';
 import { Colors } from '../colors.enum';
 import { Rectangle } from './rectangle';
+import { INFINITY } from '../../constants';
 
 export class GridElement extends Rectangle {
   constructor(size: number, color: string, row: number, column: number, isStart: boolean, isEnd: boolean) {
@@ -9,7 +9,7 @@ export class GridElement extends Rectangle {
     this._column = column;
     this._isStart = isStart;
     this._isEnd = isEnd;
-    this._distance = Infinity;
+    this._distance = INFINITY;
     this._isVisited = false;
     this._isWall = false;
     this._previousNode = null as any;

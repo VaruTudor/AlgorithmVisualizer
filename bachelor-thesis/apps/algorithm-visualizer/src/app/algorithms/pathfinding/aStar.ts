@@ -1,8 +1,8 @@
 import { AnimationBasic, UpdateColor } from '../../utils/model/animations-basic';
 import { getNeighbors, manhattanDistance, sortByDistance } from './utils/helper-functions';
 import { Colors } from '../../utils/model/colors.enum';
-import { STEP_COST } from './utils/constants';
 import { GridElement } from '../../utils/model/shapes/grid-element';
+import { STEP_COST } from '../../utils/constants';
 
 
 export function aStar(grid: GridElement[][], start: GridElement, end: GridElement): AnimationBasic[] {

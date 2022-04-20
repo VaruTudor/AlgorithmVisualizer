@@ -102,6 +102,6 @@ export class PathfindingComponent implements OnInit {
   private getInitialElementColor(row: number, column: number): string {
     if (row === this.startRow && column === this.startColumn) return Colors.start;
     if (row === this.endRow && column === this.endColumn) return Colors.end;
-    return Colors.defaultColor;
+    return Colors.default;
   }
 }

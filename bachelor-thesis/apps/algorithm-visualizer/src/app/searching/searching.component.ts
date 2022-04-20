@@ -41,7 +41,7 @@ export class SearchingComponent implements OnInit {
     for (let i = 0; i < this.length; i++) {
       this.array.push(
         new Square(
-          this.squareSize, Colors.defaultColor, numbersArray[i]));
+          this.squareSize, Colors.default, numbersArray[i]));
     }
   }
 

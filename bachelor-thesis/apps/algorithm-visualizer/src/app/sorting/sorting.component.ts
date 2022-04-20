@@ -38,7 +38,7 @@ export class SortingComponent implements OnInit {
     for (let _ = 0; _ < this.length; _++) {
       this.array.push(
         new Rectangle(
-          getRandomInt(this.minElementHeight, this.maxElementHeight), Sizes.small, Colors.defaultColor));
+          getRandomInt(this.minElementHeight, this.maxElementHeight), Sizes.small, Colors.default));
     }
   }
 
