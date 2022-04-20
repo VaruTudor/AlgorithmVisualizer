@@ -1,4 +1,4 @@
-import { Animation, CurrentChangeAnimation, HeightAnimation, SortedAnimation } from '../../utils/model/animations';
+import { Animation, UpdateCurrent, UpdateHeight, UpdateColorSorted } from '../../utils/model/animations';
 import { swapArrayElements } from '../../utils/computations';
 
 /**
@@ -12,16 +12,16 @@ export function bubbleSort(array: number[]): Animation[] {
 
   for (let i = 0; i < array.length - 1; i++) {
     for (let j = 0; j < array.length - 1 - i; j++) {
-      animations.push(new CurrentChangeAnimation(j, j + 1));
+      animations.push(new UpdateCurrent(j, j + 1));
       if (array[j] > array[j + 1]) {
-        animations.push(new HeightAnimation(j, array[j + 1]));
-        animations.push(new HeightAnimation(j + 1, array[j]));
+        animations.push(new UpdateHeight(j, array[j + 1]));
+        animations.push(new UpdateHeight(j + 1, array[j]));
         swapArrayElements(array, j, j + 1);
       }
     }
-    animations.push(new SortedAnimation(array.length - (i + 1)));
+    animations.push(new UpdateColorSorted(array.length - (i + 1)));
   }
-  animations.push(new SortedAnimation(0));
+  animations.push(new UpdateColorSorted(0));
 
   return animations;
 }

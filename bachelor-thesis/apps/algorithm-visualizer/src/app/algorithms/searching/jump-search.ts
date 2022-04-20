@@ -1,9 +1,9 @@
 import {
   Animation,
-  BetterMatchAnimation,
-  CurrentChangeAnimation,
-  DefaultAnimation,
-  FoundAnimation
+  UpdateMatch,
+  UpdateCurrent,
+  UpdateColorDefault,
+  UpdateColorFound
 } from '../../utils/model/animations';
 
 /**
@@ -19,8 +19,8 @@ export function jumpSearch(array: number[], target: number): Animation[] {
   let offset = Math.floor(Math.sqrt(array.length)), current = 0, previous = current;
 
   while (array[Math.min(offset, array.length) - 1] < target) {
-    animations.push(new BetterMatchAnimation(offset + Math.floor(Math.sqrt(array.length)), offset));
-    animations.push(new BetterMatchAnimation(offset, current));
+    animations.push(new UpdateMatch(offset + Math.floor(Math.sqrt(array.length)), offset));
+    animations.push(new UpdateMatch(offset, current));
     current = offset;
     previous = current;
     offset += Math.floor(Math.sqrt(array.length));
@@ -28,19 +28,19 @@ export function jumpSearch(array: number[], target: number): Animation[] {
       return animations;
   }
   // Doing a linear search for x in block beginning with prev.
-  current === 0 ? animations.push(new CurrentChangeAnimation(current, current)) :
-    animations.push(new CurrentChangeAnimation(current - 1, current));
+  current === 0 ? animations.push(new UpdateCurrent(current, current)) :
+    animations.push(new UpdateCurrent(current - 1, current));
   while (array[current] < target) {
     current++;
-    animations.push(new CurrentChangeAnimation(current - 1, current));
-    current === previous + 1 ? animations.push(new BetterMatchAnimation(previous, previous))
-      : animations.push(new DefaultAnimation(current - 1));
+    animations.push(new UpdateCurrent(current - 1, current));
+    current === previous + 1 ? animations.push(new UpdateMatch(previous, previous))
+      : animations.push(new UpdateColorDefault(current - 1));
 
     if (current == Math.min(offset, array.length)) return animations;
   }
   if (array[current] == target) {
-    animations.push(new CurrentChangeAnimation(current - 1, current));
-    animations.push(new FoundAnimation(current));
+    animations.push(new UpdateCurrent(current - 1, current));
+    animations.push(new UpdateColorFound(current));
   }
 
   return animations;

@@ -1,5 +1,6 @@
 import { Colors } from './colors.enum';
 import { Rectangle } from './shapes/rectangle';
+import { UpdateColor } from './animations-basic';
 
 export abstract class Animation {
   protected first: number;
@@ -13,7 +14,7 @@ export abstract class Animation {
   abstract execute(array: Rectangle[]): void
 }
 
-export class CurrentChangeAnimation extends Animation {
+export class UpdateCurrent extends Animation {
   /**
    * Mark the element on indexNew with current color and the one on
    * indexPrevious with default color
@@ -25,14 +26,14 @@ export class CurrentChangeAnimation extends Animation {
   }
 
   execute(array: Rectangle[]): void {
-    array[this.first].color = Colors.defaultColor;
+    new UpdateColor(array[this.first], Colors.defaultColor).execute();
     if (this.second < array.length) {
-      array[this.second].color = Colors.currentElementColor;
+      new UpdateColor(array[this.second], Colors.currentElementColor).execute();
     }
   }
 }
 
-export class BetterMatchAnimation extends Animation {
+export class UpdateMatch extends Animation {
   /**
    * Mark the element on indexNew with better match color and the one on
    * indexPrevious with default color
@@ -44,12 +45,12 @@ export class BetterMatchAnimation extends Animation {
   }
 
   execute(array: Rectangle[]): void {
-    array[this.second].color = Colors.defaultColor;
-    array[this.first].color = Colors.currentBestMatchElementColor;
+    new UpdateColor(array[this.second], Colors.defaultColor).execute();
+    new UpdateColor(array[this.first], Colors.currentBestMatchElementColor).execute();
   }
 }
 
-export class HeightAnimation extends Animation {
+export class UpdateHeight extends Animation {
   /**
    * Change the height of element on index to newHeight.
    * @param index - position where height will change
@@ -64,7 +65,7 @@ export class HeightAnimation extends Animation {
   }
 }
 
-export class SortedAnimation extends Animation {
+export class UpdateColorSorted extends Animation {
   /**
    * Mark the element on index with sorted color.
    * @param index - position of element in array
@@ -74,14 +75,14 @@ export class SortedAnimation extends Animation {
   }
 
   execute(array: Rectangle[]): void {
-    array[this.first].color = Colors.sortedColor;
+    new UpdateColor(array[this.first], Colors.sortedColor).execute();
   }
 }
 
-export class FoundAnimation extends SortedAnimation {
+export class UpdateColorFound extends UpdateColorSorted {
 }
 
-export class DefaultAnimation extends Animation {
+export class UpdateColorDefault extends Animation {
   /**
    * Mark the element on index with default color.
    * @param index - position of element in array
@@ -91,6 +92,6 @@ export class DefaultAnimation extends Animation {
   }
 
   execute(array: Rectangle[]): void {
-    array[this.first].color = Colors.defaultColor;
+    new UpdateColor(array[this.first], Colors.defaultColor).execute();
   }
 }

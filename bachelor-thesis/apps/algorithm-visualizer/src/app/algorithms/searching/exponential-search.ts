@@ -1,8 +1,8 @@
 import {
   Animation,
-  BetterMatchAnimation,
-  CurrentChangeAnimation,
-  FoundAnimation
+  UpdateMatch,
+  UpdateCurrent,
+  UpdateColorFound
 } from '../../utils/model/animations';
 import { binarySearchHelper } from './binary-search';
 
@@ -19,14 +19,14 @@ export function exponentialSearch(array: number[], target: number): Animation[] 
   let i = 1;
 
   if (array[0] == target) {
-    animations.push(new FoundAnimation(0));
+    animations.push(new UpdateColorFound(0));
     return animations;
   }
   while (i < array.length && array[i] <= target) {
-    animations.push(new CurrentChangeAnimation(i, i * 2));
+    animations.push(new UpdateCurrent(i, i * 2));
     i = i * 2;
   }
-  animations.push(new BetterMatchAnimation(i, i / 2));
+  animations.push(new UpdateMatch(i, i / 2));
   animations.push(...binarySearchHelper(array, target, i / 2, Math.min(i, array.length - 1)));
 
   return animations;

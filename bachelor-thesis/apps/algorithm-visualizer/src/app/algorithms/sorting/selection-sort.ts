@@ -1,11 +1,11 @@
 import { swapArrayElements } from '../../utils/computations';
 import {
   Animation,
-  BetterMatchAnimation,
-  CurrentChangeAnimation,
-  DefaultAnimation,
-  HeightAnimation,
-  SortedAnimation
+  UpdateMatch,
+  UpdateCurrent,
+  UpdateColorDefault,
+  UpdateHeight,
+  UpdateColorSorted
 } from '../../utils/model/animations';
 
 /**
@@ -25,20 +25,20 @@ export function selectionSort(array: any[]): Animation[] {
     let indexOfMin = i;
 
     for (let j = indexOfMin; j < array.length; j++) {
-      animations.push(new CurrentChangeAnimation(j, j + 1));
+      animations.push(new UpdateCurrent(j, j + 1));
       if (array[j] < min) {
-        animations.push(new BetterMatchAnimation(j, indexOfMin));
+        animations.push(new UpdateMatch(j, indexOfMin));
         min = array[j];
         indexOfMin = j;
       }
     }
-    animations.push(new HeightAnimation(i, min));
-    animations.push(new HeightAnimation(indexOfMin, array[i]));
+    animations.push(new UpdateHeight(i, min));
+    animations.push(new UpdateHeight(indexOfMin, array[i]));
     swapArrayElements(array, i, indexOfMin);
-    animations.push(new DefaultAnimation(indexOfMin));
-    animations.push(new SortedAnimation(i));
+    animations.push(new UpdateColorDefault(indexOfMin));
+    animations.push(new UpdateColorSorted(i));
   }
-  animations.push(new SortedAnimation(array.length - 1));
+  animations.push(new UpdateColorSorted(array.length - 1));
 
   return animations;
 }

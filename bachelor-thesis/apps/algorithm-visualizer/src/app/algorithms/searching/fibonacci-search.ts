@@ -1,9 +1,9 @@
 import {
   Animation,
-  BetterMatchAnimation,
-  CurrentChangeAnimation,
-  DefaultAnimation,
-  FoundAnimation
+  UpdateMatch,
+  UpdateCurrent,
+  UpdateColorDefault,
+  UpdateColorFound
 } from '../../utils/model/animations';
 
 /**
@@ -26,40 +26,40 @@ export function fibonacciSearch(array: number[], target: number): Animation[] {
     fibonacciBig = fibonacciSmall + fibonacciMiddle;
   }
 
-  animations.push(new BetterMatchAnimation(fibonacciSmall, fibonacciSmall));
-  animations.push(new BetterMatchAnimation(fibonacciMiddle, fibonacciMiddle));
-  animations.push(new BetterMatchAnimation(fibonacciBig, fibonacciBig));
+  animations.push(new UpdateMatch(fibonacciSmall, fibonacciSmall));
+  animations.push(new UpdateMatch(fibonacciMiddle, fibonacciMiddle));
+  animations.push(new UpdateMatch(fibonacciBig, fibonacciBig));
 
   // Marks the eliminated range from front
   while (fibonacciBig > 1) {
-    animations.push(new DefaultAnimation(i));
+    animations.push(new UpdateColorDefault(i));
     i = Math.min(offset + fibonacciSmall, array.length - 1);
-    i === 0 ? animations.push(new CurrentChangeAnimation(i, i)) :
-      animations.push(new CurrentChangeAnimation(i - 1, i));
+    i === 0 ? animations.push(new UpdateCurrent(i, i)) :
+      animations.push(new UpdateCurrent(i - 1, i));
 
     // If x is greater than the value at index fibonacciSmall, cut the subarray array from offset to i
     if (array[i] < target) {
-      animations.push(new BetterMatchAnimation(fibonacciMiddle - fibonacciSmall, fibonacciSmall));
-      animations.push(new BetterMatchAnimation(fibonacciSmall, fibonacciMiddle));
-      animations.push(new BetterMatchAnimation(fibonacciMiddle, fibonacciBig));
+      animations.push(new UpdateMatch(fibonacciMiddle - fibonacciSmall, fibonacciSmall));
+      animations.push(new UpdateMatch(fibonacciSmall, fibonacciMiddle));
+      animations.push(new UpdateMatch(fibonacciMiddle, fibonacciBig));
       fibonacciBig = fibonacciMiddle;
       fibonacciMiddle = fibonacciSmall;
       fibonacciSmall = fibonacciBig - fibonacciMiddle;
       offset = i;
     } else if (array[i] > target) {
-      animations.push(new BetterMatchAnimation(fibonacciSmall - (fibonacciMiddle - fibonacciSmall), fibonacciSmall));
-      animations.push(new BetterMatchAnimation(fibonacciMiddle - fibonacciSmall, fibonacciMiddle));
-      animations.push(new BetterMatchAnimation(fibonacciSmall, fibonacciBig));
+      animations.push(new UpdateMatch(fibonacciSmall - (fibonacciMiddle - fibonacciSmall), fibonacciSmall));
+      animations.push(new UpdateMatch(fibonacciMiddle - fibonacciSmall, fibonacciMiddle));
+      animations.push(new UpdateMatch(fibonacciSmall, fibonacciBig));
       fibonacciBig = fibonacciSmall;
       fibonacciMiddle = fibonacciMiddle - fibonacciSmall;
       fibonacciSmall = fibonacciBig - fibonacciMiddle;
     } else {
-      animations.push(new FoundAnimation(i));
+      animations.push(new UpdateColorFound(i));
       break;
     }
   }
   if (fibonacciMiddle && array[array.length - 1] == target) {
-    animations.push(new FoundAnimation(array.length - 1));
+    animations.push(new UpdateColorFound(array.length - 1));
   }
 
   return animations;

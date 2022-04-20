@@ -1,8 +1,8 @@
 import {
   Animation,
-  BetterMatchAnimation,
-  CurrentChangeAnimation,
-  FoundAnimation
+  UpdateMatch,
+  UpdateCurrent,
+  UpdateColorFound
 } from '../../utils/model/animations';
 
 /**
@@ -28,21 +28,21 @@ export function binarySearchHelper(array: number[], target: number,
   const animations: Animation[] = [];
   let mid = left + Math.floor((right - left) / 2);
 
-  animations.push(new BetterMatchAnimation(left, left));
-  animations.push(new BetterMatchAnimation(right, right));
+  animations.push(new UpdateMatch(left, left));
+  animations.push(new UpdateMatch(right, right));
   while (right >= left) {
-    mid === 0 ? animations.push(new CurrentChangeAnimation(mid, mid))
-      : animations.push(new CurrentChangeAnimation(mid, left + Math.floor((right - left) / 2)));
+    mid === 0 ? animations.push(new UpdateCurrent(mid, mid))
+      : animations.push(new UpdateCurrent(mid, left + Math.floor((right - left) / 2)));
     mid = left + Math.floor((right - left) / 2);
 
     if (array[mid] === target) {
-      animations.push(new FoundAnimation(mid));
+      animations.push(new UpdateColorFound(mid));
       break;
     } else if (array[mid] > target) {
-      animations.push(new BetterMatchAnimation(mid - 1, right));
+      animations.push(new UpdateMatch(mid - 1, right));
       right = mid - 1;
     } else {
-      animations.push(new BetterMatchAnimation(mid + 1, left));
+      animations.push(new UpdateMatch(mid + 1, left));
       left = mid + 1;
     }
   }

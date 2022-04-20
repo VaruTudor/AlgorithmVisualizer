@@ -1,4 +1,4 @@
-import { Animation, CurrentChangeAnimation, FoundAnimation } from '../../utils/model/animations';
+import { Animation, UpdateCurrent, UpdateColorFound } from '../../utils/model/animations';
 
 /**
  * Start from the leftmost element of arr[] and one by one compare target with each element of the array
@@ -10,10 +10,10 @@ export function linearSearch(array: number[], target: number): Animation[] {
   const animations: Animation[] = [];
 
   for (let i = 0; i < array.length; i++) {
-    i === 0 ? animations.push(new CurrentChangeAnimation(i, i)) :
-      animations.push(new CurrentChangeAnimation(i - 1, i));
+    i === 0 ? animations.push(new UpdateCurrent(i, i)) :
+      animations.push(new UpdateCurrent(i - 1, i));
     if (array[i] == target) {
-      animations.push(new FoundAnimation(i));
+      animations.push(new UpdateColorFound(i));
       break;
     }
   }
