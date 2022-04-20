@@ -7,14 +7,16 @@ import { Animation, CurrentChangeAnimation, FoundAnimation } from '../../utils/m
  * @param target - the number being searched for
  */
 export function linearSearch(array: number[], target: number): Animation[] {
-  const animationsArray: Animation[] = [];
+  const animations: Animation[] = [];
+
   for (let i = 0; i < array.length; i++) {
-    i === 0 ? animationsArray.push(new CurrentChangeAnimation(i, i)) :
-      animationsArray.push(new CurrentChangeAnimation(i - 1, i));
+    i === 0 ? animations.push(new CurrentChangeAnimation(i, i)) :
+      animations.push(new CurrentChangeAnimation(i - 1, i));
     if (array[i] == target) {
-      animationsArray.push(new FoundAnimation(i));
+      animations.push(new FoundAnimation(i));
       break;
     }
   }
-  return animationsArray;
+
+  return animations;
 }

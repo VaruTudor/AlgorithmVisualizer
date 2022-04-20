@@ -15,20 +15,19 @@ import { binarySearchHelper } from './binary-search';
  * @param target - the number being searched for
  */
 export function exponentialSearch(array: number[], target: number): Animation[] {
-  const animationsArray: Animation[] = [];
+  const animations: Animation[] = [];
+  let i = 1;
 
   if (array[0] == target) {
-    animationsArray.push(new FoundAnimation(0));
-    return animationsArray;
+    animations.push(new FoundAnimation(0));
+    return animations;
   }
-
-  let i = 1;
   while (i < array.length && array[i] <= target) {
-    animationsArray.push(new CurrentChangeAnimation(i, i * 2));
+    animations.push(new CurrentChangeAnimation(i, i * 2));
     i = i * 2;
   }
+  animations.push(new BetterMatchAnimation(i, i / 2));
+  animations.push(...binarySearchHelper(array, target, i / 2, Math.min(i, array.length - 1)));
 
-  animationsArray.push(new BetterMatchAnimation(i, i / 2));
-  animationsArray.push(...binarySearchHelper(array, target, i / 2, Math.min(i, array.length - 1)));
-  return animationsArray;
+  return animations;
 }

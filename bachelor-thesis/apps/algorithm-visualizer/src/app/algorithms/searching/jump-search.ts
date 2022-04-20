@@ -15,38 +15,33 @@ import {
  * @param target - the number being searched for
  */
 export function jumpSearch(array: number[], target: number): Animation[] {
-  const animationsArray: Animation[] = [];
+  const animations: Animation[] = [];
+  let offset = Math.floor(Math.sqrt(array.length)), current = 0, previous = current;
 
-  let step = Math.floor(Math.sqrt(array.length)), prev = 0, lastPrev = prev;
-
-  while (array[Math.min(step, array.length) - 1] < target) {
-    animationsArray.push(new BetterMatchAnimation(step + Math.floor(Math.sqrt(array.length)), step));
-    animationsArray.push(new BetterMatchAnimation(step, prev));
-    prev = step;
-    lastPrev = prev;
-    step += Math.floor(Math.sqrt(array.length));
-    if (prev >= array.length)
-      return animationsArray;
+  while (array[Math.min(offset, array.length) - 1] < target) {
+    animations.push(new BetterMatchAnimation(offset + Math.floor(Math.sqrt(array.length)), offset));
+    animations.push(new BetterMatchAnimation(offset, current));
+    current = offset;
+    previous = current;
+    offset += Math.floor(Math.sqrt(array.length));
+    if (current >= array.length)
+      return animations;
   }
-
   // Doing a linear search for x in block beginning with prev.
-  prev === 0 ? animationsArray.push(new CurrentChangeAnimation(prev, prev)) :
-    animationsArray.push(new CurrentChangeAnimation(prev - 1, prev));
-  while (array[prev] < target) {
-    prev++;
-    animationsArray.push(new CurrentChangeAnimation(prev - 1, prev));
-    prev === lastPrev + 1 ? animationsArray.push(new BetterMatchAnimation(lastPrev, lastPrev))
-      : animationsArray.push(new DefaultAnimation(prev - 1));
+  current === 0 ? animations.push(new CurrentChangeAnimation(current, current)) :
+    animations.push(new CurrentChangeAnimation(current - 1, current));
+  while (array[current] < target) {
+    current++;
+    animations.push(new CurrentChangeAnimation(current - 1, current));
+    current === previous + 1 ? animations.push(new BetterMatchAnimation(previous, previous))
+      : animations.push(new DefaultAnimation(current - 1));
 
-    if (prev == Math.min(step, array.length)) {
-      return animationsArray;
-    }
+    if (current == Math.min(offset, array.length)) return animations;
+  }
+  if (array[current] == target) {
+    animations.push(new CurrentChangeAnimation(current - 1, current));
+    animations.push(new FoundAnimation(current));
   }
 
-  if (array[prev] == target) {
-    animationsArray.push(new CurrentChangeAnimation(prev - 1, prev));
-    animationsArray.push(new FoundAnimation(prev));
-  }
-
-  return animationsArray;
+  return animations;
 }
