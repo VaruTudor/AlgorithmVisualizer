@@ -26,10 +26,9 @@ export class UpdateCurrent extends Animation {
   }
 
   execute(array: Rectangle[]): void {
-    new UpdateColor(array[this.first], Colors.default).execute();
-    if (this.second < array.length) {
+    if (array[this.first].color !== Colors.match) new UpdateColor(array[this.first], Colors.default).execute();
+    if (this.second < array.length && array[this.second].color !== Colors.match)
       new UpdateColor(array[this.second], Colors.current).execute();
-    }
   }
 }
 

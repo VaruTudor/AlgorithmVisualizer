@@ -5,6 +5,7 @@ import {
   UpdateColorDefault,
   UpdateColorFound
 } from '../../utils/model/animations';
+import { linearSearch } from './linear-search';
 
 /**
  * The basic idea is to check fewer elements (than linear search) by jumping ahead by fixed steps or skipping some
@@ -27,21 +28,8 @@ export function jumpSearch(array: number[], target: number): Animation[] {
     if (current >= array.length)
       return animations;
   }
+
   // Doing a linear search for x in block beginning with prev.
-  current === 0 ? animations.push(new UpdateCurrent(current, current)) :
-    animations.push(new UpdateCurrent(current - 1, current));
-  while (array[current] < target) {
-    current++;
-    animations.push(new UpdateCurrent(current - 1, current));
-    current === previous + 1 ? animations.push(new UpdateMatch(previous, previous))
-      : animations.push(new UpdateColorDefault(current - 1));
-
-    if (current == Math.min(offset, array.length)) return animations;
-  }
-  if (array[current] == target) {
-    animations.push(new UpdateCurrent(current - 1, current));
-    animations.push(new UpdateColorFound(current));
-  }
-
+  animations.push(...linearSearch(array.slice(current, Math.min(offset, array.length)), target, current));
   return animations;
 }
