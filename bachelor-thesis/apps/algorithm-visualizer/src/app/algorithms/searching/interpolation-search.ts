@@ -1,8 +1,8 @@
 import {
   Animation,
-  BetterMatchAnimation,
-  CurrentChangeAnimation,
-  FoundAnimation
+  UpdateMatch,
+  UpdateCurrent,
+  UpdateColorFound
 } from '../../utils/model/animations';
 
 /**
@@ -15,39 +15,37 @@ import {
  * @param target - the number being searched for
  */
 export function interpolationSearch(array: number[], target: number): Animation[] {
-  const animationsArray: Animation[] = [];
-  let current = -1, previousCurrent = -1, low = 0, high = (array.length - 1);
-  animationsArray.push(new BetterMatchAnimation(low, low));
-  animationsArray.push(new BetterMatchAnimation(high, high));
+  const animations: Animation[] = [];
+  let current = -1, previous = -1, left = 0, right = (array.length - 1);
 
+  animations.push(new UpdateMatch(left, left));
+  animations.push(new UpdateMatch(right, right));
   // Since array is sorted, an element present in array must be in range defined by corner
-  while (low <= high && target >= array[low] && target <= array[high]) {
-    if (low === high) {
-      if (array[low] == target) {
-        animationsArray.push(new FoundAnimation(low));
-        return animationsArray;
+  while (left <= right && target >= array[left] && target <= array[right]) {
+    if (left === right) {
+      if (array[left] === target) {
+        animations.push(new UpdateColorFound(left));
+        return animations;
       }
       break;
     }
-
-    previousCurrent = current;
-    current = low + Math.floor(((high - low) /
-      (array[high] - array[low])) * (target - array[low]));
-    if (previousCurrent !== -1 && current !== 0)
-      animationsArray.push(new CurrentChangeAnimation(previousCurrent, current));
-    else animationsArray.push(new CurrentChangeAnimation(current, current));
-
+    previous = current;
+    current = left + Math.floor(((right - left) /
+      (array[right] - array[left])) * (target - array[left]));
+    if (previous !== -1 && current !== 0)
+      animations.push(new UpdateCurrent(previous, current));
+    else animations.push(new UpdateCurrent(current, current));
     if (array[current] == target) {
-      animationsArray.push(new FoundAnimation(current));
-      return animationsArray;
+      animations.push(new UpdateColorFound(current));
+      return animations;
     } else if (array[current] < target) {
-      animationsArray.push(new BetterMatchAnimation(current + 1, low));
-      low = current + 1;
+      animations.push(new UpdateMatch(current + 1, left));
+      left = current + 1;
     } else {
-      animationsArray.push(new BetterMatchAnimation(current - 1, high));
-      high = current - 1;
+      animations.push(new UpdateMatch(current - 1, right));
+      right = current - 1;
     }
   }
 
-  return animationsArray;
+  return animations;
 }

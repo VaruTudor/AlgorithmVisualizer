@@ -1,9 +1,9 @@
 import {
   Animation,
-  CurrentChangeAnimation,
-  DefaultAnimation,
-  HeightAnimation,
-  SortedAnimation
+  UpdateCurrent,
+  UpdateColorDefault,
+  UpdateHeight,
+  UpdateColorSorted
 } from '../../utils/model/animations';
 
 /**
@@ -12,15 +12,16 @@ import {
  * @param array - array to be sorted
  */
 
-let animationsArray: Animation[];
+let animations: Animation[];
 
 function pushMergeSortAnimation(array: number[], first: number, current: number): void {
-  animationsArray.push(new CurrentChangeAnimation(current, current + 1));
-  animationsArray.push(new HeightAnimation(first, array[current]));
+  animations.push(new UpdateCurrent(current, current + 1));
+  animations.push(new UpdateHeight(first, array[current]));
 }
 
 function merge(leftArray: number[], rightArray: number[]): number [] {
   let mergedArray: number[] = [], i = 0, j = 0;
+
   while (i < leftArray.length && j < rightArray.length) {
     if (leftArray[i] < rightArray[j]) {
       mergedArray.push(leftArray[i++]);
@@ -38,7 +39,8 @@ function merge(leftArray: number[], rightArray: number[]): number [] {
     mergedArray.push(rightArray[j++]);
     pushMergeSortAnimation(rightArray, mergedArray.length - 1, j - 1);
   }
-  animationsArray.push(new DefaultAnimation(j));
+  animations.push(new UpdateColorDefault(j));
+
   return mergedArray;
 }
 
@@ -51,10 +53,10 @@ function sort(array: number []): number[] {
 }
 
 export function mergeSort(array: number[]): Animation[] {
-  animationsArray = [];
+  animations = [];
   sort(array);
   array.forEach((_, index) => {
-    animationsArray.push(new SortedAnimation(array.length - (index + 1)));
+    animations.push(new UpdateColorSorted(array.length - (index + 1)));
   });
-  return animationsArray;
+  return animations;
 }

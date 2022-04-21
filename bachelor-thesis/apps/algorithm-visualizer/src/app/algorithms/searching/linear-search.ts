@@ -1,20 +1,24 @@
-import { Animation, CurrentChangeAnimation, FoundAnimation } from '../../utils/model/animations';
+import { Animation, UpdateCurrent, UpdateColorFound } from '../../utils/model/animations';
 
 /**
  * Start from the leftmost element of arr[] and one by one compare target with each element of the array
  * If target matches with an element, add the specific animation and stop iterating.
  * @param array - an array of numbers which is going to be searched
  * @param target - the number being searched for
+ * @param offset
  */
-export function linearSearch(array: number[], target: number): Animation[] {
-  const animationsArray: Animation[] = [];
+export function linearSearch(array: number[], target: number, offset?: number): Animation[] {
+  const animations: Animation[] = [];
+
   for (let i = 0; i < array.length; i++) {
-    i === 0 ? animationsArray.push(new CurrentChangeAnimation(i, i)) :
-      animationsArray.push(new CurrentChangeAnimation(i - 1, i));
+    const current = i + (offset || 0);
+    current === 0 ? animations.push(new UpdateCurrent(current, current)) :
+      animations.push(new UpdateCurrent(current - 1, current));
     if (array[i] == target) {
-      animationsArray.push(new FoundAnimation(i));
+      animations.push(new UpdateColorFound(current));
       break;
     }
   }
-  return animationsArray;
+
+  return animations;
 }

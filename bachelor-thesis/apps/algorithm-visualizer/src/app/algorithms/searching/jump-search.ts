@@ -1,10 +1,11 @@
 import {
   Animation,
-  BetterMatchAnimation,
-  CurrentChangeAnimation,
-  DefaultAnimation,
-  FoundAnimation
+  UpdateMatch,
+  UpdateCurrent,
+  UpdateColorDefault,
+  UpdateColorFound
 } from '../../utils/model/animations';
+import { linearSearch } from './linear-search';
 
 /**
  * The basic idea is to check fewer elements (than linear search) by jumping ahead by fixed steps or skipping some
@@ -15,38 +16,20 @@ import {
  * @param target - the number being searched for
  */
 export function jumpSearch(array: number[], target: number): Animation[] {
-  const animationsArray: Animation[] = [];
+  const animations: Animation[] = [];
+  let offset = Math.floor(Math.sqrt(array.length)), current = 0, previous = current;
 
-  let step = Math.floor(Math.sqrt(array.length)), prev = 0, lastPrev = prev;
-
-  while (array[Math.min(step, array.length) - 1] < target) {
-    animationsArray.push(new BetterMatchAnimation(step + Math.floor(Math.sqrt(array.length)), step));
-    animationsArray.push(new BetterMatchAnimation(step, prev));
-    prev = step;
-    lastPrev = prev;
-    step += Math.floor(Math.sqrt(array.length));
-    if (prev >= array.length)
-      return animationsArray;
+  while (array[Math.min(offset, array.length) - 1] < target) {
+    animations.push(new UpdateMatch(offset + Math.floor(Math.sqrt(array.length)), offset));
+    animations.push(new UpdateMatch(offset, current));
+    current = offset;
+    previous = current;
+    offset += Math.floor(Math.sqrt(array.length));
+    if (current >= array.length)
+      return animations;
   }
 
   // Doing a linear search for x in block beginning with prev.
-  prev === 0 ? animationsArray.push(new CurrentChangeAnimation(prev, prev)) :
-    animationsArray.push(new CurrentChangeAnimation(prev - 1, prev));
-  while (array[prev] < target) {
-    prev++;
-    animationsArray.push(new CurrentChangeAnimation(prev - 1, prev));
-    prev === lastPrev + 1 ? animationsArray.push(new BetterMatchAnimation(lastPrev, lastPrev))
-      : animationsArray.push(new DefaultAnimation(prev - 1));
-
-    if (prev == Math.min(step, array.length)) {
-      return animationsArray;
-    }
-  }
-
-  if (array[prev] == target) {
-    animationsArray.push(new CurrentChangeAnimation(prev - 1, prev));
-    animationsArray.push(new FoundAnimation(prev));
-  }
-
-  return animationsArray;
+  animations.push(...linearSearch(array.slice(current, Math.min(offset, array.length)), target, current));
+  return animations;
 }

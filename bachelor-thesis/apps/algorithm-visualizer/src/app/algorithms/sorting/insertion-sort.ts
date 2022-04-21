@@ -1,10 +1,10 @@
 import {
   Animation,
-  BetterMatchAnimation,
-  CurrentChangeAnimation,
-  DefaultAnimation,
-  HeightAnimation,
-  SortedAnimation
+  UpdateMatch,
+  UpdateCurrent,
+  UpdateColorDefault,
+  UpdateHeight,
+  UpdateColorSorted
 } from '../../utils/model/animations';
 
 /**
@@ -15,22 +15,24 @@ import {
  */
 export function insertionSort(array: number[]): Animation[] {
   const animationsArray: Animation[] = [];
+
   for (let i = 1; i < array.length; ++i) {
     let arrayElementAtI = array[i];
     let j = i - 1;
-    animationsArray.push(new BetterMatchAnimation(i, j));
 
+    animationsArray.push(new UpdateMatch(i, j));
     while (j >= 0 && array[j] > arrayElementAtI) {
-      animationsArray.push(new CurrentChangeAnimation(j + 1, j));
-      animationsArray.push(new HeightAnimation(j + 1, array[j]));
+      animationsArray.push(new UpdateCurrent(j + 1, j));
+      animationsArray.push(new UpdateHeight(j + 1, array[j]));
       array[j + 1] = array[j--];
     }
     array[j + 1] = arrayElementAtI;
-    animationsArray.push(new DefaultAnimation(j + 1));
-    animationsArray.push(new HeightAnimation(j + 1, arrayElementAtI));
+    animationsArray.push(new UpdateColorDefault(j + 1));
+    animationsArray.push(new UpdateHeight(j + 1, arrayElementAtI));
   }
   array.forEach((_, index) => {
-    animationsArray.push(new SortedAnimation(array.length - (index + 1)));
+    animationsArray.push(new UpdateColorSorted(array.length - (index + 1)));
   });
+
   return animationsArray;
 }

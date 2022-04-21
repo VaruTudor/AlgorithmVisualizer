@@ -1,29 +1,29 @@
-import { Animation, ColorChange } from './utils/animations';
-import { Node } from '../../utils/model/shapes';
+import { AnimationBasic, UpdateColor } from '../../utils/model/animations-basic';
 import { getNeighbors } from './utils/helper-functions';
 import { Colors } from '../../utils/model/colors.enum';
+import { GridElement } from '../../utils/model/shapes/grid-element';
 
 
-export function bfs(grid: Node[][], startNode: Node, endNode: Node): Animation[] {
-  const animationsArray: Animation[] = [];
-  const frontier: Node[] = [startNode];
+export function bfs(grid: GridElement[][], start: GridElement, end: GridElement): AnimationBasic[] {
+  const animations: AnimationBasic[] = [];
+  const frontier: GridElement[] = [start];
 
   while (frontier.length) {
-    const currentNode = frontier.shift();
-    if (currentNode && !currentNode.isWall) {
-      currentNode.markAsVisited();
-      if (!(currentNode.isStart || currentNode.isEnd))
-        animationsArray.push(new ColorChange(currentNode, Colors.path));
-      if (currentNode === endNode) return animationsArray;
-      getNeighbors(currentNode, grid).filter(neighbor => !neighbor.isVisited)
+    const current = frontier.shift();
+    if (current && !current.isWall) {
+      current.markAsVisited();
+      if (!(current.isStart || current.isEnd))
+        animations.push(new UpdateColor(current, Colors.path));
+      if (current === end) return animations;
+      getNeighbors(current, grid).filter(neighbor => !neighbor.isVisited)
         .forEach(neighbor => {
-          neighbor.updatePreviousNode(currentNode);
+          neighbor.updatePreviousNode(current);
           frontier.push(neighbor);
           neighbor.markAsVisited();
         });
     }
   }
 
-  return animationsArray;
+  return animations;
 }
 
