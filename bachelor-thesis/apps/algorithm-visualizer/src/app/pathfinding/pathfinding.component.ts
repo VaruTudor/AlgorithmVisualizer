@@ -62,10 +62,10 @@ export class PathfindingComponent implements OnInit {
 
   executeAnimations() {
     this.disabledStatus = true;
-    // const animations = dijkstra(this.array, this.array[this.startRow][this.startColumn], this.array[this.endRow][this.endColumn]);
+    const animations = dijkstra(this.array, this.array[this.startRow][this.startColumn], this.array[this.endRow][this.endColumn]);
     // const animations = bfs(this.array, this.array[this.startRow][this.startColumn], this.array[this.endRow][this.endColumn]);
     // const animations = dfs(this.array, this.array[this.startRow][this.startColumn], this.array[this.endRow][this.endColumn]);
-    const animations = aStar(this.array, this.array[this.startRow][this.startColumn], this.array[this.endRow][this.endColumn]);
+    // const animations = aStar(this.array, this.array[this.startRow][this.startColumn], this.array[this.endRow][this.endColumn]);
     for (let i = 0; i < animations.length; i++) {
       setTimeout(() => {
         animations[i].execute();

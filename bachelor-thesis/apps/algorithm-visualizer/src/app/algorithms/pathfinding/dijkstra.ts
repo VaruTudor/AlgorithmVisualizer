@@ -4,46 +4,59 @@ import { getNeighbors, sortByDistance } from './utils/helper-functions';
 import { GridElement } from '../../utils/model/shapes/grid-element';
 import { INFINITY, STEP_COST } from '../../utils/constants';
 
+/**
+ * Generates an array of animations by performing Dijkstra path search algorithm.
+ * @param grid - search space
+ * @param start
+ * @param end
+ */
 export function dijkstra(grid: GridElement[][], start: GridElement, end: GridElement): AnimationBasic[] {
-  const animations: AnimationBasic[] = [];
+  const animations: AnimationBasic[] = [], unvisitedElements = getGridElements(grid);
   start.updateDistance(0);
-  const unvisitedElements = getGridElements(grid);
 
   while (unvisitedElements.length) {
     sortByDistance(unvisitedElements);
     const firstUnvisited = unvisitedElements.shift();
     if (firstUnvisited && !firstUnvisited.isWall) {
-      if (isTrapped(firstUnvisited)) return animations;
       firstUnvisited.markAsVisited();
-      if (!(firstUnvisited.isStart || firstUnvisited.isEnd))
-        animations.push(new UpdateColor(firstUnvisited, Colors.path));
+      if (isTrapped(firstUnvisited)) return animations;
       if (firstUnvisited === end) return animations;
-      updateUnvisitedNeighbors(firstUnvisited, grid);
+      if (!firstUnvisited.isStart) animations.push(new UpdateColor(firstUnvisited, Colors.path));
+      updateUnvisitedNeighbors(grid, firstUnvisited);
     }
   }
 
   return animations;
 }
 
-function getGridElements(grid: GridElement[][]) {
-  const nodes: GridElement[] = [];
-  for (const row of grid)
-    for (const node of row)
-      nodes.push(node);
+/**
+ * Updates the distance for each neighbor and chains it to current.
+ * @param grid - search space
+ * @param current
+ */
+function updateUnvisitedNeighbors(grid: GridElement[][], current: GridElement) {
+  const unvisitedNeighbors = getUnvisitedNeighbors(current, grid);
+  unvisitedNeighbors.forEach(neighbor => {
+    neighbor.updateDistance(current.distance + STEP_COST);
+    neighbor.updatePreviousNode(current);
+  });
+}
 
-  return nodes;
+/**
+ * Gets grid elements.
+ * @param grid - search space
+ */
+function getGridElements(grid: GridElement[][]) {
+  const elements: GridElement[] = [];
+  for (const row of grid)
+    for (const element of row)
+      elements.push(element);
+
+  return elements;
 }
 
 function isTrapped(element: GridElement) {
   return element.distance === INFINITY;
-}
-
-function updateUnvisitedNeighbors(element: GridElement, grid: GridElement[][]) {
-  const unvisitedNeighbors = getUnvisitedNeighbors(element, grid);
-  unvisitedNeighbors.forEach(neighbor => {
-    neighbor.updateDistance(element.distance + STEP_COST);
-    neighbor.updatePreviousNode(element);
-  });
 }
 
 function getUnvisitedNeighbors(element: GridElement, grid: GridElement[][]) {
