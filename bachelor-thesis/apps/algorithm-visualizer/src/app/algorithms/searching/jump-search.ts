@@ -1,19 +1,13 @@
 import {
   Animation,
-  UpdateMatch,
-  UpdateCurrent,
-  UpdateColorDefault,
-  UpdateColorFound
+  UpdateMatch
 } from '../../utils/model/animations';
 import { linearSearch } from './linear-search';
 
 /**
- * The basic idea is to check fewer elements (than linear search) by jumping ahead by fixed steps or skipping some
- * elements in place of searching all elements. For example, suppose we have an array arr[] of size n and block (to be jumped)
- * size m. Then we search at the indexes arr[0], arr[m], arr[2m]…..arr[km] and so on. Once we find the interval
- * (arr[km] < x < arr[(k+1)m]), we perform a linear search operation from the index km to find the element x.
- * @param array - an array of numbers which is going to be searched
- * @param target - the number being searched for
+ * Generates an array of animations by performing Jump Search.
+ * @param array - search space
+ * @param target
  */
 export function jumpSearch(array: number[], target: number): Animation[] {
   const animations: Animation[] = [];
@@ -29,7 +23,6 @@ export function jumpSearch(array: number[], target: number): Animation[] {
       return animations;
   }
 
-  // Doing a linear search for x in block beginning with prev.
   animations.push(...linearSearch(array.slice(current, Math.min(offset, array.length)), target, current));
   return animations;
 }

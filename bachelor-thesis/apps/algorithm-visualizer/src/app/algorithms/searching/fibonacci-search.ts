@@ -7,19 +7,17 @@ import {
 } from '../../utils/model/animations';
 
 /**
- * The idea is to first find the smallest Fibonacci number that is greater than or equal to the length of the given array.
- * Let the found Fibonacci number be fib (m’th Fibonacci number). We use (m-2)’th Fibonacci number as the index
- * (If it is a valid index). Let (m-2)’th Fibonacci Number be i, we compare arr[i] with x, if x is same, we return i.
- * Else if x is greater, we recur for subarray after i, else we recur for subarray before i.
- * @param array - an array of numbers which is going to be searched
- * @param target - the number being searched for
+ * Generates an array of animations by performing Fibonacci Search: find the smallest Fibonacci number greater or equal
+ * than array size; let that number be fib (m’th Fibonacci number); We use (m-2)’th Fibonacci number as the index;
+ * let (m-2)’th Fibonacci number be i, we compare arr[i] with x, if x is same, we return i; else if x is greater,
+ * we recur for subarray after i, else we recur for subarray before i.
+ * @param array - search space
+ * @param target
  */
 export function fibonacciSearch(array: number[], target: number): Animation[] {
   const animations: Animation[] = [];
-  let fibonacciSmall = 0, fibonacciMiddle = 1, fibonacciBig = 1;
-  let offset = -1, i = 0;
+  let fibonacciSmall = 0, fibonacciMiddle = 1, fibonacciBig = 1, offset = -1, i = 0;
 
-  // fibonacciBig is going to store the smallest Fibonacci number greater than or equal to n
   while (fibonacciBig < array.length) {
     fibonacciSmall = fibonacciMiddle;
     fibonacciMiddle = fibonacciBig;
@@ -30,7 +28,6 @@ export function fibonacciSearch(array: number[], target: number): Animation[] {
   animations.push(new UpdateMatch(fibonacciMiddle, fibonacciMiddle));
   animations.push(new UpdateMatch(fibonacciBig, fibonacciBig));
 
-  // Marks the eliminated range from front
   while (fibonacciBig > 1) {
     animations.push(new UpdateColorDefault(i));
     i = Math.min(offset + fibonacciSmall, array.length - 1);
