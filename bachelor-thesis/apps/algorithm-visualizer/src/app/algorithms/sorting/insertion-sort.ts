@@ -8,31 +8,28 @@ import {
 } from '../../utils/model/animations';
 
 /**
- * Insertion sort is a simple sorting algorithm that works similar to the way you sort playing cards in your hands.The
- * array is virtually split into a sorted and an unsorted part. Values from the unsorted part are picked and placed at
- * the correct position in the sorted part.
- * @param array - array to be sorted
+ * Generates an array of animations performing Insertion Sort.
+ * @param array - search space
  */
 export function insertionSort(array: number[]): Animation[] {
-  const animationsArray: Animation[] = [];
+  const animations: Animation[] = [];
 
   for (let i = 1; i < array.length; ++i) {
-    let arrayElementAtI = array[i];
-    let j = i - 1;
+    let iTh = array[i], j = i - 1;
 
-    animationsArray.push(new UpdateMatch(i, j));
-    while (j >= 0 && array[j] > arrayElementAtI) {
-      animationsArray.push(new UpdateCurrent(j + 1, j));
-      animationsArray.push(new UpdateHeight(j + 1, array[j]));
+    animations.push(new UpdateMatch(i, j));
+    while (j >= 0 && array[j] > iTh) {
+      animations.push(new UpdateCurrent(j + 1, j));
+      animations.push(new UpdateHeight(j + 1, array[j]));
       array[j + 1] = array[j--];
     }
-    array[j + 1] = arrayElementAtI;
-    animationsArray.push(new UpdateColorDefault(j + 1));
-    animationsArray.push(new UpdateHeight(j + 1, arrayElementAtI));
+    array[j + 1] = iTh;
+    animations.push(new UpdateColorDefault(j + 1));
+    animations.push(new UpdateHeight(j + 1, iTh));
   }
   array.forEach((_, index) => {
-    animationsArray.push(new UpdateColorSorted(array.length - (index + 1)));
+    animations.push(new UpdateColorSorted(array.length - (index + 1)));
   });
 
-  return animationsArray;
+  return animations;
 }
