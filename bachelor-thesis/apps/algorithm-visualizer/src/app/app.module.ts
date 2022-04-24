@@ -6,6 +6,8 @@ import { SortingComponent } from './sorting/sorting.component';
 import { AvLibModule } from '@bachelor-thesis/av-lib';
 import { SearchingComponent } from './searching/searching.component';
 import { PathfindingComponent } from './pathfinding/pathfinding.component';
+import { HomeComponent } from './home/home.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -13,10 +15,12 @@ import { PathfindingComponent } from './pathfinding/pathfinding.component';
     SortingComponent,
     SearchingComponent,
     PathfindingComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
-    AvLibModule
+    AvLibModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

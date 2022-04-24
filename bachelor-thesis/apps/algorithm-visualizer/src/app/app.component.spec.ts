@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
-import { NxWelcomeComponent } from './nx-welcome.component';
+import { NxWelcomeComponent } from '../../../av-lib-portal/src/app/nx-welcome.component';
 
 describe('AppComponent', () => {
   beforeEach(async () => {

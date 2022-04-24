@@ -3,9 +3,9 @@ import { Colors } from '../../../utils/model/colors.enum';
 import { GridElement } from '../../../utils/model/shapes/grid-element';
 
 /**
- * Generates a list of nodes up-right-down-left (clockwise order) of the current node.
- * @param element
- * @param grid
+ * Generates an array of neighbors up, right, down, left (clockwise order).
+ * @param element - whose neighbors are to be generated
+ * @param grid - search space
  */
 export function getNeighbors(element: GridElement, grid: GridElement[][]): GridElement[] {
   const neighbors: GridElement[] = [], column = element.column, row = element.row;
@@ -16,9 +16,14 @@ export function getNeighbors(element: GridElement, grid: GridElement[][]): GridE
   return neighbors;
 }
 
-export function getShortestPath(element: GridElement): AnimationBasic[] {
+/**
+ * Generates an array of animations representing the shortest path (iterating through previous until current has no
+ * previous).
+ * @param start
+ */
+export function getShortestPath(start: GridElement): AnimationBasic[] {
   const shortestPath: GridElement[] = [];
-  let current = element;
+  let current = start;
   while (current != null) {
     if (!(current.isStart || current.isEnd))
       shortestPath.unshift(current);
@@ -27,10 +32,19 @@ export function getShortestPath(element: GridElement): AnimationBasic[] {
   return shortestPath.map(node => new UpdateColor(node, Colors.shortestPath));
 }
 
-export function manhattanDistance(first: GridElement, second: GridElement): number {
-  return Math.abs(first.row - second.row) + Math.abs(first.column - second.column);
+/**
+ * Computes the Manhattan distance (the absolute sum between the difference of coordinates analogous).
+ * @param start
+ * @param end
+ */
+export function manhattanDistance(start: GridElement, end: GridElement): number {
+  return Math.abs(start.row - end.row) + Math.abs(start.column - end.column);
 }
 
+/**
+ * Sorts the array by the distance property.
+ * @param elements - sorting space
+ */
 export function sortByDistance(elements: GridElement[]) {
   elements.sort((a: GridElement, b: GridElement) => a.distance - b.distance);
 }

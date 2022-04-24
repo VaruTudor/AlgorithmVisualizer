@@ -1,11 +1,10 @@
 import { Animation, UpdateCurrent, UpdateColorFound } from '../../utils/model/animations';
 
 /**
- * Start from the leftmost element of arr[] and one by one compare target with each element of the array
- * If target matches with an element, add the specific animation and stop iterating.
- * @param array - an array of numbers which is going to be searched
- * @param target - the number being searched for
- * @param offset
+ * Generates an array of animations by performing Linear Search.
+ * @param array - search space
+ * @param target
+ * @param offset - added to all animations (useful if called from another search)
  */
 export function linearSearch(array: number[], target: number, offset?: number): Animation[] {
   const animations: Animation[] = [];
