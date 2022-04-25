@@ -1,0 +1,12 @@
+<div>
+  <div *ngFor="let element of elements">
+    <ng-container *ngTemplateOutlet="element.template"></ng-container>
+    <ng-content></ng-content>
+  </div>
+</div>
+<div>
+  <div *ngFor="let element of actionElements">
+    <ng-container *ngTemplateOutlet="element.template"></ng-container>
+    <ng-content></ng-content>
+  </div>
+</div>

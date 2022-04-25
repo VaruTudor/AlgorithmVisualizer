@@ -1,3 +1,11 @@
 <a routerLink='searching'>searching</a><br>
 <a routerLink='sorting'>sorting</a><br>
 <a routerLink='pathfinding'>pathfinding</a>
+
+<av-top-nav>
+  <av-top-nav-element [template]='first'></av-top-nav-element>
+
+  <ng-template #first>
+    <button>b</button>
+  </ng-template>
+</av-top-nav>
