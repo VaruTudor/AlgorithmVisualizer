@@ -7,22 +7,36 @@
   <top-nav-action-element [template]='stop'></top-nav-action-element>
 
   <ng-template #back>
-    <button mat-raised-button (click)='onBack()'>Back</button>
+    <button class='button' (click)='onBack()'>Back</button>
   </ng-template>
 
   <ng-template #delay>
-    delay
+    <div class="dropdown">
+      <button class='button'>Delay</button>
+      <div class="dropdown-content">
+        <div (click)='onDelay(delays.slow)'>Slow</div>
+        <div (click)='onDelay(delays.normal)'>Normal</div>
+        <div (click)='onDelay(delays.fast)'>Fast</div>
+      </div>
+    </div>
   </ng-template>
 
   <ng-template #size>
-    size
+    <div class="dropdown">
+      <button class='button'>Size</button>
+      <div class="dropdown-content">
+        <div (click)='onSize(sizes.small)'>Small</div>
+        <div (click)='onSize(sizes.medium)'>Medium</div>
+        <div (click)='onSize(sizes.large)'>Large</div>
+      </div>
+    </div>
   </ng-template>
 
   <ng-template #start>
-    <button mat-raised-button (click)='onStart()'>Start</button>
+    <button class='button' (click)='onStart()'>Start</button>
   </ng-template>
 
   <ng-template #stop>
-    <button mat-raised-button (click)='onReset()'>Reset</button>
+    <button class='button' (click)='onReset()'>Reset</button>
   </ng-template>
 </av-top-nav>
