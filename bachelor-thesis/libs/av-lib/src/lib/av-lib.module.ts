@@ -4,8 +4,8 @@ import { AvRectangleComponent } from './av-rectangle/av-rectangle.component';
 import { AvSquareComponent } from './av-square/av-square.component';
 import { AvNodeComponent } from './av-node/av-node.component';
 import { AvTopNavComponent } from './av-top-nav/av-top-nav.component';
-import { AvTopNavElementComponent } from './av-top-nav/av-top-nav-element/av-top-nav-element.component';
-import { TopNavActionElementComponent } from './av-top-nav/top-nav-action-element/top-nav-action-element.component';
+import { ElementComponent } from './av-top-nav/element/element.component';
+import { ActionElementComponent } from './av-top-nav/action-element/action-element.component';
 
 @NgModule({
   imports: [CommonModule],
@@ -14,15 +14,16 @@ import { TopNavActionElementComponent } from './av-top-nav/top-nav-action-elemen
     AvSquareComponent,
     AvNodeComponent,
     AvTopNavComponent,
-    AvTopNavElementComponent,
-    TopNavActionElementComponent
+    ElementComponent,
+    ActionElementComponent
   ],
   exports: [
     AvRectangleComponent,
     AvSquareComponent,
     AvNodeComponent,
     AvTopNavComponent,
-    AvTopNavElementComponent
+    ElementComponent,
+    ActionElementComponent
   ]
 })
 export class AvLibModule {}

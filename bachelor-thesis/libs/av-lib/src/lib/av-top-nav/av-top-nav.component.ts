@@ -1,5 +1,6 @@
 import { Component, ContentChildren, OnInit, QueryList } from '@angular/core';
-import { AvTopNavElementComponent } from './av-top-nav-element/av-top-nav-element.component';
+import { ElementComponent } from './element/element.component';
+import { ActionElementComponent } from './action-element/action-element.component';
 
 @Component({
   selector: 'av-top-nav',
@@ -8,11 +9,11 @@ import { AvTopNavElementComponent } from './av-top-nav-element/av-top-nav-elemen
 })
 export class AvTopNavComponent implements OnInit {
 
-  @ContentChildren(AvTopNavElementComponent)
-  elements: QueryList<AvTopNavElementComponent> | undefined;
+  @ContentChildren(ElementComponent)
+  elements: QueryList<ElementComponent> | undefined;
 
-  @ContentChildren(AvTopNavElementComponent)
-  actionElements: QueryList<AvTopNavElementComponent> | undefined;
+  @ContentChildren(ActionElementComponent)
+  actionElements: QueryList<ActionElementComponent> | undefined;
 
   constructor() { }
 

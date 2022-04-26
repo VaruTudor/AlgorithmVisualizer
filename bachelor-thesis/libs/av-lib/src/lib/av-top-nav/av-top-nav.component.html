@@ -1,12 +1,14 @@
-<div>
-  <div *ngFor="let element of elements">
-    <ng-container *ngTemplateOutlet="element.template"></ng-container>
-    <ng-content></ng-content>
+<div class='top-nav'>
+  <div class='top-nav-elements'>
+    <div *ngFor='let element of elements' class='element'>
+      <ng-container *ngTemplateOutlet='element.template'></ng-container>
+      <ng-content></ng-content>
+    </div>
   </div>
-</div>
-<div>
-  <div *ngFor="let element of actionElements">
-    <ng-container *ngTemplateOutlet="element.template"></ng-container>
-    <ng-content></ng-content>
+  <div class='top-nav-action-elements'>
+    <div *ngFor='let element of actionElements' class='action-element'>
+      <ng-container *ngTemplateOutlet='element.template'></ng-container>
+      <ng-content></ng-content>
+    </div>
   </div>
 </div>

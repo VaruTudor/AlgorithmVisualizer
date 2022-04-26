@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AvTopNavElementComponent } from './av-top-nav-element.component';
+import { ElementComponent } from './element.component';
 
-describe('AvTopNavElementComponent', () => {
-  let component: AvTopNavElementComponent;
-  let fixture: ComponentFixture<AvTopNavElementComponent>;
+describe('ElementComponent', () => {
+  let component: ElementComponent;
+  let fixture: ComponentFixture<ElementComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AvTopNavElementComponent ]
+      declarations: [ ElementComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AvTopNavElementComponent);
+    fixture = TestBed.createComponent(ElementComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

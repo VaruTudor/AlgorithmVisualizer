@@ -1,0 +1,28 @@
+<av-top-nav>
+  <top-nav-element [template]='back'></top-nav-element>
+  <top-nav-element [template]='delay'></top-nav-element>
+  <top-nav-element [template]='size'></top-nav-element>
+
+  <top-nav-action-element [template]='start'></top-nav-action-element>
+  <top-nav-action-element [template]='stop'></top-nav-action-element>
+
+  <ng-template #back>
+    <button mat-raised-button (click)='onBack()'>Back</button>
+  </ng-template>
+
+  <ng-template #delay>
+    delay
+  </ng-template>
+
+  <ng-template #size>
+    size
+  </ng-template>
+
+  <ng-template #start>
+    <button mat-raised-button (click)='onStart()'>Start</button>
+  </ng-template>
+
+  <ng-template #stop>
+    <button mat-raised-button (click)='onReset()'>Reset</button>
+  </ng-template>
+</av-top-nav>
