@@ -39,7 +39,6 @@ export class SearchingComponent implements OnInit {
 
   ngOnInit(): void {
     this.resetArray();
-    this.target = this.array[this.array.length - 5].value;
   }
 
   resetArray(): void {
@@ -50,13 +49,14 @@ export class SearchingComponent implements OnInit {
         new Square(
           this.squareSize, Colors.default, numbersArray[i]));
     }
+    this.target = this.array[this.array.length - 5].value;
   }
 
   executeAnimations(): void {
     this.disabledStatus = true;
     let values = this.array.map(element => element.value);
     let animations: Animation[] = [];
-    switch (this.algorithm){
+    switch (this.algorithm) {
       case AlgorithmNames.binarySearch: {
         animations = binarySearch(values.slice(), this.target);
         break;
@@ -101,8 +101,27 @@ export class SearchingComponent implements OnInit {
 
   }
 
-  onSize($event: ComponentSizes) {
-
+  onSize(size: ComponentSizes) {
+    switch (size) {
+      case ComponentSizes.small: {
+        this.squareSize = Sizes.medium;
+        this.length = 52;
+        this.resetArray();
+        break;
+      }
+      case ComponentSizes.medium: {
+        this.squareSize = Sizes.large
+        this.length = 28
+        this.resetArray();
+        break;
+      }
+      case ComponentSizes.large: {
+        this.squareSize = Sizes.extraLarge
+        this.length = 14;
+        this.resetArray();
+        break;
+      }
+    }
   }
 
   onAlgorithm(selectedAlgorithm: string) {
