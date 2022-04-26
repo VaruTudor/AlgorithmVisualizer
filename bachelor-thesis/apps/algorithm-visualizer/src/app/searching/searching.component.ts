@@ -9,6 +9,10 @@ import { jumpSearch } from '../algorithms/searching/jump-search';
 import { interpolationSearch } from '../algorithms/searching/interpolation-search';
 import { exponentialSearch } from '../algorithms/searching/exponential-search';
 import { Square } from '../utils/model/shapes/square';
+import { ComponentSizes } from '../utils/model/component-sizes';
+import { Delays } from '../utils/model/delays';
+import { AlgorithmNames, Algorithms, AlgorithmSections } from '../utils/model/algorithms';
+import { Animation } from '../utils/model/animations';
 
 @Component({
   selector: 'app-searching',
@@ -18,13 +22,16 @@ import { Square } from '../utils/model/shapes/square';
 export class SearchingComponent implements OnInit {
   array: Square[];
   length = 40;
-  delay = 1000;
+  delay = Delays.normal;
+  algorithm: AlgorithmNames;
   disabledStatus = false;
 
   squareSize = Sizes.medium;
   min = 10;
   max = 100;
   target: number;
+
+  algorithmSection = AlgorithmSections;
 
   constructor() {
     this.array = [];
@@ -48,12 +55,33 @@ export class SearchingComponent implements OnInit {
   executeAnimations(): void {
     this.disabledStatus = true;
     let values = this.array.map(element => element.value);
-    // const animations = linearSearch(valuesArray.slice(), this.target);
-    // const animations = binarySearch(valuesArray.slice(), this.target);
-    // const animations = fibonacciSearch(valuesArray.slice(), this.target);
-    const animations = jumpSearch(values.slice(), this.target);
-    // const animations = interpolationSearch(valuesArray.slice(), this.target);
-    // const animations = exponentialSearch(valuesArray.slice(), this.target);
+    let animations: Animation[] = [];
+    switch (this.algorithm){
+      case AlgorithmNames.binarySearch: {
+        animations = binarySearch(values.slice(), this.target);
+        break;
+      }
+      case AlgorithmNames.exponentialSearch: {
+        animations = exponentialSearch(values.slice(), this.target);
+        break;
+      }
+      case AlgorithmNames.fibonacciSearch: {
+        animations = fibonacciSearch(values.slice(), this.target);
+        break;
+      }
+      case AlgorithmNames.interpolationSearch: {
+        animations = interpolationSearch(values.slice(), this.target);
+        break;
+      }
+      case AlgorithmNames.jumpSearch: {
+        animations = jumpSearch(values.slice(), this.target);
+        break;
+      }
+      case AlgorithmNames.linearSearch: {
+        animations = linearSearch(values.slice(), this.target);
+        break;
+      }
+    }
     for (let i = 0; i < animations.length; i++) {
       setTimeout(() => {
         animations[i].execute(this.array);
@@ -65,4 +93,19 @@ export class SearchingComponent implements OnInit {
     }, animations.length * this.delay);
   }
 
+  onDelay(delay: Delays) {
+    this.delay = delay;
+  }
+
+  onBack() {
+
+  }
+
+  onSize($event: ComponentSizes) {
+
+  }
+
+  onAlgorithm(selectedAlgorithm: string) {
+    this.algorithm = Algorithms.SEARCHING.filter(algorithm => algorithm === selectedAlgorithm)[0];
+  }
 }

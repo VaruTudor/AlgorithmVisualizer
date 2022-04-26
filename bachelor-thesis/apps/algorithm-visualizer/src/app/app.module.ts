@@ -17,7 +17,7 @@ import { TopNavComponent } from './top-nav/top-nav.component';
     SearchingComponent,
     PathfindingComponent,
     HomeComponent,
-    TopNavComponent,
+    TopNavComponent
   ],
   imports: [
     BrowserModule,

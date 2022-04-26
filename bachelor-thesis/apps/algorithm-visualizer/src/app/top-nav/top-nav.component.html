@@ -2,6 +2,7 @@
   <top-nav-element [template]='back'></top-nav-element>
   <top-nav-element [template]='delay'></top-nav-element>
   <top-nav-element [template]='size'></top-nav-element>
+  <top-nav-element [template]='algorithm'></top-nav-element>
 
   <top-nav-action-element [template]='start'></top-nav-action-element>
   <top-nav-action-element [template]='stop'></top-nav-action-element>
@@ -28,6 +29,15 @@
         <div (click)='onSize(sizes.small)'>Small</div>
         <div (click)='onSize(sizes.medium)'>Medium</div>
         <div (click)='onSize(sizes.large)'>Large</div>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template #algorithm>
+    <div class="dropdown">
+      <button class='button'>Algorithm</button>
+      <div class="dropdown-content">
+        <div *ngFor='let algorithm of getAlgorithms(algorithmSection)' (click)='onAlgorithm(algorithm)'>{{algorithm}}</div>
       </div>
     </div>
   </ng-template>
