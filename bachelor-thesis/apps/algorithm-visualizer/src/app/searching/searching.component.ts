@@ -22,24 +22,23 @@ import { Location } from '@angular/common';
   styleUrls: ['./searching.component.css']
 })
 export class SearchingComponent implements OnInit {
+
   @ViewChild(TopNavComponent, { static: false })
   private topNavComponent: TopNavComponent;
 
-  array: Square[];
-  length = 52;
-  delay = Delays.normal;
-  algorithm: AlgorithmNames;
+  array: Square[] = [];
+  length: number = 52;
+
+  delay: Delays = Delays.normal;
+  size: Sizes = Sizes.medium;
+  name: AlgorithmNames;
 
   isAlgorithmSelected: boolean = false;
-  squareSize = Sizes.medium;
-  min = 10;
-  max = 100;
-  target: number;
+  target: number; //TODO make this configurable
 
-  algorithmSection = AlgorithmSections;
+  section = AlgorithmSections;
 
   constructor(private _location: Location) {
-    this.array = [];
   }
 
   ngOnInit(): void {
@@ -47,43 +46,37 @@ export class SearchingComponent implements OnInit {
   }
 
   resetArray(): void {
-    this.array = [];
-    const numbersArray = ([...Array(this.length)].map(() => getRandomInt(this.min, this.max))).sort();
-    for (let i = 0; i < this.length; i++) {
-      this.array.push(
-        new Square(
-          this.squareSize, Colors.default, numbersArray[i]));
-    }
+    this.array = ([...Array(this.length)].map(() => getRandomInt(10, 100))).sort().map(number => new Square(this.size, Colors.default, number));
     this.target = this.array[this.array.length - 5].value;
   }
 
   executeAnimations(): void {
     this.topNavComponent.isDisabled = true;
-    let values = this.array.map(element => element.value);
+    let values = this.array.map(element => element.value).slice();
     let animations: Animation[] = [];
-    switch (this.algorithm) {
+    switch (this.name) {
       case AlgorithmNames.binarySearch: {
-        animations = binarySearch(values.slice(), this.target);
+        animations = binarySearch(values, this.target);
         break;
       }
       case AlgorithmNames.exponentialSearch: {
-        animations = exponentialSearch(values.slice(), this.target);
+        animations = exponentialSearch(values, this.target);
         break;
       }
       case AlgorithmNames.fibonacciSearch: {
-        animations = fibonacciSearch(values.slice(), this.target);
+        animations = fibonacciSearch(values, this.target);
         break;
       }
       case AlgorithmNames.interpolationSearch: {
-        animations = interpolationSearch(values.slice(), this.target);
+        animations = interpolationSearch(values, this.target);
         break;
       }
       case AlgorithmNames.jumpSearch: {
-        animations = jumpSearch(values.slice(), this.target);
+        animations = jumpSearch(values, this.target);
         break;
       }
       case AlgorithmNames.linearSearch: {
-        animations = linearSearch(values.slice(), this.target);
+        animations = linearSearch(values, this.target);
         break;
       }
     }
@@ -107,31 +100,31 @@ export class SearchingComponent implements OnInit {
     this._location.back();
   }
 
+  private updateSize(size: Sizes, length: number) {
+    this.size = size;
+    this.length = length;
+    this.resetArray();
+  }
+
   onSize(size: ComponentSizes) {
     switch (size) {
       case ComponentSizes.small: {
-        this.squareSize = Sizes.medium;
-        this.length = 52;
-        this.resetArray();
+        this.updateSize(Sizes.medium, 52);
         break;
       }
       case ComponentSizes.medium: {
-        this.squareSize = Sizes.large;
-        this.length = 28;
-        this.resetArray();
+        this.updateSize(Sizes.large, 28);
         break;
       }
       case ComponentSizes.large: {
-        this.squareSize = Sizes.extraLarge;
-        this.length = 14;
-        this.resetArray();
+        this.updateSize(Sizes.extraLarge, 14);
         break;
       }
     }
   }
 
   onAlgorithm(selectedAlgorithm: string) {
-    this.algorithm = Algorithms.SEARCHING.filter(algorithm => algorithm === selectedAlgorithm)[0];
+    this.name = Algorithms.SEARCHING.filter(algorithm => algorithm === selectedAlgorithm)[0];
     this.resetArray();
     this.isAlgorithmSelected = true;
   }
