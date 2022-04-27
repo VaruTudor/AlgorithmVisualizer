@@ -14,6 +14,7 @@ import { Delays } from '../utils/model/delays';
 import { AlgorithmNames, Algorithms, AlgorithmSections } from '../utils/model/algorithms';
 import { Animation } from '../utils/model/animations';
 import { TopNavComponent } from '../top-nav/top-nav.component';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-searching',
@@ -37,7 +38,7 @@ export class SearchingComponent implements OnInit {
 
   algorithmSection = AlgorithmSections;
 
-  constructor() {
+  constructor(private _location: Location) {
     this.array = [];
   }
 
@@ -103,7 +104,7 @@ export class SearchingComponent implements OnInit {
   }
 
   onBack() {
-
+    this._location.back();
   }
 
   onSize(size: ComponentSizes) {
