@@ -9,11 +9,16 @@
 ></app-top-nav>
 <div class="main-container">
   <div class="searching-container">
-    <av-square *ngFor="let element of array"
-                  [size]='element.width'
-                  [color]='element.color'
-                  [value]='element.value'
-                  class='searching-element'
-    ></av-square>
+    <ng-container *ngIf='isAlgorithmSelected'>
+      <av-square *ngFor="let element of array"
+                 [size]='element.width'
+                 [color]='element.color'
+                 [value]='element.value'
+                 class='searching-element'
+      ></av-square>
+    </ng-container>
+    <div class='select-algorithm' *ngIf='!isAlgorithmSelected'>
+      Please select an algorithm
+    </div>
   </div>
 </div>

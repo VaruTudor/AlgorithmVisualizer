@@ -8,7 +8,13 @@
   cursor: pointer;
 }
 
-.button:hover {
+.button.disabled{
+  background-color: gray;
+  color: #454545;
+  cursor: default;
+}
+
+.button:not(.disabled):hover {
   background-color: lightgrey
 }
 

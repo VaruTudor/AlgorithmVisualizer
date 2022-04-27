@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Sizes } from '../utils/model/sizes.enum';
 import { Colors } from '../utils/model/colors.enum';
 import { getRandomInt } from '../utils/computations';
@@ -13,6 +13,7 @@ import { ComponentSizes } from '../utils/model/component-sizes';
 import { Delays } from '../utils/model/delays';
 import { AlgorithmNames, Algorithms, AlgorithmSections } from '../utils/model/algorithms';
 import { Animation } from '../utils/model/animations';
+import { TopNavComponent } from '../top-nav/top-nav.component';
 
 @Component({
   selector: 'app-searching',
@@ -20,12 +21,15 @@ import { Animation } from '../utils/model/animations';
   styleUrls: ['./searching.component.css']
 })
 export class SearchingComponent implements OnInit {
+  @ViewChild(TopNavComponent, { static: false })
+  private topNavComponent: TopNavComponent;
+
   array: Square[];
   length = 52;
   delay = Delays.normal;
   algorithm: AlgorithmNames;
-  disabledStatus = false;
 
+  isAlgorithmSelected: boolean = false;
   squareSize = Sizes.medium;
   min = 10;
   max = 100;
@@ -53,7 +57,7 @@ export class SearchingComponent implements OnInit {
   }
 
   executeAnimations(): void {
-    this.disabledStatus = true;
+    this.topNavComponent.isDisabled = true;
     let values = this.array.map(element => element.value);
     let animations: Animation[] = [];
     switch (this.algorithm) {
@@ -89,12 +93,13 @@ export class SearchingComponent implements OnInit {
     }
 
     setTimeout(() => {
-      this.disabledStatus = false;
+      this.topNavComponent.isDisabled = false;
     }, animations.length * this.delay);
   }
 
   onDelay(delay: Delays) {
     this.delay = delay;
+    this.resetArray();
   }
 
   onBack() {
@@ -110,13 +115,13 @@ export class SearchingComponent implements OnInit {
         break;
       }
       case ComponentSizes.medium: {
-        this.squareSize = Sizes.large
-        this.length = 28
+        this.squareSize = Sizes.large;
+        this.length = 28;
         this.resetArray();
         break;
       }
       case ComponentSizes.large: {
-        this.squareSize = Sizes.extraLarge
+        this.squareSize = Sizes.extraLarge;
         this.length = 14;
         this.resetArray();
         break;
@@ -126,5 +131,7 @@ export class SearchingComponent implements OnInit {
 
   onAlgorithm(selectedAlgorithm: string) {
     this.algorithm = Algorithms.SEARCHING.filter(algorithm => algorithm === selectedAlgorithm)[0];
+    this.resetArray();
+    this.isAlgorithmSelected = true;
   }
 }
