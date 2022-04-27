@@ -21,6 +21,9 @@ export class TopNavComponent implements OnInit {
 
   delays = Delays;
   sizes = ComponentSizes;
+  showAlgorithms: boolean = false;
+  showSizes: boolean = false;
+  showDelays: boolean = false;
 
   constructor() {
   }

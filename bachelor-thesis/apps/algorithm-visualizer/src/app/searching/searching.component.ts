@@ -21,7 +21,7 @@ import { Animation } from '../utils/model/animations';
 })
 export class SearchingComponent implements OnInit {
   array: Square[];
-  length = 40;
+  length = 52;
   delay = Delays.normal;
   algorithm: AlgorithmNames;
   disabledStatus = false;
