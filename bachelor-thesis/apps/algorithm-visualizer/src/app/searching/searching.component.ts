@@ -15,6 +15,7 @@ import { AlgorithmNames, Algorithms, AlgorithmSections } from '../utils/model/al
 import { Animation } from '../utils/model/animations';
 import { TopNavComponent } from '../top-nav/top-nav.component';
 import { Location } from '@angular/common';
+import { executeAnimations } from '../utils/helper-functions';
 
 @Component({
   selector: 'app-searching',
@@ -22,7 +23,6 @@ import { Location } from '@angular/common';
   styleUrls: ['./searching.component.css']
 })
 export class SearchingComponent implements OnInit {
-
   @ViewChild(TopNavComponent, { static: false })
   private topNavComponent: TopNavComponent;
 
@@ -34,9 +34,8 @@ export class SearchingComponent implements OnInit {
   name: AlgorithmNames;
 
   isAlgorithmSelected: boolean = false;
-  target: number; //TODO make this configurable
-
   section = AlgorithmSections;
+  target: number; //TODO make this configurable
 
   constructor(private _location: Location) {
   }
@@ -80,11 +79,7 @@ export class SearchingComponent implements OnInit {
         break;
       }
     }
-    for (let i = 0; i < animations.length; i++) {
-      setTimeout(() => {
-        animations[i].execute(this.array);
-      }, i * this.delay);
-    }
+    executeAnimations(animations, this.array, this.delay);
 
     setTimeout(() => {
       this.topNavComponent.isDisabled = false;

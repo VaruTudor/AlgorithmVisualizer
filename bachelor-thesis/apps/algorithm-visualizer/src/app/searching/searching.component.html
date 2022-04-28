@@ -7,10 +7,11 @@
   (reset)='resetArray()'
   [algorithmSection]='section.SEARCHING'
 ></app-top-nav>
-<div class="main-container">
-  <div class="searching-container">
+
+<div class='main-container'>
+  <div class='searching-container'>
     <ng-container *ngIf='isAlgorithmSelected'>
-      <av-square *ngFor="let element of array"
+      <av-square *ngFor='let element of array'
                  [size]='element.width'
                  [color]='element.color'
                  [value]='element.value'

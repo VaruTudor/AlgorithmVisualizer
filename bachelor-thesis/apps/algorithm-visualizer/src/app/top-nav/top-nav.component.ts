@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Delays } from '../utils/model/delays';
 import { ComponentSizes } from '../utils/model/component-sizes';
-import { AlgorithmNames, Algorithms, AlgorithmSections } from '../utils/model/algorithms';
+import { Algorithms, AlgorithmSections } from '../utils/model/algorithms';
 
 @Component({
   selector: 'app-top-nav',
@@ -31,6 +31,10 @@ export class TopNavComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  isDisabledOrNoSelectedAlgorithm(): boolean {
+    return this.isDisabled || !this.selectedAlgorithmName;
   }
 
   getAlgorithms(section: AlgorithmSections): string[] {
