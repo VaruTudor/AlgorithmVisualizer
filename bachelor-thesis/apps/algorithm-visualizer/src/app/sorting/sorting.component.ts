@@ -25,13 +25,13 @@ export class SortingComponent implements OnInit {
   @ViewChild(TopNavComponent, { static: false })
   private topNavComponent: TopNavComponent;
 
+  private length: number = 20;
+
+  private delay: Delays = Delays.normal;
+  private size: Sizes = Sizes.medium;
+  private name: AlgorithmNames;
+
   array: Rectangle[] = [];
-  length: number = 20;
-
-  delay: Delays = Delays.normal;
-  size: Sizes = Sizes.medium;
-  name: AlgorithmNames;
-
   isAlgorithmSelected: boolean = false;
   section = AlgorithmSections;
 

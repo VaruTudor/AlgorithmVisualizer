@@ -3,15 +3,15 @@
 }
 
 .main-container{
-  height: 100vh;
+  min-height: 300px;
+  height: 500px;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
 .pathfinding-container{
-  min-height: 600px;
-  width: 1500px;
+  height: 500px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -23,8 +23,16 @@
 
 .row{
   display: flex;
+  justify-content: center;
+  width: 100%;
 }
 
 ::ng-deep .node{
   margin: 2px;
+}
+
+.select-algorithm{
+  display: flex;
+  justify-content: center;
+  font-size: 25px;
 }

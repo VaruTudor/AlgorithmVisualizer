@@ -26,16 +26,16 @@ export class SearchingComponent implements OnInit {
   @ViewChild(TopNavComponent, { static: false })
   private topNavComponent: TopNavComponent;
 
+  private length: number = 52;
+  private target: number; //TODO make this configurable
+
+  private delay: Delays = Delays.normal;
+  private size: Sizes = Sizes.medium;
+  private name: AlgorithmNames;
+
   array: Square[] = [];
-  length: number = 52;
-
-  delay: Delays = Delays.normal;
-  size: Sizes = Sizes.medium;
-  name: AlgorithmNames;
-
   isAlgorithmSelected: boolean = false;
   section = AlgorithmSections;
-  target: number; //TODO make this configurable
 
   constructor(private _location: Location) {
   }

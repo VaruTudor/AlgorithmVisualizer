@@ -1,20 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Sizes } from '../utils/model/sizes.enum';
 import { Colors } from '../utils/model/colors.enum';
 import { dijkstra } from '../algorithms/pathfinding/dijkstra';
 import { getShortestPath } from '../algorithms/pathfinding/utils/helper-functions';
-import { bfs } from '../algorithms/pathfinding/bfs';
+import { GridElement } from '../utils/model/shapes/grid-element';
+import { AlgorithmNames, Algorithms, AlgorithmSections } from '../utils/model/algorithms';
+import { Delays } from '../utils/model/delays';
+import { ComponentSizes } from '../utils/model/component-sizes';
+import { Location } from '@angular/common';
+import { TopNavComponent } from '../top-nav/top-nav.component';
+import { AnimationBasic } from '../utils/model/animations-basic';
 import { dfs } from '../algorithms/pathfinding/dfs';
 import { aStar } from '../algorithms/pathfinding/aStar';
-import { GridElement } from '../utils/model/shapes/grid-element';
-
-enum ConfigType {
-  DEFAULT,
-  START_NODE,
-  END_NODE,
-  WALL
-
-}
+import { bfs } from '../algorithms/pathfinding/bfs';
 
 @Component({
   selector: 'app-pathfinding',
@@ -22,21 +20,27 @@ enum ConfigType {
   styleUrls: ['./pathfinding.component.css']
 })
 export class PathfindingComponent implements OnInit {
-  disabledStatus = false;
+  @ViewChild(TopNavComponent, { static: false })
+  private topNavComponent: TopNavComponent;
+
+  private nrRows: number = 16;
+  private nrColumns: number = 52;
+
+  private delay: Delays = Delays.normal;
+  private size: Sizes = Sizes.medium;
+  private name: AlgorithmNames;
+
+  private startRow: number = 1; //TODO make configurable (remove from updateSize)
+  private startColumn: number = 1;
+  private endRow: number = this.nrRows - 2;
+  private endColumn: number = this.nrColumns - 2;
+  private isMousePressed: boolean = false;
+
+  isAlgorithmSelected: boolean = false;
   array: GridElement[][];
-  nrRows = 20;
-  nrColumns = 40;
-  delay = 5;
+  section = AlgorithmSections;
 
-  elementSize = Sizes.medium;
-  startRow = 10;
-  startColumn = 5;
-  endRow = 10;
-  endColumn = 34;
-  configType = ConfigType.DEFAULT;
-  isMousePressed = false;
-
-  constructor() {
+  constructor(private _location: Location) {
   }
 
   ngOnInit(): void {
@@ -44,28 +48,35 @@ export class PathfindingComponent implements OnInit {
   }
 
   resetGrid() {
-    this.array = [];
-    for (let i = 0; i < this.nrRows; i++) {
-      let row: GridElement[] = [];
-      for (let j = 0; j < this.nrColumns; j++) {
-        row.push(
-          new GridElement(
-            this.elementSize, this.getInitialElementColor(i, j), i, j,
-            (i === this.startRow && j === this.startColumn),
-            (i === this.endRow && j === this.endColumn)
-          )
-        );
-      }
-      this.array.push(row);
-    }
+    this.array = [...Array(this.nrRows)].map((_, i) => {
+      return ([...Array(this.nrColumns)].map((_, j) => new GridElement(this.size,
+        this.getInitialElementColor(i, j), i, j, (i === this.startRow && j === this.startColumn),
+        (i === this.endRow && j === this.endColumn)
+      )));
+    });
   }
 
   executeAnimations() {
-    this.disabledStatus = true;
-    const animations = dijkstra(this.array, this.array[this.startRow][this.startColumn], this.array[this.endRow][this.endColumn]);
-    // const animations = bfs(this.array, this.array[this.startRow][this.startColumn], this.array[this.endRow][this.endColumn]);
-    // const animations = dfs(this.array, this.array[this.startRow][this.startColumn], this.array[this.endRow][this.endColumn]);
-    // const animations = aStar(this.array, this.array[this.startRow][this.startColumn], this.array[this.endRow][this.endColumn]);
+    this.topNavComponent.isDisabled = true;
+    let animations: AnimationBasic[] = [];
+    switch (this.name) {
+      case AlgorithmNames.dijkstra: {
+        animations = dijkstra(this.array, this.array[this.startRow][this.startColumn], this.array[this.endRow][this.endColumn]);
+        break;
+      }
+      case AlgorithmNames.bfs: {
+        animations = bfs(this.array, this.array[this.startRow][this.startColumn], this.array[this.endRow][this.endColumn]);
+        break;
+      }
+      case AlgorithmNames.dfs: {
+        animations = dfs(this.array, this.array[this.startRow][this.startColumn], this.array[this.endRow][this.endColumn]);
+        break;
+      }
+      case AlgorithmNames.aStar: {
+        animations = aStar(this.array, this.array[this.startRow][this.startColumn], this.array[this.endRow][this.endColumn]);
+        break;
+      }
+    }
     for (let i = 0; i < animations.length; i++) {
       setTimeout(() => {
         animations[i].execute();
@@ -80,7 +91,7 @@ export class PathfindingComponent implements OnInit {
     }
 
     setTimeout(() => {
-      this.disabledStatus = false;
+      this.topNavComponent.isDisabled = false;
     }, (animations.length + shortestPathAnimations.length) * this.delay);
   }
 
@@ -90,9 +101,7 @@ export class PathfindingComponent implements OnInit {
   }
 
   handleMouseEnter(node: GridElement) {
-    if (this.isMousePressed) {
-      node.markAsWall();
-    }
+    if (this.isMousePressed) node.markAsWall();
   }
 
   handleMouseUp() {
@@ -103,5 +112,46 @@ export class PathfindingComponent implements OnInit {
     if (row === this.startRow && column === this.startColumn) return Colors.start;
     if (row === this.endRow && column === this.endColumn) return Colors.end;
     return Colors.default;
+  }
+
+  onDelay(delay: Delays) {
+    this.delay = delay;
+    this.resetGrid();
+  }
+
+  onBack() {
+    this._location.back();
+  }
+
+  private updateSize(size: Sizes, nrRows: number, nrColumns: number) {
+    this.size = size;
+    this.nrRows = nrRows;
+    this.nrColumns = nrColumns;
+    this.endRow = this.nrRows - 2;
+    this.endColumn = this.nrColumns - 2;
+    this.resetGrid();
+  }
+
+  onSize(size: ComponentSizes) {
+    switch (size) {
+      case ComponentSizes.small: {
+        this.updateSize(Sizes.smallMedium, 20, 68);
+        break;
+      }
+      case ComponentSizes.medium: {
+        this.updateSize(Sizes.medium, 16, 52);
+        break;
+      }
+      case ComponentSizes.large: {
+        this.updateSize(Sizes.large, 8, 28);
+        break;
+      }
+    }
+  }
+
+  onAlgorithm(selectedAlgorithm: string) {
+    this.name = Algorithms.PATHFINDING.filter(algorithm => algorithm === selectedAlgorithm)[0];
+    this.resetGrid();
+    this.isAlgorithmSelected = true;
   }
 }
