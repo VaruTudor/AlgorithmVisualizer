@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Sizes } from '../utils/model/sizes.enum';
-import { Colors } from '../utils/model/colors.enum';
+import { Colors } from '../utils/color/colors.enum';
 import { dijkstra } from '../algorithms/pathfinding/dijkstra';
 import { getShortestPath } from '../algorithms/pathfinding/utils/helper-functions';
 import { GridElement } from '../utils/model/shapes/grid-element';

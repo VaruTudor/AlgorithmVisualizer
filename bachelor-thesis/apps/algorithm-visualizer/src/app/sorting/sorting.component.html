@@ -1,23 +1,25 @@
-<app-top-nav
-  (back)='onBack()'
-  (delay)='onDelay($event)'
-  (size)='onSize($event)'
-  (algorithm)='onAlgorithm($event)'
-  (start)='executeAnimations()'
-  (reset)='resetArray()'
-  [algorithmSection]='section.SORTING'
-></app-top-nav>
+<div class='algorithm-page'>
+  <app-top-nav
+    (back)='onBack()'
+    (delay)='onDelay($event)'
+    (size)='onSize($event)'
+    (algorithm)='onAlgorithm($event)'
+    (start)='executeAnimations()'
+    (reset)='resetArray()'
+    [algorithmSection]='section.SORTING'
+  ></app-top-nav>
 
-<div class='main-container'>
-  <div class='sorting-container' *ngIf='isAlgorithmSelected'>
+  <div class='algorithm-container'>
+    <div class='sorting-container' *ngIf='isAlgorithmSelected'>
       <av-rectangle *ngFor='let element of array'
                     [height]='element.height'
                     [width]='element.width'
                     [color]='element.color'
                     class='sorting-element'
       ></av-rectangle>
-  </div>
-  <div class='sorting-container select-algorithm' *ngIf='!isAlgorithmSelected'>
-    Please select an algorithm
+    </div>
+    <div class='select-algorithm-text' *ngIf='!isAlgorithmSelected'>
+      Please select an algorithm
+    </div>
   </div>
 </div>

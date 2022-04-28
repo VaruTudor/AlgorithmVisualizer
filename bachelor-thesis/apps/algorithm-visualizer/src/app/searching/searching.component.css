@@ -2,14 +2,6 @@
   margin: 0;
 }
 
-.main-container{
-  min-height: 300px;
-  height: 500px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
 .searching-container{
   display: flex;
   flex-direction: row;
@@ -20,8 +12,4 @@
 .searching-element{
   display: inline-block;
   margin: 0 2px;
-}
-
-.select-algorithm{
-  font-size: 25px;
 }

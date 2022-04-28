@@ -1,5 +1,5 @@
 import { AnimationBasic, UpdateColor } from '../../utils/model/animations-basic';
-import { Colors } from '../../utils/model/colors.enum';
+import { Colors } from '../../utils/color/colors.enum';
 import { getNeighbors, sortByDistance } from './utils/helper-functions';
 import { GridElement } from '../../utils/model/shapes/grid-element';
 import { INFINITY, STEP_COST } from '../../utils/constants';
