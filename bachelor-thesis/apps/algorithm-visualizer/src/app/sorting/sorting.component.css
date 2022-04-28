@@ -3,14 +3,15 @@
 }
 
 .main-container{
-  height: 100vh;
+  min-height: 300px;
+  height: 500px;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
 .sorting-container{
-  min-height: 720px;
+  height: 500px;
   display: flex;
   flex-direction: row;
   align-items: flex-end;
@@ -20,4 +21,9 @@
 .sorting-element{
   display: inline-block;
   margin: 0 2px;
+}
+
+.select-algorithm{
+  font-size: 25px;
+  align-items: center;
 }

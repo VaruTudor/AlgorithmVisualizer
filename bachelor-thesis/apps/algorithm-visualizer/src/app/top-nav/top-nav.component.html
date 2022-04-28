@@ -1,0 +1,68 @@
+<av-top-nav>
+  <top-nav-element [template]='back'></top-nav-element>
+  <top-nav-element [template]='delay'></top-nav-element>
+  <top-nav-element [template]='size'></top-nav-element>
+  <top-nav-element [template]='algorithm'></top-nav-element>
+  <top-nav-element [template]='algorithmName'></top-nav-element>
+
+  <top-nav-action-element [template]='start'></top-nav-action-element>
+  <top-nav-action-element [template]='stop'></top-nav-action-element>
+
+  <ng-template #back>
+    <button class='button' (click)='onBack()'>Back</button>
+  </ng-template>
+
+  <ng-template #delay>
+    <div class='dropdown'>
+      <button class='button' (mouseenter)='showDelays = true' [disabled]='isDisabledOrNoSelectedAlgorithm()'
+              [ngClass]="{'disabled': isDisabledOrNoSelectedAlgorithm()}">Delay
+      </button>
+      <div class='dropdown-content' *ngIf='showDelays' (click)='showDelays = false'>
+        <div (click)='onDelay(delays.slow)'>Slow</div>
+        <div (click)='onDelay(delays.normal)'>Normal</div>
+        <div (click)='onDelay(delays.fast)'>Fast</div>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template #size>
+    <div class='dropdown'>
+      <button class='button' (mouseenter)='showSizes = true' [disabled]='isDisabledOrNoSelectedAlgorithm()'
+              [ngClass]="{'disabled': isDisabledOrNoSelectedAlgorithm()}">Size
+      </button>
+      <div class='dropdown-content' *ngIf='showSizes' (click)='showSizes = false'>
+        <div (click)='onSize(sizes.small)'>Small</div>
+        <div (click)='onSize(sizes.medium)'>Medium</div>
+        <div (click)='onSize(sizes.large)'>Large</div>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template #algorithm>
+    <div class='dropdown'>
+      <button class='button' (mouseenter)='showAlgorithms = true' [disabled]='isDisabled'
+              [ngClass]="{'disabled': isDisabled}">Algorithm
+      </button>
+      <div class='dropdown-content' *ngIf='showAlgorithms' (click)='showAlgorithms = false'>
+        <div *ngFor='let algorithm of getAlgorithms(algorithmSection)'
+             (click)='onAlgorithm(algorithm)'>{{algorithm}}</div>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template #algorithmName>
+    <div>{{selectedAlgorithmName}}</div>
+  </ng-template>
+
+  <ng-template #start>
+    <button class='button' (click)='onStart()' [disabled]='isDisabledOrNoSelectedAlgorithm()'
+            [ngClass]="{'disabled': isDisabledOrNoSelectedAlgorithm() }">Start
+    </button>
+  </ng-template>
+
+  <ng-template #stop>
+    <button class='button' (click)='onReset()' [disabled]='isDisabledOrNoSelectedAlgorithm()'
+            [ngClass]="{'disabled': isDisabledOrNoSelectedAlgorithm()}">Reset
+    </button>
+  </ng-template>
+</av-top-nav>

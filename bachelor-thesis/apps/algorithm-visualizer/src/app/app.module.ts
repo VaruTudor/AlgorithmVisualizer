@@ -8,6 +8,7 @@ import { SearchingComponent } from './searching/searching.component';
 import { PathfindingComponent } from './pathfinding/pathfinding.component';
 import { HomeComponent } from './home/home.component';
 import { AppRoutingModule } from './app-routing.module';
+import { TopNavComponent } from './top-nav/top-nav.component';
 
 @NgModule({
   declarations: [
@@ -16,11 +17,12 @@ import { AppRoutingModule } from './app-routing.module';
     SearchingComponent,
     PathfindingComponent,
     HomeComponent,
+    TopNavComponent
   ],
   imports: [
     BrowserModule,
     AvLibModule,
-    AppRoutingModule
+    AppRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

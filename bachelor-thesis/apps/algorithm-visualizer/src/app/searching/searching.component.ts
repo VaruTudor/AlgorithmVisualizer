@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Sizes } from '../utils/model/sizes.enum';
 import { Colors } from '../utils/model/colors.enum';
 import { getRandomInt } from '../utils/computations';
@@ -9,6 +9,13 @@ import { jumpSearch } from '../algorithms/searching/jump-search';
 import { interpolationSearch } from '../algorithms/searching/interpolation-search';
 import { exponentialSearch } from '../algorithms/searching/exponential-search';
 import { Square } from '../utils/model/shapes/square';
+import { ComponentSizes } from '../utils/model/component-sizes';
+import { Delays } from '../utils/model/delays';
+import { AlgorithmNames, Algorithms, AlgorithmSections } from '../utils/model/algorithms';
+import { Animation } from '../utils/model/animations';
+import { TopNavComponent } from '../top-nav/top-nav.component';
+import { Location } from '@angular/common';
+import { executeAnimations } from '../utils/helper-functions';
 
 @Component({
   selector: 'app-searching',
@@ -16,53 +23,104 @@ import { Square } from '../utils/model/shapes/square';
   styleUrls: ['./searching.component.css']
 })
 export class SearchingComponent implements OnInit {
-  array: Square[];
-  length = 40;
-  delay = 1000;
-  disabledStatus = false;
+  @ViewChild(TopNavComponent, { static: false })
+  private topNavComponent: TopNavComponent;
 
-  squareSize = Sizes.medium;
-  min = 10;
-  max = 100;
-  target: number;
+  private length: number = 52;
+  private target: number; //TODO make this configurable
 
-  constructor() {
-    this.array = [];
+  private delay: Delays = Delays.normal;
+  private size: Sizes = Sizes.medium;
+  private name: AlgorithmNames;
+
+  array: Square[] = [];
+  isAlgorithmSelected: boolean = false;
+  section = AlgorithmSections;
+
+  constructor(private _location: Location) {
   }
 
   ngOnInit(): void {
     this.resetArray();
-    this.target = this.array[this.array.length - 5].value;
   }
 
   resetArray(): void {
-    this.array = [];
-    const numbersArray = ([...Array(this.length)].map(() => getRandomInt(this.min, this.max))).sort();
-    for (let i = 0; i < this.length; i++) {
-      this.array.push(
-        new Square(
-          this.squareSize, Colors.default, numbersArray[i]));
-    }
+    this.array = ([...Array(this.length)].map(() => getRandomInt(10, 100))).sort().map(number => new Square(this.size, Colors.default, number));
+    this.target = this.array[this.array.length - 5].value;
   }
 
   executeAnimations(): void {
-    this.disabledStatus = true;
-    let values = this.array.map(element => element.value);
-    // const animations = linearSearch(valuesArray.slice(), this.target);
-    // const animations = binarySearch(valuesArray.slice(), this.target);
-    // const animations = fibonacciSearch(valuesArray.slice(), this.target);
-    const animations = jumpSearch(values.slice(), this.target);
-    // const animations = interpolationSearch(valuesArray.slice(), this.target);
-    // const animations = exponentialSearch(valuesArray.slice(), this.target);
-    for (let i = 0; i < animations.length; i++) {
-      setTimeout(() => {
-        animations[i].execute(this.array);
-      }, i * this.delay);
+    this.topNavComponent.isDisabled = true;
+    let values = this.array.map(element => element.value).slice();
+    let animations: Animation[] = [];
+    switch (this.name) {
+      case AlgorithmNames.binarySearch: {
+        animations = binarySearch(values, this.target);
+        break;
+      }
+      case AlgorithmNames.exponentialSearch: {
+        animations = exponentialSearch(values, this.target);
+        break;
+      }
+      case AlgorithmNames.fibonacciSearch: {
+        animations = fibonacciSearch(values, this.target);
+        break;
+      }
+      case AlgorithmNames.interpolationSearch: {
+        animations = interpolationSearch(values, this.target);
+        break;
+      }
+      case AlgorithmNames.jumpSearch: {
+        animations = jumpSearch(values, this.target);
+        break;
+      }
+      case AlgorithmNames.linearSearch: {
+        animations = linearSearch(values, this.target);
+        break;
+      }
     }
+    executeAnimations(animations, this.array, this.delay);
 
     setTimeout(() => {
-      this.disabledStatus = false;
+      this.topNavComponent.isDisabled = false;
     }, animations.length * this.delay);
   }
 
+  onDelay(delay: Delays) {
+    this.delay = delay;
+    this.resetArray();
+  }
+
+  onBack() {
+    this._location.back();
+  }
+
+  private updateSize(size: Sizes, length: number) {
+    this.size = size;
+    this.length = length;
+    this.resetArray();
+  }
+
+  onSize(size: ComponentSizes) {
+    switch (size) {
+      case ComponentSizes.small: {
+        this.updateSize(Sizes.medium, 52);
+        break;
+      }
+      case ComponentSizes.medium: {
+        this.updateSize(Sizes.large, 28);
+        break;
+      }
+      case ComponentSizes.large: {
+        this.updateSize(Sizes.extraLarge, 14);
+        break;
+      }
+    }
+  }
+
+  onAlgorithm(selectedAlgorithm: string) {
+    this.name = Algorithms.SEARCHING.filter(algorithm => algorithm === selectedAlgorithm)[0];
+    this.resetArray();
+    this.isAlgorithmSelected = true;
+  }
 }
