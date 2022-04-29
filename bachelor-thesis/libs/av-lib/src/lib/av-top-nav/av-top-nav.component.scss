@@ -2,17 +2,11 @@
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  background: black;
-  color: white;
-  min-height: 50px;
-  height: 100px;
-  padding: 0 10px;
 }
 
 .top-nav-elements{
   display: flex;
   justify-content: flex-start;
-  min-width: 500px;
   align-items: center;
 }
 
@@ -20,12 +14,4 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
-}
-
-.element{
-  margin-right: 30px;
-}
-
-.action-element{
-  margin-left: 10px;
 }

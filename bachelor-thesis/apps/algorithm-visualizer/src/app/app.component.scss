@@ -1,27 +1,44 @@
-@import "utils/color/colors";
+@import "utils/theme/colors";
 
-::ng-deep body{
-  margin: 0;
+::ng-deep {
+  body {
+    margin: 0;
+  }
+
+  .algorithm-page {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .algorithm-container {
+    background: $background-primary;
+    min-height: 300px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .select-algorithm-text {
+    font-size: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center !important;
+  }
+
+  .button {
+    background-color: $button-primary;
+    color: black;
+    padding: 18px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    font-family: "Georgia", serif;
+
+    :host &:hover{
+      background-color: $hover-primary;
+    }
+  }
 }
 
-::ng-deep .algorithm-page{
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-::ng-deep .algorithm-container{
-  background: $primary-background;
-  min-height: 300px;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-::ng-deep .select-algorithm-text{
-  font-size: 25px;
-  display: flex;
-  justify-content: center;
-  align-items: center !important;
-}

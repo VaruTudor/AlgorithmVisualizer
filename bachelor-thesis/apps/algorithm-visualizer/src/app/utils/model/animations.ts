@@ -1,4 +1,4 @@
-import { Colors } from '../color/colors.enum';
+import { Colors } from '../theme/colors.enum';
 import { Rectangle } from './shapes/rectangle';
 import { UpdateColor } from './animations-basic';
 
@@ -16,8 +16,8 @@ export abstract class Animation {
 
 export class UpdateCurrent extends Animation {
   /**
-   * Mark the element on indexNew with current color and the one on
-   * indexPrevious with default color
+   * Mark the element on indexNew with current theme and the one on
+   * indexPrevious with default theme
    * @param indexNew - position of the new current
    * @param indexPrevious - old position of current
    */
@@ -34,8 +34,8 @@ export class UpdateCurrent extends Animation {
 
 export class UpdateMatch extends Animation {
   /**
-   * Mark the element on indexNew with better match color and the one on
-   * indexPrevious with default color
+   * Mark the element on indexNew with better match theme and the one on
+   * indexPrevious with default theme
    * @param indexNew - position of the new best match
    * @param indexPrevious - old position of best match
    */
@@ -66,7 +66,7 @@ export class UpdateHeight extends Animation {
 
 export class UpdateColorSorted extends Animation {
   /**
-   * Mark the element on index with sorted color.
+   * Mark the element on index with sorted theme.
    * @param index - position of element in array
    */
   constructor(index: number) {
@@ -83,7 +83,7 @@ export class UpdateColorFound extends UpdateColorSorted {
 
 export class UpdateColorDefault extends Animation {
   /**
-   * Mark the element on index with default color.
+   * Mark the element on index with default theme.
    * @param index - position of element in array
    */
   constructor(index: number) {

@@ -1,4 +1,4 @@
-import { Colors } from '../../color/colors.enum';
+import { Colors } from '../../theme/colors.enum';
 import { Rectangle } from './rectangle';
 import { INFINITY } from '../../constants';
 

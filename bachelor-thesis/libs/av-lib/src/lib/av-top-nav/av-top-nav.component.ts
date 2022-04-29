@@ -5,7 +5,7 @@ import { ActionElementComponent } from './action-element/action-element.componen
 @Component({
   selector: 'av-top-nav',
   templateUrl: './av-top-nav.component.html',
-  styleUrls: ['./av-top-nav.component.css']
+  styleUrls: ['./av-top-nav.component.scss']
 })
 export class AvTopNavComponent implements OnInit {
 

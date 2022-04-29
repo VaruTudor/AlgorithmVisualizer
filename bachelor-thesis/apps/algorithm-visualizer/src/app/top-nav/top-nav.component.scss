@@ -1,0 +1,45 @@
+@import "../utils/theme/colors";
+
+::ng-deep .top-nav {
+  background-color: $button-primary;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+
+  &:hover .dropdown-content{
+    display: block;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: $background-secondary;
+    min-width: 200px;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    z-index: 1;
+
+    & div {
+      color: $text-primary;
+      padding: 20px 10px;
+      text-decoration: none;
+      display: block;
+      cursor: pointer;
+
+      &:hover{
+        background-color: $hover-secondary;
+      }
+    }
+  }
+}
+
+.button {
+  color: $text-primary;
+
+  &.disabled {
+    background-color: $button-disabled;
+    color: $button-text-disabled;
+    cursor: default;
+  }
+}
