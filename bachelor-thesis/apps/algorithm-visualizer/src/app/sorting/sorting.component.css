@@ -1,7 +1,3 @@
-::ng-deep body{
-  margin: 0;
-}
-
 .sorting-container{
   height: 500px;
   display: flex;

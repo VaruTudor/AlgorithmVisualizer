@@ -1,13 +1,13 @@
-$background-primary: #548590;
-$background-secondary: #f6f6f6;
+$background-dark: #233a3f;
+$background-light: #a2c5c9;
 
+$button-light: #a7c8cc;
 
-$button-primary: #bababa;
-$button-secondary: #f2f2f2;
-$button-disabled: #b3b3b3;
-$button-text-disabled: #8b8b8b;
+$button-disabled-light: #9cb7bb;
+$button-text-disabled-light: #7c9093;
 
-$text-primary: black;
+$text-dark: $background-dark;
+$text-light: $background-light;
 
 $hover-primary: #d1d1d1;
-$hover-secondary: #ffffff;
+$hover-light: #c1dbe0;

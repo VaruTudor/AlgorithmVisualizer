@@ -1,7 +1,3 @@
-::ng-deep body{
-  margin: 0;
-}
-
 .searching-container{
   display: flex;
   flex-direction: row;

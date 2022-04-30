@@ -12,7 +12,7 @@
   }
 
   .algorithm-container {
-    background: $background-primary;
+    background: $background-dark;
     min-height: 300px;
     height: 100%;
     display: flex;
@@ -21,6 +21,8 @@
   }
 
   .select-algorithm-text {
+    color: $text-light;
+    font-family: fantasy;
     font-size: 25px;
     display: flex;
     justify-content: center;
@@ -28,7 +30,7 @@
   }
 
   .button {
-    background-color: $button-primary;
+    background-color: $button-light;
     color: black;
     padding: 18px;
     font-size: 16px;

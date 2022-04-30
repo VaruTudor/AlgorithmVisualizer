@@ -1,45 +1,61 @@
 @import "../utils/theme/colors";
 
 ::ng-deep .top-nav {
-  background-color: $button-primary;
+  background-color: $background-light;
 }
 
 .dropdown {
   position: relative;
   display: inline-block;
 
-  &:hover .dropdown-content{
+  &:hover .dropdown-content {
     display: block;
   }
 
   .dropdown-content {
     display: none;
     position: absolute;
-    background-color: $background-secondary;
+    background-color: $background-light;
     min-width: 200px;
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
     z-index: 1;
 
     & div {
-      color: $text-primary;
+      color: $text-dark;
       padding: 20px 10px;
       text-decoration: none;
       display: block;
       cursor: pointer;
 
-      &:hover{
-        background-color: $hover-secondary;
+      &:hover {
+        background-color: $hover-light;
       }
     }
   }
 }
 
 .button {
-  color: $text-primary;
+  background-color: $background-light;
+  color: $text-dark;
 
   &.disabled {
-    background-color: $button-disabled;
-    color: $button-text-disabled;
+    background-color: $button-disabled-light;
+    color: $button-text-disabled-light;
     cursor: default;
+
+    &:hover {
+      background-color: $button-disabled-light;
+    }
   }
+
+  &:hover {
+    background-color: $hover-light;
+  }
+}
+
+.algorithm-selected {
+  color: $text-dark;
+  padding-left: 50px;
+  font-size: 20px;
+  font-family: fantasy;
 }
