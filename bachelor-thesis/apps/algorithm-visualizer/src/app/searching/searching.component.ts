@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Sizes } from '../utils/model/sizes.enum';
-import { Colors } from '../utils/model/colors.enum';
+import { Colors } from '../utils/theme/colors.enum';
 import { getRandomInt } from '../utils/computations';
 import { linearSearch } from '../algorithms/searching/linear-search';
 import { binarySearch } from '../algorithms/searching/binary-search';

@@ -1,15 +1,16 @@
-<app-top-nav
-  (back)='onBack()'
-  (delay)='onDelay($event)'
-  (size)='onSize($event)'
-  (algorithm)='onAlgorithm($event)'
-  (start)='executeAnimations()'
-  (reset)='resetGrid()'
-  [algorithmSection]='section.PATHFINDING'
-></app-top-nav>
+<div class='algorithm-page'>
+  <app-top-nav
+    (back)='onBack()'
+    (delay)='onDelay($event)'
+    (size)='onSize($event)'
+    (algorithm)='onAlgorithm($event)'
+    (start)='executeAnimations()'
+    (reset)='resetGrid()'
+    [algorithmSection]='section.PATHFINDING'
+  ></app-top-nav>
 
-<div class='main-container'>
-  <div class='pathfinding-container' *ngIf='isAlgorithmSelected'>
+  <div class='algorithm-container'>
+    <div class='pathfinding-container' *ngIf='isAlgorithmSelected'>
       <div *ngFor='let row of array' class='row row-{{array.indexOf(row)}}'>
         <av-node *ngFor='let element of row'
                  [size]='element.width'
@@ -24,8 +25,9 @@
                  (mouseup)='handleMouseUp()'
         ></av-node>
       </div>
-  </div>
-  <div class='select-algorithm' *ngIf='!isAlgorithmSelected'>
-    Please select an algorithm
+    </div>
+    <div class='select-algorithm-text' *ngIf='!isAlgorithmSelected'>
+      Please select an algorithm
+    </div>
   </div>
 </div>

@@ -17,7 +17,8 @@
       <button class='button' (mouseenter)='showDelays = true' [disabled]='isDisabledOrNoSelectedAlgorithm()'
               [ngClass]="{'disabled': isDisabledOrNoSelectedAlgorithm()}">Delay
       </button>
-      <div class='dropdown-content' *ngIf='showDelays' (click)='showDelays = false'>
+      <div class='dropdown-content' *ngIf='showDelays && !isDisabledOrNoSelectedAlgorithm()'
+           (click)='showDelays = false'>
         <div (click)='onDelay(delays.slow)'>Slow</div>
         <div (click)='onDelay(delays.normal)'>Normal</div>
         <div (click)='onDelay(delays.fast)'>Fast</div>
@@ -30,7 +31,7 @@
       <button class='button' (mouseenter)='showSizes = true' [disabled]='isDisabledOrNoSelectedAlgorithm()'
               [ngClass]="{'disabled': isDisabledOrNoSelectedAlgorithm()}">Size
       </button>
-      <div class='dropdown-content' *ngIf='showSizes' (click)='showSizes = false'>
+      <div class='dropdown-content' *ngIf='showSizes && !isDisabledOrNoSelectedAlgorithm()' (click)='showSizes = false'>
         <div (click)='onSize(sizes.small)'>Small</div>
         <div (click)='onSize(sizes.medium)'>Medium</div>
         <div (click)='onSize(sizes.large)'>Large</div>
@@ -43,7 +44,7 @@
       <button class='button' (mouseenter)='showAlgorithms = true' [disabled]='isDisabled'
               [ngClass]="{'disabled': isDisabled}">Algorithm
       </button>
-      <div class='dropdown-content' *ngIf='showAlgorithms' (click)='showAlgorithms = false'>
+      <div class='dropdown-content' *ngIf='showAlgorithms && !isDisabled' (click)='showAlgorithms = false'>
         <div *ngFor='let algorithm of getAlgorithms(algorithmSection)'
              (click)='onAlgorithm(algorithm)'>{{algorithm}}</div>
       </div>
@@ -51,7 +52,7 @@
   </ng-template>
 
   <ng-template #algorithmName>
-    <div>{{selectedAlgorithmName}}</div>
+    <div class='algorithm-selected'>{{selectedAlgorithmName}}</div>
   </ng-template>
 
   <ng-template #start>

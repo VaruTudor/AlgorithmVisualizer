@@ -1,0 +1,46 @@
+@import "utils/theme/colors";
+
+::ng-deep {
+  body {
+    margin: 0;
+  }
+
+  .algorithm-page {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .algorithm-container {
+    background: $background-dark;
+    min-height: 300px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .select-algorithm-text {
+    color: $text-light;
+    font-family: fantasy;
+    font-size: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center !important;
+  }
+
+  .button {
+    background-color: $button-light;
+    color: black;
+    padding: 18px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    font-family: "Georgia", serif;
+
+    :host &:hover{
+      background-color: $hover-primary;
+    }
+  }
+}
+

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { getRandomInt } from '../utils/computations';
-import { Colors } from '../utils/model/colors.enum';
+import { Colors } from '../utils/theme/colors.enum';
 import { bubbleSort } from '../algorithms/sorting/bubble-sort';
 import { Sizes } from '../utils/model/sizes.enum';
 import { Rectangle } from '../utils/model/shapes/rectangle';

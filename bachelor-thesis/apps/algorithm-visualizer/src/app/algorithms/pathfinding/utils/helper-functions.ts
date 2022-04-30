@@ -1,5 +1,5 @@
 import { AnimationBasic, UpdateColor } from '../../../utils/model/animations-basic';
-import { Colors } from '../../../utils/model/colors.enum';
+import { Colors } from '../../../utils/theme/colors.enum';
 import { GridElement } from '../../../utils/model/shapes/grid-element';
 
 /**
