@@ -26,7 +26,7 @@ export class PathfindingComponent implements OnInit {
   private nrRows: number = 16;
   private nrColumns: number = 52;
 
-  private delay: Delays = Delays.normal;
+  private delay: Delays = Delays.fast;
   private size: Sizes = Sizes.medium;
   private name: AlgorithmNames;
 

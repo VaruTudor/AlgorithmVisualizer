@@ -35,7 +35,6 @@ export function dfs(grid: GridElement[][], start: GridElement, end: GridElement)
  * @param neighbor
  */
 function updateState(frontier: GridElement[], current: GridElement, neighbor: GridElement) {
-  neighbor.markAsVisited();
   neighbor.updatePreviousNode(current);
   frontier.unshift(neighbor);
 }
