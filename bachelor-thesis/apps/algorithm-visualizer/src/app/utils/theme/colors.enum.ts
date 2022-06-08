@@ -7,5 +7,6 @@ export enum Colors {
   end = '#a3cbb3',
   wall = '#010301',
   path = '#a2c5c9',
-  shortestPath = '#c8cba3'
+  shortestPath = '#c8cba3',
+  target = start
 }

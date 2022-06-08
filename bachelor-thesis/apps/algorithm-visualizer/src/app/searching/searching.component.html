@@ -17,6 +17,7 @@
                    [color]='element.color'
                    [value]='element.value'
                    class='searching-element'
+                   (click)='updateTarget(element)'
         ></av-square>
       </ng-container>
       <div class='select-algorithm-text' *ngIf='!isAlgorithmSelected'>

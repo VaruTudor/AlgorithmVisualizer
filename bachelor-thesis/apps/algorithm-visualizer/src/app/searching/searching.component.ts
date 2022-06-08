@@ -27,7 +27,7 @@ export class SearchingComponent implements OnInit {
   private topNavComponent: TopNavComponent;
 
   private length: number = 52;
-  private target: number; //TODO make this configurable
+  private target: number;
 
   private delay: Delays = Delays.normal;
   private size: Sizes = Sizes.medium;
@@ -46,7 +46,8 @@ export class SearchingComponent implements OnInit {
 
   resetArray(): void {
     this.array = ([...Array(this.length)].map(() => getRandomInt(10, 100))).sort().map(number => new Square(this.size, Colors.default, number));
-    this.target = this.array[this.array.length - 5].value;
+    this.target = this.array[this.array.length - 4].value;
+    this.updateTargetColor(Colors.target);
   }
 
   executeAnimations(): void {
@@ -99,6 +100,16 @@ export class SearchingComponent implements OnInit {
     this.size = size;
     this.length = length;
     this.resetArray();
+  }
+
+  private updateTargetColor(color: Colors){
+    this.array.filter(square => square.value === this.target)[0].color = color;
+  }
+
+  updateTarget(square: Square) {
+    this.updateTargetColor(Colors.default);
+    this.target = square.value;
+    this.updateTargetColor(Colors.target);
   }
 
   onSize(size: ComponentSizes) {

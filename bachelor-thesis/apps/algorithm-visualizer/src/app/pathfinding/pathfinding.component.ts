@@ -30,7 +30,7 @@ export class PathfindingComponent implements OnInit {
   private size: Sizes = Sizes.medium;
   private name: AlgorithmNames;
 
-  private startRow: number = 1; //TODO make configurable (remove from updateSize)
+  private startRow: number = 1;
   private startColumn: number = 1;
   private endRow: number = this.nrRows - 2;
   private endColumn: number = this.nrColumns - 2;
