@@ -41,7 +41,7 @@ export function aStar(grid: GridElement[][], start: GridElement, end: GridElemen
  */
 function updateState(frontier: GridElement[], current: GridElement, neighbor: GridElement, end: GridElement) {
   neighbor.markAsVisited();
-  const distance = current.distance + STEP_COST;
+  const distance = STEP_COST;
   if (distance < neighbor.distance) {
     neighbor.updateDistance(distance + manhattanDistance(neighbor, end));
     neighbor.updatePreviousNode(current);

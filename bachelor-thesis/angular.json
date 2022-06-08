@@ -1,6 +1,6 @@
 {
   "cli": {
-    "analytics": "45522ee2-17e4-4aff-9a6d-41c1a3e0a35c"
+    "analytics": false
   },
   "version": 2,
   "projects": {

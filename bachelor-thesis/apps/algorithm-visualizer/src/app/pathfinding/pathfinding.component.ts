@@ -26,15 +26,18 @@ export class PathfindingComponent implements OnInit {
   private nrRows: number = 16;
   private nrColumns: number = 52;
 
-  private delay: Delays = Delays.normal;
+  private delay: Delays = Delays.fast;
   private size: Sizes = Sizes.medium;
   private name: AlgorithmNames;
 
-  private startRow: number = 1; //TODO make configurable (remove from updateSize)
+  private startRow: number = 1;
   private startColumn: number = 1;
   private endRow: number = this.nrRows - 2;
   private endColumn: number = this.nrColumns - 2;
   private isMousePressed: boolean = false;
+
+  private enteredStartNode: boolean = false;
+  private enteredEndNode: boolean = false;
 
   isAlgorithmSelected: boolean = false;
   array: GridElement[][];
@@ -97,15 +100,53 @@ export class PathfindingComponent implements OnInit {
 
   handleMouseDown(node: GridElement) {
     this.isMousePressed = true;
-    node.markAsWall();
+    if (node.isStart) {
+      this.enteredStartNode = true;
+    } else if (node.isEnd) {
+      this.enteredEndNode = true;
+    } else {
+      node.markAsWall();
+    }
   }
 
   handleMouseEnter(node: GridElement) {
-    if (this.isMousePressed) node.markAsWall();
+    if (this.isMousePressed) {
+      if (this.enteredStartNode) {
+        if (!node.isEnd) this.updateStartNode(node);
+      } else if (this.enteredEndNode) {
+        if (!node.isStart) this.updateEndNode(node);
+      } else {
+        node.markAsWall();
+      }
+    }
   }
 
   handleMouseUp() {
+    this.enteredStartNode = false;
+    this.enteredEndNode = false;
     this.isMousePressed = false;
+  }
+
+  private updateStartNode(node: GridElement) {
+    let previous = this.array[this.startRow][this.startColumn];
+    previous.isStart = false;
+    previous.color = Colors.default;
+    this.startRow = node.row;
+    this.startColumn = node.column;
+    node.unmarkAsWall();
+    node.color = this.getInitialElementColor(node.row, node.column);
+    node.isStart = true;
+  }
+
+  private updateEndNode(node: GridElement) {
+    let previous = this.array[this.endRow][this.endColumn];
+    previous.isEnd = false;
+    previous.color = Colors.default;
+    this.endRow = node.row;
+    this.endColumn = node.column;
+    node.unmarkAsWall();
+    node.color = this.getInitialElementColor(node.row, node.column);
+    node.isEnd = true;
   }
 
   private getInitialElementColor(row: number, column: number): string {

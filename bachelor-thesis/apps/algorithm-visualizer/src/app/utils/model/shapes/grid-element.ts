@@ -46,6 +46,10 @@ export class GridElement extends Rectangle {
     if (!this._isWall) this._isWall = true;
     this.color = Colors.wall;
   }
+  public unmarkAsWall() {
+    if (this._isWall) this._isWall = false;
+    this.color = Colors.default;
+  }
 
   private _previousNode: GridElement;
   get previousNode(): GridElement {return this._previousNode;}
