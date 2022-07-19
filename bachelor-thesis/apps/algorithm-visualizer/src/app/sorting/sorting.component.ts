@@ -25,7 +25,7 @@ export class SortingComponent implements OnInit {
   @ViewChild(TopNavComponent, { static: false })
   private topNavComponent: TopNavComponent;
 
-  private length: number = 20;
+  private length: number = 30;
 
   private delay: Delays = Delays.normal;
   private size: Sizes = Sizes.medium;
@@ -94,15 +94,15 @@ export class SortingComponent implements OnInit {
   onSize(size: ComponentSizes) {
     switch (size) {
       case ComponentSizes.small: {
-        this.updateSize(Sizes.medium, 52);
+        this.updateSize(Sizes.medium, 30);
         break;
       }
       case ComponentSizes.medium: {
-        this.updateSize(Sizes.large, 28);
+        this.updateSize(Sizes.large, 20);
         break;
       }
       case ComponentSizes.large: {
-        this.updateSize(Sizes.extraLarge, 14);
+        this.updateSize(Sizes.extraLarge, 10);
         break;
       }
     }

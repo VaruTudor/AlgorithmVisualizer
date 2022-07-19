@@ -29,7 +29,7 @@ export class SearchingComponent implements OnInit {
   private length: number = 52;
   private target: number;
 
-  private delay: Delays = Delays.normal;
+  private delay: Delays = Delays.slow;
   private size: Sizes = Sizes.medium;
   private name: AlgorithmNames;
 
@@ -45,7 +45,12 @@ export class SearchingComponent implements OnInit {
   }
 
   resetArray(): void {
-    this.array = ([...Array(this.length)].map(() => getRandomInt(10, 100))).sort().map(number => new Square(this.size, Colors.default, number));
+    let numbers: number[] = [];
+    while (numbers.length < this.length) {
+      let randomInt = getRandomInt(10, 100);
+      if (numbers.indexOf(randomInt) === -1) numbers.push(randomInt);
+    }
+    this.array = numbers.sort().map(number => new Square(this.size, Colors.default, number));
     this.target = this.array[this.array.length - 4].value;
     this.updateTargetColor(Colors.target);
   }
@@ -102,7 +107,7 @@ export class SearchingComponent implements OnInit {
     this.resetArray();
   }
 
-  private updateTargetColor(color: Colors){
+  private updateTargetColor(color: Colors) {
     this.array.filter(square => square.value === this.target)[0].color = color;
   }
 

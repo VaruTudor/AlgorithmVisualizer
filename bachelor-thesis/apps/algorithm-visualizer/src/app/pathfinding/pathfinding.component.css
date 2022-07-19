@@ -18,3 +18,7 @@
 ::ng-deep .node{
   margin: 2px;
 }
+
+av-node{
+  cursor: grab;
+}
