@@ -1,43 +1,79 @@
 # Algorithm Visualizer
 
-The goal of this project was to develop an application for a wide range of users within the educational system that would use algorithm visualization to assist them in learning, understanding, observing, and even teaching.
+An educational tool for visualizing and exploring classic algorithms across searching, sorting, and pathfinding — built with Angular, TypeScript, and Nx as part of my BSc thesis project.
 
-## Tools and Pre-requisites
+![Home page](./images/home_page.png)
 
-* WebStorm (or any preferred editor)
-* Node.js
-* Typescript
-* Nx Workspace
-* Angular CLI
-<br><br>
-* npm install will create node modules
-* nx serve algorithm-visualizer will start the application
-* consult Nx CLI for other commands
+---
+
+## Tech Stack
+
+| Tool | Purpose |
+|---|---|
+| Angular | UI framework |
+| TypeScript | Language |
+| Nx Workspace | Monorepo tooling |
+| Node.js | Runtime |
+
+---
+
+## Getting Started
+
+**Prerequisites:** Node.js v18+ and npm installed.
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/your-username/algorithm-visualizer.git
+cd algorithm-visualizer
+
+# 2. Install dependencies
+npm install
+
+# 3. Start the development server
+nx serve algorithm-visualizer
+```
+
+The app will be available at `http://localhost:4200`.
+
+> For other Nx commands (build, lint, test), refer to the [Nx CLI docs](https://nx.dev/reference/nx-commands).
+
+---
 
 ## Architecture
-The application contains 3 main sections for algorithm visualization: searching, sorting and pathfinding. All follow almost identical mechanisms when it comes to structure, performance and mechanics. Behind the scenes, there are arrays of user-defined objects which represent elements of the visualization. Those objects have specific properties such as size or color.<br>
-There is a direct mapping between those classes and the components in the way that they share identical properties. Using Angular @Input the array of objects gives the values for the components used for display. Finally those components are rendered in the DOM. The animations are created within each algorithm's block of code and are handled using delayed code execution methods.<br>
 
-#### Searching    
-![image](./images/searching.png)<br>
-#### Sorting
-![image](./images/sorting.png)<br>
-#### Pathfinding
-![image](./images/pathfinding.png)<br>
+Each algorithm category (searching, sorting, pathfinding) follows the same core pattern:
+
+1. **State layer** — an array of typed objects representing visualization elements, each carrying properties like `size` and `color`.
+2. **Component layer** — Angular components that map 1:1 to those objects, receiving values via `@Input()` bindings.
+3. **Render layer** — components are rendered in the DOM, reflecting state changes as animations.
+
+Animations are generated within each algorithm's execution block and driven by delayed code execution, allowing the UI to reflect intermediate algorithm states step by step.
+
+---
 
 ## Demo
-This is the home page of the application. The user can select click one button in order to move to a specific category of algorithms.
-![image](./images/home_page.png)<br><br>
-After selection, the user is moved to an algorithm visualization page which allows for configuration.
-![image](./images/algorithm_page_initial.png)<br>
-#### Searching
-![image](./images/binary_search_before.png)<br><br>
-![image](./images/binary_search_after.png)<br>
-#### Sorting
-![image](./images/sorting_before.png)<br><br>
-![image](./images/sorting_during.png)<br><br>
-![image](./images/sorting_after.png)<br>
-#### Pathfinding
-![image](./images/pathfinding_before.png)<br><br>
-![image](./images/pathfinding_during.png)<br><br>
-![image](./images/pathfinding_after.png)<br>
+
+### Home
+The home page presents three algorithm categories. Selecting one navigates to its dedicated visualization page.
+
+![Home page](./images/home_page.png)
+
+### Searching
+The array is displayed as a set of indexed elements. The active search range and target element are highlighted at each step.
+
+![Searching — initial](./images/binary_search_before.png)
+![Searching — result](./images/binary_search_after.png)
+
+### Sorting
+Elements are represented as bars. The algorithm reorders them in real time, with comparisons and swaps highlighted as they happen.
+
+![Sorting — initial](./images/sorting_before.png)
+![Sorting — in progress](./images/sorting_during.png)
+![Sorting — complete](./images/sorting_after.png)
+
+### Pathfinding
+A grid is rendered with configurable obstacles. The algorithm explores the grid and highlights the discovered path once found.
+
+![Pathfinding — initial](./images/pathfinding_before.png)
+![Pathfinding — in progress](./images/pathfinding_during.png)
+![Pathfinding — complete](./images/pathfinding_after.png)
